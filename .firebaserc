@@ -1,0 +1,14 @@
+{
+  "targets": {
+    "avans-adweb": {
+      "hosting": {
+        "adweb": [
+          "avans-adweb"
+        ]
+      }
+    }
+  },
+  "projects": {
+    "default": "avans-adweb"
+  }
+}
