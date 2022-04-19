@@ -9,6 +9,7 @@ import { environment } from '../environments/environment';
 import { provideAuth,getAuth } from '@angular/fire/auth';
 import { provideFirestore,getFirestore } from '@angular/fire/firestore';
 import { provideFunctions,getFunctions } from '@angular/fire/functions';
+import { LayoutModule } from './layout/layout.module';
 
 @NgModule({
   declarations: [
@@ -21,8 +22,10 @@ import { provideFunctions,getFunctions } from '@angular/fire/functions';
     provideFirebaseApp(() => initializeApp(environment.firebase)),
     provideAuth(() => getAuth()),
     provideFirestore(() => getFirestore()),
-    provideFunctions(() => getFunctions())
+    provideFunctions(() => getFunctions()),
+    LayoutModule,
   ],
+  // Import navigation component
   providers: [],
   bootstrap: [AppComponent]
 })
