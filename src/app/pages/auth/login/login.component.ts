@@ -1,4 +1,3 @@
-import { FirebaseService } from './../../../core/services/firebase/firebase.service';
 import { Component, OnInit } from '@angular/core';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
 
@@ -9,7 +8,7 @@ import { FormControl, FormGroup, Validators } from '@angular/forms';
 })
 export class LoginComponent implements OnInit {
 
-  constructor(private firebaseService: FirebaseService) {}
+  constructor() {}
 
   form: FormGroup = new FormGroup({
     email: new FormControl('', [
@@ -25,6 +24,5 @@ export class LoginComponent implements OnInit {
   ngOnInit() {}
 
   login() {
-    this.firebaseService.login(this.form.value.email, this.form.value.password)
   }
 }
