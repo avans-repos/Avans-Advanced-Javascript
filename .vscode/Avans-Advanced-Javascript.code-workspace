@@ -1,11 +1,11 @@
 {
 	"folders": [
     {
-      "path": "../src/app"
-    },
-		{
 			"path": ".."
 		},
+    {
+      "path": "../src/app"
+    },
 	],
 	"settings": {}
 }
