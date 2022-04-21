@@ -1,5 +1,5 @@
 <!-- Create Angular sign in form with form binding -->
-<form [formGroup]="form">
+<form [formGroup]="form" (ngSubmit)="submit()">
   <p>
     <mat-form-field appearance="fill">
       <mat-label>Email</mat-label>
@@ -26,4 +26,10 @@
       </mat-error>
     </mat-form-field>
   </p>
+  <p>
+    <button mat-raised-button color="primary" type="submit" [disabled]="!form.valid">Sign in</button>
+  </p>
+  <mat-error *ngIf="form.getError('submitError')">
+    {{ form.getError('submitError') }}
+  </mat-error>
 </form>

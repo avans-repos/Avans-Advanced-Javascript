@@ -1,28 +1,21 @@
-import { Component, OnInit } from '@angular/core';
+import { Component } from '@angular/core';
+import { FirebaseError } from '@angular/fire/app';
+import { AuthErrorCodes } from '@angular/fire/auth';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
+import { Router } from '@angular/router';
+import { FirebaseAuthError } from 'src/app/core/models/firebase-auth-error';
 import { AuthService } from 'src/app/core/services/auth/auth.service';
 
 @Component({
   selector: 'app-login',
   templateUrl: './login.component.html',
-  styleUrls: ['./login.component.scss']
+  styleUrls: ['./login.component.scss'],
 })
-export class LoginComponent implements OnInit {
-
-  constructor(private authService: AuthService) { }
-
-  ngOnInit() {
-    // Log form errors
-    this.form.valueChanges.subscribe(() => {
-      console.log(this.password.errors);
-    });
-  }
+export class LoginComponent {
+  constructor(private authService: AuthService, private router: Router) { }
 
   form = new FormGroup({
-    email: new FormControl('', [
-      Validators.required,
-      Validators.email,
-    ]),
+    email: new FormControl('', [Validators.required, Validators.email]),
     password: new FormControl('', [
       Validators.required,
       Validators.minLength(10),
@@ -36,6 +29,15 @@ export class LoginComponent implements OnInit {
     return this.form.controls['password'];
   }
 
-  login() {
+  submit() {
+    this.authService.login(this.email.value, this.password.value)
+      .then(() => {
+        this.router.navigate(['/']);
+      })
+      .catch((err: FirebaseAuthError) => {
+        this.form.setErrors({
+          submitError: err.customData.message,
+        });
+      });
   }
 }
