@@ -24,7 +24,11 @@ export class CreateComponent {
     public dialogRef: MatDialogRef<CreateComponent>,
   ) {}
 
-  onNoClick(): void {
+  discard(): void {
     this.dialogRef.close();
+  }
+
+  submit() {
+    // TODO: Send form to firestore
   }
 }

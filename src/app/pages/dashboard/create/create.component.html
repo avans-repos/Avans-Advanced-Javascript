@@ -17,6 +17,6 @@
   </p>
 </form>
 <div mat-dialog-actions>
-  <button mat-button (click)="onNoClick()">No Thanks</button>
-  <button mat-button [mat-dialog-close]="form" cdkFocusInitial>Ok</button>
+  <button mat-button (click)="discard()">Discard</button>
+  <button mat-raised-button (click)="submit()" [disabled]="!form.valid" color="primary" type="submit">Create</button>
 </div>
