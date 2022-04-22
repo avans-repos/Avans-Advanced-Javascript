@@ -1,5 +1,5 @@
 import { Injectable } from '@angular/core';
-import { addDoc, Firestore, CollectionReference, collection, onSnapshot, QuerySnapshot } from '@angular/fire/firestore';
+import { addDoc, Firestore, CollectionReference, collection, onSnapshot, QuerySnapshot, Timestamp } from '@angular/fire/firestore';
 import { ExpenseReport } from '../../models/expense-report';
 import { SnackbarService } from '../snackbar/snackbar.service';
 
@@ -18,6 +18,7 @@ export class ExpenseReportService {
   }
 
   async add(expenseReport: ExpenseReport) {
+    expenseReport.createdOn = Timestamp.now();
     const doc = await addDoc(this.collection, expenseReport);
     this.snackbarService.open('Expense report created');
     return doc;
