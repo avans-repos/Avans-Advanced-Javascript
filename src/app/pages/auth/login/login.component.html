@@ -1,0 +1,35 @@
+<!-- Create Angular sign in form with form binding -->
+<form [formGroup]="form" (ngSubmit)="submit()">
+  <p>
+    <mat-form-field appearance="fill">
+      <mat-label>Email</mat-label>
+      <input matInput  type="email" formControlName="email">
+
+      <mat-error *ngIf="email.hasError('email') && !email.hasError('required')">
+        Please enter a valid email address
+      </mat-error>
+      <mat-error *ngIf="email.hasError('required')">
+        Email is <strong>required</strong>
+      </mat-error>
+    </mat-form-field>
+  </p>
+  <p>
+    <mat-form-field appearance="fill">
+      <mat-label>Password</mat-label>
+      <input matInput type="password" formControlName="password">
+
+      <mat-error *ngIf="password.hasError('required')">
+        Password is <strong>required</strong>
+      </mat-error>
+      <mat-error *ngIf="password.hasError('minlength') && !password.hasError('required')">
+        Password must be at least {{password.errors!['minlength']['requiredLength']}} characters
+      </mat-error>
+    </mat-form-field>
+  </p>
+  <p>
+    <button mat-raised-button color="primary" type="submit" [disabled]="!form.valid">Sign in</button>
+  </p>
+  <mat-error *ngIf="form.getError('submitError')">
+    {{ form.getError('submitError') }}
+  </mat-error>
+</form>
