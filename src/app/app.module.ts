@@ -10,6 +10,7 @@ import { provideAuth,getAuth } from '@angular/fire/auth';
 import { provideFirestore,getFirestore } from '@angular/fire/firestore';
 import { provideFunctions,getFunctions } from '@angular/fire/functions';
 import { LayoutModule } from './layout/layout.module';
+import { MatSnackBarModule } from '@angular/material/snack-bar';
 
 @NgModule({
   declarations: [
@@ -24,6 +25,7 @@ import { LayoutModule } from './layout/layout.module';
     provideFirestore(() => getFirestore()),
     provideFunctions(() => getFunctions()),
     LayoutModule,
+    MatSnackBarModule,
   ],
   // Import navigation component
   providers: [],

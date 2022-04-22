@@ -1,10 +1,11 @@
-import { map } from 'rxjs/operators';
+import { map, skip } from 'rxjs/operators';
 import { FirebaseError } from '@angular/fire/app';
 import { Injectable } from '@angular/core';
-import { Auth, authState, createUserWithEmailAndPassword, onAuthStateChanged } from '@angular/fire/auth';
-import { NextOrObserver, signInWithEmailAndPassword, User } from '@firebase/auth';
+import { Auth, authState, createUserWithEmailAndPassword } from '@angular/fire/auth';
+import { signInWithEmailAndPassword } from '@firebase/auth';
 import AuthErrors from './auth-error-messages';
 import { FirebaseAuthError } from '../../models/firebase-auth-error';
+import { SnackbarService } from '../snackbar/snackbar.service';
 
 
 /**
@@ -16,17 +17,27 @@ import { FirebaseAuthError } from '../../models/firebase-auth-error';
 })
 export class AuthService {
 
-  constructor(private auth: Auth) { }
+  constructor(private auth: Auth, private snackbarService: SnackbarService) {
+    // Send user notification on login but do not report initial state
+    this.authState.pipe(skip(1))
+      .subscribe(user => {
+        if (user) {
+          this.snackbarService.open(`You've been logged in`, 'Close', 3000);
+        } else {
+          this.snackbarService.open('You have been logged out', 'Close', 3000);
+        }
+      });
+  }
 
-  authStateChanged(subscriber: NextOrObserver<User>) {
-    return onAuthStateChanged(this.auth, subscriber);
+  get authState() {
+    return authState(this.auth);
   }
 
   get isLoggedIn() {
     return authState(this.auth).pipe(map(user => !!user));
   }
 
-  async register(email: string, password: string) {
+  register(email: string, password: string) {
     return createUserWithEmailAndPassword(this.auth, email, password);
   }
 
@@ -40,7 +51,7 @@ export class AuthService {
       });
   }
 
-  async logout() {
+  logout() {
     return this.auth.signOut();
   }
 }
