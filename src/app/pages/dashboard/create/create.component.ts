@@ -1,6 +1,7 @@
 import { Component } from '@angular/core';
 import { FormGroup, FormControl, Validators } from '@angular/forms';
 import { MatDialogRef } from '@angular/material/dialog';
+import { ExpenseReportService } from 'src/app/core/services/expense-report/expense-report.service';
 
 @Component({
   selector: 'app-create',
@@ -22,13 +23,14 @@ export class CreateComponent {
 
   constructor(
     private dialogRef: MatDialogRef<CreateComponent>,
-  ) {}
+    private expenseReportService: ExpenseReportService,
+  ) { }
 
   discard(): void {
     this.dialogRef.close();
   }
 
   submit() {
-    // TODO: Send form to firestore
+    this.expenseReportService.add(this.form.value);
   }
 }
