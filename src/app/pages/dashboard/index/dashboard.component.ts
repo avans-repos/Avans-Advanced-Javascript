@@ -15,7 +15,9 @@ export class DashboardComponent implements OnInit {
   }
 
   createBooklet() {
-    const dialogRef = this.dialog.open(CreateComponent);
+    const dialogRef = this.dialog.open(CreateComponent, {
+      width: '500px',
+      });
 
     dialogRef.afterClosed().subscribe(result => {
       console.log(`Dialog result: ${result}`);
