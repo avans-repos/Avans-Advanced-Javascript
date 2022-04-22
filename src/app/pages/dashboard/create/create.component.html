@@ -1,22 +1,24 @@
 <h1 mat-dialog-title>Create a new expense report</h1>
-<form mat-dialog-content [formGroup]="form">
-  <!-- Name -->
-  <p>
-    <mat-form-field>
-      <input matInput placeholder="Name" formControlName="name">
-      <mat-error *ngIf="name.hasError('required')">
-        Name is required
-      </mat-error>
-    </mat-form-field>
-  </p>
-  <!-- Description -->
-  <p>
-    <mat-form-field>
-      <textarea matInput placeholder="Description" formControlName="description"></textarea>
-    </mat-form-field>
-  </p>
+<form [formGroup]="form" (submit)="submit()">
+  <div mat-dialog-content>
+    <!-- Name -->
+    <p>
+      <mat-form-field>
+        <input matInput placeholder="Name" formControlName="name">
+        <mat-error *ngIf="name.hasError('required')">
+          Name is required
+        </mat-error>
+      </mat-form-field>
+    </p>
+    <!-- Description -->
+    <p>
+      <mat-form-field>
+        <textarea matInput placeholder="Description" formControlName="description"></textarea>
+      </mat-form-field>
+    </p>
+  </div>
+  <div mat-dialog-actions>
+    <button mat-button (click)="discard()">Discard</button>
+    <button mat-raised-button [disabled]="!form.valid" color="primary" type="submit">Create</button>
+  </div>
 </form>
-<div mat-dialog-actions>
-  <button mat-button (click)="discard()">Discard</button>
-  <button mat-raised-button (click)="submit()" [disabled]="!form.valid" color="primary" type="submit">Create</button>
-</div>

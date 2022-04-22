@@ -1,11 +1,22 @@
 <div id="header">
   <h2>
-    Booklet overview
+    Expense report overview
   </h2>
   <!-- Create a new booklet -->
   <button mat-raised-button (click)="createExpenseReport()" color="primary" id="create-button">
       <mat-icon>add</mat-icon>
-      Create new booklet
+      Create expense report
   </button>
 </div>
 <!-- List of all booklets -->
+<div id="list">
+  <mat-list>
+    <mat-list-item *ngFor="let expenseReport of expenseReports">
+      <h3 mat-line>{{expenseReport.name}}</h3>
+      <p mat-line>{{expenseReport.description}}</p>
+      <!-- <button mat-raised-button (click)="openExpenseReport(expenseReport)" color="primary" id="open-button">
+        <mat-icon>open_in_new</mat-icon>
+        Open
+      </button> -->
+    </mat-list-item>
+  </mat-list>

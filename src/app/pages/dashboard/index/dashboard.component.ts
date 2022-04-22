@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { MatDialog } from '@angular/material/dialog';
+import { ExpenseReport } from 'src/app/core/models/expense-report';
 import { ExpenseReportService } from 'src/app/core/services/expense-report/expense-report.service';
 import { CreateComponent } from '../create/create.component';
 
@@ -10,6 +11,8 @@ import { CreateComponent } from '../create/create.component';
 })
 export class DashboardComponent implements OnInit {
 
+  public expenseReports: ExpenseReport[] = [];
+
   constructor(
     public dialog: MatDialog,
     private expenseReportService: ExpenseReportService,
@@ -18,7 +21,7 @@ export class DashboardComponent implements OnInit {
   ngOnInit(): void {
     // Generate list of expense reports
     this.expenseReportService.getRealTime((snapshot) => {
-      console.log(snapshot);
+      this.expenseReports = snapshot.docs.map(doc => doc.data());
     });
   }
 

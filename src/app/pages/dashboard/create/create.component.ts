@@ -26,11 +26,12 @@ export class CreateComponent {
     private expenseReportService: ExpenseReportService,
   ) { }
 
-  discard(): void {
+  discard() {
     this.dialogRef.close();
   }
 
-  submit() {
-    this.expenseReportService.add(this.form.value);
+  async submit() {
+    await this.expenseReportService.add(this.form.value);
+    this.dialogRef.close();
   }
 }
