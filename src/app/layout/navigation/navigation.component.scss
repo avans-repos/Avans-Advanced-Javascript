@@ -15,3 +15,17 @@
   top: 0;
   z-index: 1;
 }
+
+main {
+  margin-top: 1em;
+  // Desktop
+  @media (min-width: 768px) {
+    margin-left: 1em;
+  }
+  // Else
+  @media (max-width: 768px) {
+    display: flex;
+    justify-content: center;
+  }
+
+}
