@@ -1,6 +1,6 @@
-class Booklet {
+class ExpenseReport {
   public name: string | undefined;
   public description: string | undefined;
 }
 
-export { Booklet };
+export { ExpenseReport as Booklet };

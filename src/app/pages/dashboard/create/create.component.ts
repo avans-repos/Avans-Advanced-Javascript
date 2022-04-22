@@ -21,7 +21,7 @@ export class CreateComponent {
   }
 
   constructor(
-    public dialogRef: MatDialogRef<CreateComponent>,
+    private dialogRef: MatDialogRef<CreateComponent>,
   ) {}
 
   discard(): void {
