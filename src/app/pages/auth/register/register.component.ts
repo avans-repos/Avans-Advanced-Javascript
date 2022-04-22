@@ -5,12 +5,12 @@ import { AuthService } from 'src/app/core/services/auth/auth.service';
 import createAuthFormGroup from '../helpers/auth-form-group';
 
 @Component({
-  selector: 'app-login',
-  templateUrl: './login.component.html',
-  styleUrls: ['./login.component.scss'],
+  selector: 'app-register',
+  templateUrl: './register.component.html',
+  styleUrls: ['./register.component.scss']
 })
-export class LoginComponent {
-  constructor(private authService: AuthService, private router: Router) {}
+export class RegisterComponent {
+  constructor(private authService: AuthService, private router: Router) { }
 
   form = createAuthFormGroup();
 
@@ -22,7 +22,7 @@ export class LoginComponent {
   }
 
   submit() {
-    this.authService.login(this.email.value, this.password.value)
+    this.authService.register(this.email.value, this.password.value)
       .then(() => {
         this.router.navigate(['/']);
       })
