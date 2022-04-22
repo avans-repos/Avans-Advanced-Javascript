@@ -1,3 +1,4 @@
+import { AuthService } from 'src/app/core/services/auth/auth.service';
 import { Component } from '@angular/core';
 import { BreakpointObserver, Breakpoints } from '@angular/cdk/layout';
 import { Observable } from 'rxjs';
@@ -10,12 +11,18 @@ import { map, shareReplay } from 'rxjs/operators';
 })
 export class NavigationComponent {
 
-  isHandset$: Observable<boolean> = this.breakpointObserver.observe(Breakpoints.Handset)
+  readonly isHandset$: Observable<boolean> = this.breakpointObserver.observe(Breakpoints.Handset)
     .pipe(
       map(result => result.matches),
       shareReplay()
     );
 
-  constructor(private breakpointObserver: BreakpointObserver) {}
+  readonly isLoggedIn$ = this.authService.isLoggedIn;
 
+  constructor(private breakpointObserver: BreakpointObserver, private authService: AuthService) {}
+
+
+  logout() {
+    this.authService.logout();
+  }
 }

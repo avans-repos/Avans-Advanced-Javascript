@@ -1,7 +1,8 @@
+import { map } from 'rxjs/operators';
 import { FirebaseError } from '@angular/fire/app';
 import { Injectable } from '@angular/core';
-import { Auth, createUserWithEmailAndPassword } from '@angular/fire/auth';
-import { signInWithEmailAndPassword } from '@firebase/auth';
+import { Auth, authState, createUserWithEmailAndPassword, onAuthStateChanged } from '@angular/fire/auth';
+import { NextOrObserver, signInWithEmailAndPassword, User } from '@firebase/auth';
 import AuthErrors from './auth-error-messages';
 import { FirebaseAuthError } from '../../models/firebase-auth-error';
 
@@ -15,7 +16,15 @@ import { FirebaseAuthError } from '../../models/firebase-auth-error';
 })
 export class AuthService {
 
-  constructor(private auth: Auth) {}
+  constructor(private auth: Auth) { }
+
+  authStateChanged(subscriber: NextOrObserver<User>) {
+    return onAuthStateChanged(this.auth, subscriber);
+  }
+
+  get isLoggedIn() {
+    return authState(this.auth).pipe(map(user => !!user));
+  }
 
   async register(email: string, password: string) {
     return createUserWithEmailAndPassword(this.auth, email, password);
