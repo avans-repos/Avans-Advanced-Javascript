@@ -11,7 +11,7 @@ import { MatButtonModule } from '@angular/material/button';
 import { MatFormFieldModule } from '@angular/material/form-field';
 import { MatInputModule } from '@angular/material/input';
 import { MatListModule } from '@angular/material/list';
-
+import { MatTooltipModule } from '@angular/material/tooltip';
 
 @NgModule({
   declarations: [
@@ -29,6 +29,7 @@ import { MatListModule } from '@angular/material/list';
     ReactiveFormsModule,
     MatInputModule,
     MatListModule,
+    MatTooltipModule,
   ],
 })
 export class DashboardModule { }

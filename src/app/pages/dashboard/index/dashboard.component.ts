@@ -21,9 +21,8 @@ export class DashboardComponent implements OnInit {
   ngOnInit(): void {
     // Generate list of expense reports
     this.expenseReportService.getRealTime((snapshot) => {
+      // Get expense reports and sort by date descending
       this.expenseReports = snapshot.docs.map(doc => doc.data()).sort((a, b) => {
-        console.log(a.createdOn, b.createdOn);
-
         return a.createdOn.nanoseconds - b.createdOn.nanoseconds;
       });
     });
