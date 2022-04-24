@@ -1,4 +1,4 @@
-<h1 mat-dialog-title>Create a new expense report</h1>
+<h1 mat-dialog-title>{{ isEdit ? 'Edit' : 'Create ' }} an expense report</h1>
 <form [formGroup]="form" (submit)="submit()">
   <div mat-dialog-content>
     <!-- Name -->
@@ -19,6 +19,6 @@
   </div>
   <div mat-dialog-actions>
     <button mat-button (click)="discard()" type="reset">Discard</button>
-    <button mat-raised-button [disabled]="!form.valid" color="primary" type="submit">Create</button>
+    <button mat-raised-button [disabled]="!form.valid" color="primary" type="submit">{{ isEdit ? 'Edit' : 'Create' }}</button>
   </div>
 </form>

@@ -1,9 +1,10 @@
-import { DocumentData, Timestamp } from '@firebase/firestore';
+import { DocumentData, Timestamp, DocumentReference } from '@firebase/firestore';
 
 class ExpenseReport implements DocumentData {
-  public name: string | undefined;
-  public description: string | undefined;
-  public createdAt: Timestamp = Timestamp.now();
+  name: string | undefined;
+  description: string | undefined;
+  createdAt: Timestamp = Timestamp.now();
+  documentReference: DocumentReference<ExpenseReport> | undefined;
 }
 
 export { ExpenseReport };

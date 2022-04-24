@@ -1,7 +1,10 @@
-import { Component } from '@angular/core';
+import { Component, Inject } from '@angular/core';
+import { DocumentReference } from '@angular/fire/firestore';
 import { FormGroup, FormControl, Validators } from '@angular/forms';
-import { MatDialogRef } from '@angular/material/dialog';
+import { MatDialogRef, MAT_DIALOG_DATA} from '@angular/material/dialog';
+import { ExpenseReport } from 'src/app/core/models/expense-report';
 import { ExpenseReportService } from 'src/app/core/services/expense-report/expense-report.service';
+
 
 @Component({
   selector: 'app-create',
@@ -17,21 +20,36 @@ export class CreateComponent {
     description: new FormControl(''),
   });
 
+  isEdit: boolean = false;
+
   get name() {
     return this.form.controls['name'];
   }
 
   constructor(
     private dialogRef: MatDialogRef<CreateComponent>,
+    @Inject(MAT_DIALOG_DATA) public data: {
+      expenseReport: ExpenseReport,
+      documentReference: DocumentReference<ExpenseReport>,
+    } | null,
     private expenseReportService: ExpenseReportService,
-  ) { }
+  ) {
+    if (data) {
+      this.form.patchValue(data.expenseReport);
+      this.isEdit = true;
+    }
+  }
 
   discard() {
     this.dialogRef.close();
   }
 
   async submit() {
-    this.expenseReportService.add(this.form.value);
+    if (this.isEdit && this.data) {
+      this.expenseReportService.update(this.data.documentReference, this.form.value);
+    } else {
+      this.expenseReportService.add(this.form.value);
+    }
     this.dialogRef.close();
   }
 }
