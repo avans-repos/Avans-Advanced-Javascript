@@ -36,21 +36,25 @@ export class AuthService {
     return authState(this.auth).pipe(map(user => !!user));
   }
 
-  register(email: string, password: string) {
-    return createUserWithEmailAndPassword(this.auth, email, password);
+  private errorHandler = (error: FirebaseError) => {
+    // Inject error message
+    const message = AuthErrors[error.code as keyof typeof AuthErrors];
+    error.customData = {message};
+    throw error as FirebaseAuthError;
+  };
+
+  async register(email: string, password: string) {
+    return createUserWithEmailAndPassword(this.auth, email, password)
+      .catch(this.errorHandler);
   }
 
   async login(email: string, password: string) {
     return signInWithEmailAndPassword(this.auth, email, password)
-      .catch((error: FirebaseError) => {
-        // Inject error message
-        const message = AuthErrors[error.code as keyof typeof AuthErrors];
-        error.customData = {message};
-        throw error as FirebaseAuthError;
-      });
+      .catch(this.errorHandler);
   }
 
-  logout() {
-    return this.auth.signOut();
+  async logout() {
+    return this.auth.signOut()
+      .catch(this.errorHandler);
   }
 }
