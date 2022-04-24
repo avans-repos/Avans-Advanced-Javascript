@@ -18,7 +18,7 @@ export class ExpenseReportService {
   }
 
   async add(expenseReport: ExpenseReport) {
-    expenseReport.createdOn = Timestamp.now();
+    expenseReport.createdAt = Timestamp.now();
     const doc = await addDoc(this.collection, expenseReport);
     this.snackbarService.open('Expense report created');
     return doc;

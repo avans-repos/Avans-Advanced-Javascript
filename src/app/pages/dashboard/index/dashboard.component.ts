@@ -23,7 +23,7 @@ export class DashboardComponent implements OnInit {
     this.expenseReportService.getRealTime((snapshot) => {
       // Get expense reports and sort by date descending
       this.expenseReports = snapshot.docs.map(doc => doc.data()).sort((a, b) => {
-        return a.createdOn.nanoseconds - b.createdOn.nanoseconds;
+        return a.createdAt.nanoseconds - b.createdAt.nanoseconds;
       });
     });
   }
