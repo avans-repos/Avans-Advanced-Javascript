@@ -16,11 +16,6 @@ export class ExpenseReportService {
     private snackbarService: SnackbarService,
     ) {
     this.collection = collection(fire, 'expense-reports') as CollectionReference<ExpenseReport>;
-
-    // Track changes to the expense reports
-    this.getRealTime((snapshot) => {
-      console.log('Expense reports changed', snapshot.docs.map(doc => doc.data()));
-    });
   }
 
   async add(expenseReport: ExpenseReport) {
