@@ -31,7 +31,7 @@ export class CreateComponent {
   }
 
   async submit() {
-    await this.expenseReportService.add(this.form.value);
+    this.expenseReportService.add(this.form.value);
     this.dialogRef.close();
   }
 }
