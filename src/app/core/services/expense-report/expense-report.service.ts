@@ -4,6 +4,7 @@ import {
   DocumentReference, updateDoc,
 } from '@angular/fire/firestore';
 import { ExpenseReport } from '../../models/expense-report';
+import { AuthService } from '../auth/auth.service';
 import { SnackbarService } from '../snackbar/snackbar.service';
 
 @Injectable({
@@ -15,14 +16,19 @@ export class ExpenseReportService {
   constructor(
     fire: Firestore,
     private snackbarService: SnackbarService,
+    private authService: AuthService,
   ) {
     this.collection = collection(fire, 'expense-reports') as CollectionReference<ExpenseReport>;
   }
 
   async add(expenseReport: ExpenseReport) {
-    // eslint-disable-next-line no-param-reassign
-    expenseReport.createdAt = Timestamp.now();
-    const doc = await addDoc(this.collection, expenseReport);
+    const filledExpenseReport = {
+      ...expenseReport,
+      createdAt: Timestamp.now(),
+      createdBy: this.authService.currentUser?.uid,
+    };
+
+    const doc = await addDoc(this.collection, filledExpenseReport);
     this.snackbarService.open('Expense report created');
     return doc;
   }

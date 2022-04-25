@@ -3,6 +3,7 @@ import { MatDialog } from '@angular/material/dialog';
 import { ExpenseReport } from 'src/app/core/models/expense-report';
 import { ExpenseReportService } from 'src/app/core/services/expense-report/expense-report.service';
 import { CreateComponent } from '../components/create/create.component';
+import { Document } from '../models/document';
 
 @Component({
   selector: 'app-dashboard',
@@ -10,7 +11,7 @@ import { CreateComponent } from '../components/create/create.component';
   styleUrls: ['./dashboard.component.scss'],
 })
 export class DashboardComponent implements OnInit {
-  public expenseReports: ExpenseReport[] = [];
+  public documents: Document[] = [];
 
   constructor(
     public dialog: MatDialog,
@@ -21,12 +22,12 @@ export class DashboardComponent implements OnInit {
     // Generate list of expense reports
     this.expenseReportService.getRealTime((snapshot) => {
       // Get expense reports and sort by date descending
-      this.expenseReports = snapshot.docs
-        .map((doc) => {
-          const expenseReport = doc.data();
-          expenseReport.documentReference = doc.ref;
-          return expenseReport;
-        }).sort((a, b) => a.createdAt.nanoseconds - b.createdAt.nanoseconds);
+      this.documents = snapshot.docs
+        .sort((a, b) => a.data().createdAt.nanoseconds - b.data().createdAt.nanoseconds)
+        .map((doc) => ({
+          reference: doc.ref,
+          expenseReport: doc.data() as ExpenseReport,
+        }));
     });
   }
 
@@ -36,12 +37,12 @@ export class DashboardComponent implements OnInit {
     });
   }
 
-  editExpenseReport(expenseReport: ExpenseReport) {
+  editExpenseReport(document: Document) {
     this.dialog.open(CreateComponent, {
       width: '500px',
       data: {
-        expenseReport,
-        documentReference: expenseReport.documentReference,
+        expenseReport: document.expenseReport,
+        reference: document.reference,
       },
     });
   }

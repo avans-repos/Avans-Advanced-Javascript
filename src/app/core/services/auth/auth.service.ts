@@ -32,6 +32,10 @@ export class AuthService {
     return authState(this.auth);
   }
 
+  get currentUser() {
+    return this.auth.currentUser;
+  }
+
   get isLoggedIn() {
     return authState(this.auth).pipe(map((user) => !!user));
   }
