@@ -26,6 +26,7 @@ export class CreateComponent {
     @Inject(MAT_DIALOG_DATA) private data: Document,
     private expenseReportService: ExpenseReportService,
   ) {
+    // If data is passed in, this is an edit
     if (data && data.reference && data.expenseReport) {
       this.form.patchValue(data.expenseReport);
       this.isEdit = true;
@@ -39,6 +40,7 @@ export class CreateComponent {
   async submit() {
     // Check if expense report is being edited
     if (this.isEdit && this.data) {
+      // Inject original report and override with form data
       const updatedDoc = {
         ...this.data.expenseReport,
         ...this.form.value,
