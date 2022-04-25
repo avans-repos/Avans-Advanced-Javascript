@@ -1,15 +1,11 @@
 import { DocumentData, DocumentReference, Timestamp } from '@angular/fire/firestore';
 
-class ExpenseReport implements DocumentData {
-  name: string | undefined;
-
-  description: string | undefined;
-
-  createdAt: Timestamp = Timestamp.now();
-
-  createdBy: string | undefined;
-
-  documentReference: DocumentReference<ExpenseReport> | undefined;
+interface ExpenseReport extends DocumentData {
+  name: string;
+  description: string;
+  createdAt: Timestamp;
+  createdBy: string;
+  documentReference: DocumentReference<ExpenseReport>;
 }
 
 export { ExpenseReport };
