@@ -1,4 +1,4 @@
-import { DocumentData, DocumentReference, Timestamp } from '@firebase/firestore';
+import { DocumentData, DocumentReference, Timestamp } from '@angular/fire/firestore';
 
 class ExpenseReport implements DocumentData {
   name: string | undefined;

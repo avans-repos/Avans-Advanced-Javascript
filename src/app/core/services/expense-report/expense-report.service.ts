@@ -1,8 +1,8 @@
 import { Injectable } from '@angular/core';
 import {
   addDoc, Firestore, CollectionReference, collection, onSnapshot, QuerySnapshot, Timestamp,
+  DocumentReference, updateDoc,
 } from '@angular/fire/firestore';
-import { DocumentReference, updateDoc } from '@firebase/firestore';
 import { ExpenseReport } from '../../models/expense-report';
 import { SnackbarService } from '../snackbar/snackbar.service';
 
@@ -20,6 +20,7 @@ export class ExpenseReportService {
   }
 
   async add(expenseReport: ExpenseReport) {
+    // eslint-disable-next-line no-param-reassign
     expenseReport.createdAt = Timestamp.now();
     const doc = await addDoc(this.collection, expenseReport);
     this.snackbarService.open('Expense report created');
