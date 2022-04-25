@@ -1,22 +1,20 @@
 import { Component, Inject } from '@angular/core';
 import { DocumentReference } from '@angular/fire/firestore';
 import { FormGroup, FormControl, Validators } from '@angular/forms';
-import { MatDialogRef, MAT_DIALOG_DATA} from '@angular/material/dialog';
+import { MatDialogRef, MAT_DIALOG_DATA } from '@angular/material/dialog';
+import { take } from 'rxjs';
 import { ExpenseReport } from 'src/app/core/models/expense-report';
+import { AuthService } from 'src/app/core/services/auth/auth.service';
 import { ExpenseReportService } from 'src/app/core/services/expense-report/expense-report.service';
-
 
 @Component({
   selector: 'app-create',
   templateUrl: './create.component.html',
-  styleUrls: ['./create.component.scss']
+  styleUrls: ['./create.component.scss'],
 })
 export class CreateComponent {
-
   form = new FormGroup({
-    name: new FormControl('', [
-      Validators.required,
-    ]),
+    name: new FormControl('', [Validators.required]),
     description: new FormControl(''),
   });
 
@@ -28,11 +26,13 @@ export class CreateComponent {
 
   constructor(
     private dialogRef: MatDialogRef<CreateComponent>,
-    @Inject(MAT_DIALOG_DATA) public data: {
-      expenseReport: ExpenseReport,
-      documentReference: DocumentReference<ExpenseReport>,
+    @Inject(MAT_DIALOG_DATA)
+    private data: {
+      expenseReport: ExpenseReport;
+      documentReference: DocumentReference<ExpenseReport>;
     } | null,
     private expenseReportService: ExpenseReportService,
+    private authService: AuthService
   ) {
     if (data) {
       this.form.patchValue(data.expenseReport);
@@ -45,11 +45,22 @@ export class CreateComponent {
   }
 
   async submit() {
-    if (this.isEdit && this.data) {
-      this.expenseReportService.update(this.data.documentReference, this.form.value);
-    } else {
-      this.expenseReportService.add(this.form.value);
-    }
-    this.dialogRef.close();
+    this.authService.authState.pipe(take(1)).subscribe((user) => {
+      // Check if user is authenticated
+      if (user === null) { return; }
+
+      const expenseReport: ExpenseReport = {
+        ...this.form.value,
+        createdBy: user.uid,
+      };
+
+      // Check if expense report is being edited
+      if (this.isEdit && this.data) {
+        this.expenseReportService.update(this.data.documentReference, expenseReport);
+      } else {
+        this.expenseReportService.add(this.form.value);
+      }
+      this.dialogRef.close();
+    });
   }
 }
