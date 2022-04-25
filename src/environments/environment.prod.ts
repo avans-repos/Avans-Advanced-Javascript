@@ -7,5 +7,5 @@ export const environment = {
     authDomain: 'avans-adweb.firebaseapp.com',
     messagingSenderId: '952710083615',
   },
-  production: true
+  production: true,
 };

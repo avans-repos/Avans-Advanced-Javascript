@@ -7,10 +7,9 @@ import { CreateComponent } from '../components/create/create.component';
 @Component({
   selector: 'app-dashboard',
   templateUrl: './dashboard.component.html',
-  styleUrls: ['./dashboard.component.scss']
+  styleUrls: ['./dashboard.component.scss'],
 })
 export class DashboardComponent implements OnInit {
-
   public expenseReports: ExpenseReport[] = [];
 
   constructor(
@@ -23,13 +22,11 @@ export class DashboardComponent implements OnInit {
     this.expenseReportService.getRealTime((snapshot) => {
       // Get expense reports and sort by date descending
       this.expenseReports = snapshot.docs
-        .map(doc => {
+        .map((doc) => {
           const expenseReport = doc.data();
           expenseReport.documentReference = doc.ref;
           return expenseReport;
-        }).sort((a, b) => {
-          return a.createdAt.nanoseconds - b.createdAt.nanoseconds;
-        });
+        }).sort((a, b) => a.createdAt.nanoseconds - b.createdAt.nanoseconds);
     });
   }
 

@@ -32,7 +32,7 @@ export class CreateComponent {
       documentReference: DocumentReference<ExpenseReport>;
     } | null,
     private expenseReportService: ExpenseReportService,
-    private authService: AuthService
+    private authService: AuthService,
   ) {
     if (data) {
       this.form.patchValue(data.expenseReport);

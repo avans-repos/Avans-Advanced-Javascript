@@ -1,27 +1,27 @@
 import { map, skip } from 'rxjs/operators';
 import { FirebaseError } from '@angular/fire/app';
 import { Injectable } from '@angular/core';
-import { Auth, authState, createUserWithEmailAndPassword, signInWithEmailAndPassword } from '@angular/fire/auth';
+import {
+  Auth, authState, createUserWithEmailAndPassword, signInWithEmailAndPassword,
+} from '@angular/fire/auth';
 import AuthErrors from './auth-error-messages';
 import { FirebaseAuthError } from '../../models/firebase-auth-error';
 import { SnackbarService } from '../snackbar/snackbar.service';
-
 
 /**
  * Auth service which provides authentication functionality
  * @class AuthService
  */
 @Injectable({
-  providedIn: 'root'
+  providedIn: 'root',
 })
 export class AuthService {
-
   constructor(private auth: Auth, private snackbarService: SnackbarService) {
     // Send user notification on login but do not report initial state
     this.authState.pipe(skip(1))
-      .subscribe(user => {
+      .subscribe((user) => {
         if (user) {
-          this.snackbarService.open(`You've been logged in`);
+          this.snackbarService.open('You\'ve been logged in');
         } else {
           this.snackbarService.open('You have been logged out');
         }
@@ -33,13 +33,13 @@ export class AuthService {
   }
 
   get isLoggedIn() {
-    return authState(this.auth).pipe(map(user => !!user));
+    return authState(this.auth).pipe(map((user) => !!user));
   }
 
   private errorHandler = (error: FirebaseError) => {
     // Inject error message
     const message = AuthErrors[error.code as keyof typeof AuthErrors];
-    error.customData = {message};
+    error.customData = { message };
     throw error as FirebaseAuthError;
   };
 

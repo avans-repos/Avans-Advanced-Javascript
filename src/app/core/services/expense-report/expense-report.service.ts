@@ -1,20 +1,21 @@
 import { Injectable } from '@angular/core';
-import { addDoc, Firestore, CollectionReference, collection, onSnapshot, QuerySnapshot, Timestamp } from '@angular/fire/firestore';
+import {
+  addDoc, Firestore, CollectionReference, collection, onSnapshot, QuerySnapshot, Timestamp,
+} from '@angular/fire/firestore';
 import { DocumentReference, updateDoc } from '@firebase/firestore';
 import { ExpenseReport } from '../../models/expense-report';
 import { SnackbarService } from '../snackbar/snackbar.service';
 
 @Injectable({
-  providedIn: 'root'
+  providedIn: 'root',
 })
 export class ExpenseReportService {
-
   public readonly collection: CollectionReference<ExpenseReport>;
 
   constructor(
     fire: Firestore,
     private snackbarService: SnackbarService,
-    ) {
+  ) {
     this.collection = collection(fire, 'expense-reports') as CollectionReference<ExpenseReport>;
   }
 
