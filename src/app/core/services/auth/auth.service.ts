@@ -40,13 +40,13 @@ export class AuthService {
     return authState(this.auth).pipe(map((user) => !!user));
   }
 
-  private static errorHandler = (error: FirebaseError) => {
+  private static errorHandler(error: FirebaseError) {
     // Inject error message
     const message = AuthErrors[error.code as keyof typeof AuthErrors];
     // eslint-disable-next-line no-param-reassign
     error.customData = { message };
     throw error as FirebaseAuthError;
-  };
+  }
 
   async register(email: string, password: string) {
     return createUserWithEmailAndPassword(this.auth, email, password)

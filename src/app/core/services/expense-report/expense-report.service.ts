@@ -52,7 +52,7 @@ export class ExpenseReportService {
     }
   }
 
-  errorHandler(error: any) {
+  private errorHandler(error: any) {
     this.snackbarService.open(`Error: ${error.message}`);
   }
 }
