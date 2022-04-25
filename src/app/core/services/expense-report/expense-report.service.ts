@@ -21,24 +21,38 @@ export class ExpenseReportService {
     this.collection = collection(fire, 'expense-reports') as CollectionReference<ExpenseReport>;
   }
 
-  async add(expenseReport: ExpenseReport) {
-    const filledExpenseReport = {
-      ...expenseReport,
-      createdAt: Timestamp.now(),
-      createdBy: this.authService.currentUser?.uid,
-    };
+  getRealTime(callback: (snapshot: QuerySnapshot<ExpenseReport>) => void) {
+    return onSnapshot(this.collection, callback);
+  }
 
-    const doc = await addDoc(this.collection, filledExpenseReport);
-    this.snackbarService.open('Expense report created');
-    return doc;
+  async add(expenseReport: ExpenseReport) {
+    try {
+      const filledExpenseReport = {
+        ...expenseReport,
+        createdAt: Timestamp.now(),
+        createdBy: this.authService.currentUser?.uid,
+      };
+
+      const doc = await addDoc(this.collection, filledExpenseReport);
+      this.snackbarService.open('Expense report created');
+      return doc;
+    } catch (error) {
+      this.errorHandler(error);
+    }
+
+    return null;
   }
 
   async update(reference: DocumentReference<ExpenseReport>, expenseReport: ExpenseReport) {
-    await updateDoc(reference, expenseReport);
-    this.snackbarService.open('Expense report updated');
+    try {
+      await updateDoc(reference, expenseReport);
+      this.snackbarService.open('Expense report updated');
+    } catch (error: any) {
+      this.errorHandler(error);
+    }
   }
 
-  getRealTime(callback: (snapshot: QuerySnapshot<ExpenseReport>) => void) {
-    return onSnapshot(this.collection, callback);
+  errorHandler(error: any) {
+    this.snackbarService.open(`Error: ${error.message}`);
   }
 }
