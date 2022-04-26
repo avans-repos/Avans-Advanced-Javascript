@@ -11,7 +11,7 @@ import { SnackbarService } from '../snackbar/snackbar.service';
   providedIn: 'root',
 })
 export class ExpenseReportService {
-  public readonly collection: CollectionReference<ExpenseReport>;
+  private readonly collection: CollectionReference<ExpenseReport>;
 
   constructor(
     fire: Firestore,
