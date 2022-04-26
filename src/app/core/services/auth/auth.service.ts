@@ -1,5 +1,4 @@
 import { map, skip } from 'rxjs/operators';
-import { FirebaseError } from '@angular/fire/app';
 import { Injectable } from '@angular/core';
 import {
   Auth, authState, createUserWithEmailAndPassword, signInWithEmailAndPassword,
@@ -40,9 +39,10 @@ export class AuthService {
     return authState(this.auth).pipe(map((user) => !!user));
   }
 
-  private static errorHandler(error: FirebaseError) {
+  private static errorHandler(error: any) {
     // Inject error message
-    const message = AuthErrors[error.code as keyof typeof AuthErrors];
+    const message: string = AuthErrors[error.code as keyof typeof AuthErrors] || AuthErrors.else;
+
     // eslint-disable-next-line no-param-reassign
     error.customData = { message };
     throw error as FirebaseAuthError;

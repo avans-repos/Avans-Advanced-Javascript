@@ -54,7 +54,7 @@ const translations = {
   'auth/unauthorized-continue-uri': 'The domain of the continue URL is not whitelisted. Whitelist the domain in the Firebase Console.',
   'auth/user-not-found': 'There is no existing user record corresponding to the provided identifier.',
 
-  else: 'Server error.',
+  else: 'An unknown error occurred.',
 };
 
 export default translations;
