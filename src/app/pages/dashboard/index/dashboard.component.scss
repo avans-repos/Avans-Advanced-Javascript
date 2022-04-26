@@ -7,6 +7,16 @@
   }
 }
 
+.mat-list-item {
+  // Lets list items show long text properly
+  height: auto !important;
+}
+
+.description {
+  // Preserve line breaks as added by user
+  white-space: pre-line !important;
+}
+
 .mat-divider {
   margin: 1rem 0;
 }
