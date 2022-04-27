@@ -4,7 +4,10 @@ service cloud.firestore {
     match /expense-reports/{documents=**} {
     	// Allow read & create on authenticated users but only edits for expense report creators
     	allow	read, create: if request.auth != null
-    	allow update: if request.auth.uid == resource.data.createdBy
+    	allow update: if (
+      	request.auth != null &&
+      	request.auth.uid == resource.data.createdBy
+      )
     }
   }
 }
