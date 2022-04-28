@@ -1,0 +1,12 @@
+<mat-form-field>
+  <!-- Input field with typing tracking -->
+  <input matInput placeholder="Search user by email" [formControl]="searchControl"
+    [matAutocomplete]="auto">
+
+  <!-- Autocomplete options -->
+  <mat-autocomplete #auto="matAutocomplete">
+    <mat-option *ngFor="let emailAddress of emailAddresses | async" [value]="emailAddress">
+      {{emailAddress}}
+    </mat-option>
+  </mat-autocomplete>
+</mat-form-field>
