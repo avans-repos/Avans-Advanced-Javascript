@@ -1,3 +1,4 @@
+import { EmailSearcherService } from 'src/app/core/services/email-searcher/email-searcher.service';
 import {
   BehaviorSubject,
   debounceTime, distinctUntilChanged,
@@ -18,6 +19,8 @@ export class UserSelectorComponent implements OnInit {
 
   emailAddresses = new BehaviorSubject<string[]>([]);
 
+  constructor(private emailSearcher: EmailSearcherService) {}
+
   ngOnInit(): void {
     this.searchControl.valueChanges.pipe(
       // Only check after typing for 500ms
@@ -30,8 +33,10 @@ export class UserSelectorComponent implements OnInit {
         this.emailAddresses.next([]);
         return;
       }
-      // TODO: Fetch possible email addresses from API
-      console.log(value);
+
+      this.emailSearcher.search(value).subscribe((emails) => {
+        this.emailAddresses.next(emails.map((email) => email.email));
+      });
     });
   }
 }
