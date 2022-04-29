@@ -1,4 +1,3 @@
-import { HttpClientModule } from '@angular/common/http';
 import { NgModule } from '@angular/core';
 import { BrowserModule } from '@angular/platform-browser';
 
@@ -24,10 +23,9 @@ import { AppRoutingModule } from './app-routing.module';
     provideFirebaseApp(() => initializeApp(environment.firebase)),
     provideAuth(() => getAuth()),
     provideFirestore(() => getFirestore()),
-    provideFunctions(() => getFunctions()),
+    provideFunctions(() => getFunctions(undefined, environment.firebase.region)),
     LayoutModule,
     MatSnackBarModule,
-    HttpClientModule,
   ],
   // Import navigation component
   providers: [],
