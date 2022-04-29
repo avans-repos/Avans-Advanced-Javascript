@@ -1,6 +1,7 @@
 import * as functions from "firebase-functions";
 import * as admin from "firebase-admin";
 import {ListUsersResult} from "firebase-admin/lib/auth/base-auth";
+import User from "./user";
 
 // Start writing Firebase Functions
 // https://firebase.google.com/docs/functions/typescript
@@ -8,8 +9,8 @@ import {ListUsersResult} from "firebase-admin/lib/auth/base-auth";
 // Initialize Firebase Admin
 admin.initializeApp();
 
-// Search through all user emails and return all users that match the query
-exports.searchUsersByEmail = functions
+// Search user emails and return email & uid of matching emails
+exports.searchRegisteredEmail = functions
     .region("europe-west1").https
     .onRequest(async (req, res) => {
       if (req.method !== "GET") {
@@ -38,7 +39,7 @@ exports.searchUsersByEmail = functions
       }
 
       // Keep looping until we searched all users
-      const users: string[] = [];
+      const users: User[] = [];
       let nextPageToken: string | undefined = undefined;
 
       do {
@@ -54,12 +55,16 @@ exports.searchUsersByEmail = functions
 
 
 // Search through all user emails and return all users that match the query
-const searchusers = (query: string, userList: ListUsersResult) => {
-  const users: string[] = [];
+const searchusers = (query: string, userList: ListUsersResult): User[] => {
+  const users: User[] = [];
   userList.users.forEach((user) => {
     if (user.email !== undefined && user.email.includes(query)) {
-      users.push(user.email);
+      users.push({
+        uid: user.uid,
+        email: user.email,
+      });
     }
   });
   return users;
 };
+
