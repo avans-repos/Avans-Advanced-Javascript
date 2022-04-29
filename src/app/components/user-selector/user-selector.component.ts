@@ -23,8 +23,8 @@ export class UserSelectorComponent implements OnInit {
 
   ngOnInit(): void {
     this.searchControl.valueChanges.pipe(
-      // Only check after typing for 500ms
-      debounceTime(500),
+      // Only check after typing for 300ms
+      debounceTime(300),
       // Only emit if the value is different from the previous value
       distinctUntilChanged(),
     ).subscribe((value) => {
