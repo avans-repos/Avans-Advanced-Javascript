@@ -12,35 +12,22 @@ admin.initializeApp();
 // Search user emails and return email & uid of matching emails
 exports.searchRegisteredEmail = functions
     .region("europe-west1").https
-    .onRequest(async (req, res) => {
-      if (req.method !== "GET") {
-        res.status(404).send("Not found");
-        return;
-      }
-
-      // Check if user is authenticated through Firebase
-      const tokenId = req.get("Authorization")?.split("Bearer ")[1];
-      if (tokenId === undefined) {
-        res.status(401).send("Unauthorized");
-        return;
-      }
-
-      try {
-        const user = await admin.auth().verifyIdToken(tokenId);
-        if (user === null) {
-          res.status(401).send("Unauthorized");
-          return;
-        }
-      } catch (error) {
-        res.status(401).send("Token is invalid");
-        return;
+    .onCall(async (data, context) => {
+      // Check if the user is authenticated
+      if (!context.auth) {
+        throw new functions.https.HttpsError(
+            "failed-precondition",
+            "The function must be called while authenticated."
+        );
       }
 
       // Get the query from the request
-      const query: string | undefined = req.query.query?.toString();
+      const query: string | undefined = data.query;
       if (query === undefined) {
-        res.status(400).send("Query is undefined");
-        return;
+        throw new functions.https.HttpsError(
+            "invalid-argument",
+            "The function must be called with a query."
+        );
       }
 
       // Keep looping until we searched all users
@@ -55,7 +42,7 @@ exports.searchRegisteredEmail = functions
       }
       while (nextPageToken);
 
-      res.send(users);
+      return users;
     });
 
 
