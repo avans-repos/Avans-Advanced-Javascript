@@ -25,9 +25,14 @@ exports.searchRegisteredEmail = functions
         return;
       }
 
-      const user = await admin.auth().verifyIdToken(tokenId);
-      if (user === null) {
-        res.status(401).send("Unauthorized");
+      try {
+        const user = await admin.auth().verifyIdToken(tokenId);
+        if (user === null) {
+          res.status(401).send("Unauthorized");
+          return;
+        }
+      } catch (error) {
+        res.status(401).send("Token is invalid");
         return;
       }
 
