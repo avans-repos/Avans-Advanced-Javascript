@@ -9,7 +9,7 @@ import {ListUsersResult} from "firebase-admin/lib/auth/base-auth";
 admin.initializeApp();
 
 // Search through all user emails and return all users that match the query
-exports.searchUserByEmail = functions
+exports.searchUsersByEmail = functions
     .region("europe-west1").https
     .onRequest(async (req, res) => {
       if (req.method !== "GET") {
