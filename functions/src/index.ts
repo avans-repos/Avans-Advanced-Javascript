@@ -21,8 +21,8 @@ exports.searchRegisteredEmail = functions
         );
       }
 
-      // Get the query from the request
-      const query: string | null = data;
+      // Get the query from the request and convert it to lowercase
+      const query: string | null = data.toLowerCase();
       if (query === null) {
         throw new functions.https.HttpsError(
             "invalid-argument",
