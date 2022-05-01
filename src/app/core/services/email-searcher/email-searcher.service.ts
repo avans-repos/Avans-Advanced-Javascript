@@ -14,6 +14,8 @@ interface SearchResult {
   providedIn: 'root',
 })
 export class EmailSearcherService {
+  private readonly endpoint = 'searchRegisteredEmail';
+
   constructor(
     private authService: AuthService,
     private functions: Functions,
@@ -26,6 +28,6 @@ export class EmailSearcherService {
       return of([]);
     }
 
-    return httpsCallableData<string, SearchResult[]>(this.functions, 'searchRegisteredEmail').call({ query });
+    return httpsCallableData<string, SearchResult[]>(this.functions, this.endpoint)(query);
   }
 }

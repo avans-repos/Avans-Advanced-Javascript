@@ -22,8 +22,8 @@ exports.searchRegisteredEmail = functions
       }
 
       // Get the query from the request
-      const query: string | undefined = data.query;
-      if (query === undefined) {
+      const query: string | null = data;
+      if (query === null) {
         throw new functions.https.HttpsError(
             "invalid-argument",
             "The function must be called with a query."

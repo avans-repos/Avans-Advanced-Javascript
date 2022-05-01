@@ -6,6 +6,7 @@ export const environment = {
     apiKey: 'AIzaSyAO_FppM8n7M1Ykf0IleKHlv8xvkeVckAY',
     authDomain: 'avans-adweb.firebaseapp.com',
     messagingSenderId: '952710083615',
+    region: 'europe-west1',
   },
   production: true,
 };
