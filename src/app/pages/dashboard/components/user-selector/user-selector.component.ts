@@ -23,16 +23,20 @@ export class UserSelectorComponent implements OnInit {
   @Input() selectedUids: string[] = [];
 
   // Emitted when the user selects an item from the autocomplete
-  @Output() selectedUidsChanged = new EventEmitter<string[]>();
+  @Output() readonly selectedUidsChanged = new EventEmitter<string[]>();
 
   // List of users that have been selected
-  selectedItems = new BehaviorSubject<SearchResult[]>([]);
+  readonly selectedItems = new BehaviorSubject<SearchResult[]>([]);
 
   // Search query for user email
-  searchControl = new FormControl('');
+  readonly searchControl = new FormControl('');
 
   // List of results to autofill the input with
-  autofillEmail = new BehaviorSubject<SearchResult[]>([]);
+  readonly autofillEmail = new BehaviorSubject<SearchResult[]>([]);
+
+  readonly authState = this.authService.authState;
+
+  isLoadingItems = true;
 
   constructor(
     private authService: AuthService,
@@ -54,7 +58,10 @@ export class UserSelectorComponent implements OnInit {
         uid: user.uid,
         email: user.email!,
       }]);
-      if (this.selectedUids.length === 0) { return; }
+      if (this.selectedUids.length === 0) {
+        this.isLoadingItems = false;
+        return;
+      }
 
       const resolvedSearchResults = this.selectedUids.map(async (uid) => ({
         email: await lastValueFrom(this.emailSearcher.getEmailFromUid(uid)),
@@ -71,6 +78,7 @@ export class UserSelectorComponent implements OnInit {
         });
 
         this.selectedItems.next(emails);
+        this.isLoadingItems = false;
       });
     });
   }
@@ -117,6 +125,8 @@ export class UserSelectorComponent implements OnInit {
 
   // Handles the removal event for chips
   removeItem(item: SearchResult): void {
+    // Do not remove if the item is the current user
+    if (item.uid === this.authService.currentUser?.uid) { return; }
     const selectedItems = this.selectedItems.getValue();
     const index = selectedItems.indexOf(item);
     if (index >= 0) {
