@@ -1,13 +1,14 @@
 import { EmailSearcherService } from 'src/app/core/services/email-searcher/email-searcher.service';
 import {
   BehaviorSubject,
-  debounceTime, distinctUntilChanged, forkJoin, lastValueFrom,
+  debounceTime, distinctUntilChanged, forkJoin, lastValueFrom, skip,
 } from 'rxjs';
 import {
   Component, ElementRef, EventEmitter, Input, OnInit, Output, ViewChild,
 } from '@angular/core';
 import { FormControl } from '@angular/forms';
 import { MatAutocompleteSelectedEvent } from '@angular/material/autocomplete';
+import { AuthService } from 'src/app/core/services/auth/auth.service';
 import { SearchResult } from '../../../../core/services/email-searcher/search-result';
 
 @Component({
@@ -19,7 +20,7 @@ export class UserSelectorComponent implements OnInit {
   @ViewChild('emailInput')emailInput!: ElementRef<HTMLInputElement>;
 
   // Uids of users that have already been selected
-  @Input() selectedUids!: string[];
+  @Input() selectedUids: string[] = [];
 
   // Emitted when the user selects an item from the autocomplete
   @Output() selectedUidsChanged = new EventEmitter<string[]>();
@@ -34,6 +35,7 @@ export class UserSelectorComponent implements OnInit {
   autofillEmail = new BehaviorSubject<SearchResult[]>([]);
 
   constructor(
+    private authService: AuthService,
     private emailSearcher: EmailSearcherService,
   ) {}
 
@@ -45,20 +47,31 @@ export class UserSelectorComponent implements OnInit {
 
   // Resolves uids to emails
   private handleInputUids() {
-    if (this.selectedUids.length === 0) { return; }
-    const resolvedSearchResults = this.selectedUids.map(async (uid) => ({
-      email: await lastValueFrom(this.emailSearcher.getEmailFromUid(uid)),
-      uid,
-    }));
+    this.authService.authState.subscribe((user) => {
+      if (user === null) { return; }
+      // Add the current user to the selected items
+      this.selectedItems.next([{
+        uid: user.uid,
+        email: user.email!,
+      }]);
+      if (this.selectedUids.length === 0) { return; }
 
-    // Wait for all emails to be fetched and then update UI
-    forkJoin(resolvedSearchResults).subscribe((result) => {
-      const emails = this.selectedItems.getValue();
-      result.forEach((searchResult) => {
-        emails.push(searchResult);
+      const resolvedSearchResults = this.selectedUids.map(async (uid) => ({
+        email: await lastValueFrom(this.emailSearcher.getEmailFromUid(uid)),
+        uid,
+      }));
+
+      // Wait for all emails to be fetched and then update UI
+      forkJoin(resolvedSearchResults).subscribe((result) => {
+        const emails = this.selectedItems.getValue();
+        result.forEach((searchResult) => {
+          // Skip if the email is already in the list
+          if (emails.some((email) => email.email === searchResult.email)) { return; }
+          emails.push(searchResult);
+        });
+
+        this.selectedItems.next(emails);
       });
-
-      this.selectedItems.next(emails);
     });
   }
 
@@ -77,11 +90,13 @@ export class UserSelectorComponent implements OnInit {
       }
 
       this.emailSearcher.search(value).subscribe((emails) => {
-        // Filter out the emails that are already selected
         const selectedItems = this.selectedItems.getValue();
-        const filteredEmails = emails.filter(
-          (result) => !selectedItems.some((selectedItem) => selectedItem.email === result.email),
-        );
+
+        // Filter out the emails that are already selected and the current user
+        const filteredEmails = emails.filter((email) => (
+          !selectedItems.some((item) => item.email === email.email)
+          && email.email !== this.authService.currentUser?.email));
+
         this.autofillEmail.next(filteredEmails);
       });
     });
@@ -112,7 +127,8 @@ export class UserSelectorComponent implements OnInit {
 
   // Observes selected items and triggers the selectedUidsChanged event
   private handleEventEmitter() {
-    this.selectedItems.subscribe((items) => {
+    // Skip initial value
+    this.selectedItems.pipe(skip(1)).subscribe((items) => {
       const uids = items.map((item) => item.uid);
       this.selectedUidsChanged.emit(uids);
     });

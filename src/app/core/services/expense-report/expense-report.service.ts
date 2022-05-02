@@ -1,7 +1,7 @@
 import { Injectable } from '@angular/core';
 import {
   addDoc, Firestore, CollectionReference, collection, onSnapshot, QuerySnapshot, Timestamp,
-  DocumentReference, updateDoc,
+  DocumentReference, updateDoc, query, where,
 } from '@angular/fire/firestore';
 import { ExpenseReport } from '../../models/expense-report';
 import { AuthService } from '../auth/auth.service';
@@ -22,7 +22,13 @@ export class ExpenseReportService {
   }
 
   getRealTime(callback: (snapshot: QuerySnapshot<ExpenseReport>) => void) {
-    return onSnapshot(this.collection, callback);
+    onSnapshot(
+      query(
+        this.collection,
+        where('members', 'array-contains', this.authService.currentUser?.uid),
+      ),
+      callback,
+    );
   }
 
   async add(expenseReport: ExpenseReport) {
