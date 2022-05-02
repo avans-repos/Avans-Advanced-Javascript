@@ -1,7 +1,6 @@
 import { EmailSearcherService } from 'src/app/core/services/email-searcher/email-searcher.service';
 import {
-  BehaviorSubject,
-  debounceTime, distinctUntilChanged, forkJoin, lastValueFrom, skip,
+  BehaviorSubject, debounceTime, distinctUntilChanged, forkJoin, lastValueFrom, skip,
 } from 'rxjs';
 import {
   Component, ElementRef, EventEmitter, Input, OnInit, Output, ViewChild,
@@ -9,7 +8,7 @@ import {
 import { FormControl } from '@angular/forms';
 import { MatAutocompleteSelectedEvent } from '@angular/material/autocomplete';
 import { AuthService } from 'src/app/core/services/auth/auth.service';
-import { SearchResult } from '../../../../core/services/email-searcher/search-result';
+import { SearchResult } from 'src/app/core/services/email-searcher/search-result';
 
 @Component({
   selector: 'app-user-selector',
@@ -58,6 +57,7 @@ export class UserSelectorComponent implements OnInit {
         uid: user.uid,
         email: user.email!,
       }]);
+
       if (this.selectedUids.length === 0) {
         this.isLoadingItems = false;
         return;
