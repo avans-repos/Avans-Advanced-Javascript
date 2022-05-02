@@ -1,12 +1,28 @@
 <mat-form-field>
-  <!-- Input field with typing tracking -->
-  <input matInput placeholder="Search user by email" [formControl]="searchControl"
+  <!-- Chip list of selected email addresses -->
+  <mat-label>Members</mat-label>
+  <mat-chip-list #emailChipList>
+    <mat-chip *ngFor="let email of (selectedEmail | async)"
+              [selectable]="false"
+              [removable]="true"
+              (removed)="removeEmail(email)">
+      {{ email }}
+      <mat-icon matChipRemove>cancel</mat-icon>
+    </mat-chip>
+    <!-- Input field with typing tracking -->
+    <input
+    placeholder="Search members by email"
+    matInput
+    #emailInput
+    [matChipInputFor]="emailChipList"
+    [formControl]="searchControl"
     [matAutocomplete]="auto">
+  </mat-chip-list>
 
   <!-- Autocomplete options -->
-  <mat-autocomplete #auto="matAutocomplete">
-    <mat-option *ngFor="let emailAddress of emailAddresses | async" [value]="emailAddress">
-      {{emailAddress}}
+  <mat-autocomplete #auto="matAutocomplete" multiple (optionSelected)="selected($event)">
+    <mat-option *ngFor="let searchResult of autofillEmail | async" [value]="searchResult">
+      {{ searchResult.email }}
     </mat-option>
   </mat-autocomplete>
 </mat-form-field>

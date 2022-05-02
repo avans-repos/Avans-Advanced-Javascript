@@ -9,6 +9,7 @@ import { MatInputModule } from '@angular/material/input';
 import { MatListModule } from '@angular/material/list';
 import { MatTooltipModule } from '@angular/material/tooltip';
 import { MatAutocompleteModule } from '@angular/material/autocomplete';
+import { MatChipsModule } from '@angular/material/chips';
 
 import { UserSelectorComponent } from 'src/app/components/user-selector/user-selector.component';
 import { CreateComponent } from './components/create/create.component';
@@ -34,6 +35,7 @@ import { DashboardRoutingModule } from './dashboard-routing.module';
     MatListModule,
     MatTooltipModule,
     MatAutocompleteModule,
+    MatChipsModule,
   ],
 })
 export class DashboardModule { }

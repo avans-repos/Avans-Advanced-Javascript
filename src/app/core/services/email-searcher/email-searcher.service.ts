@@ -4,11 +4,7 @@ import {
 import { Injectable } from '@angular/core';
 import { Functions, httpsCallableData } from '@angular/fire/functions';
 import { AuthService } from '../auth/auth.service';
-
-interface SearchResult {
-  uid: string;
-  email: string;
-}
+import { SearchResult } from './search-result';
 
 @Injectable({
   providedIn: 'root',
