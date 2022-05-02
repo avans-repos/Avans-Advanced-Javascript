@@ -12,7 +12,7 @@
     </p>
     <!-- Members -->
     <p>
-      <app-user-selector placeholder="Select members"></app-user-selector>
+      <app-user-selector placeholder="Select members" [selectedUids]="data.expenseReport.members" (selectedUidsChanged)="membersUpdate($event)"></app-user-selector>
     </p>
     <!-- Description -->
     <p>

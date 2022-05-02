@@ -2,11 +2,11 @@
   <!-- Chip list of selected email addresses -->
   <mat-label>Members</mat-label>
   <mat-chip-list #emailChipList>
-    <mat-chip *ngFor="let email of (selectedEmail | async)"
+    <mat-chip *ngFor="let item of (selectedItems | async)"
               [selectable]="false"
               [removable]="true"
-              (removed)="removeEmail(email)">
-      {{ email }}
+              (removed)="removeItem(item)">
+      {{ item.email }}
       <mat-icon matChipRemove>cancel</mat-icon>
     </mat-chip>
     <!-- Input field with typing tracking -->

@@ -56,8 +56,8 @@ exports.getEmailFromUid = functions
         );
       }
 
-      // Get the uid from the request and convert it to lowercase
-      const uid: string | null = data.toLowerCase();
+      // Get the uid from the request
+      const uid: string | null = data;
       if (uid === null) {
         throw new functions.https.HttpsError(
             "invalid-argument",
@@ -65,6 +65,7 @@ exports.getEmailFromUid = functions
         );
       }
 
+      console.log("Getting email from uid: " + uid);
       const user = await admin.auth().getUser(uid);
       return user.email;
     });

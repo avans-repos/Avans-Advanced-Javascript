@@ -11,6 +11,7 @@ export const environment = {
     authDomain: 'avans-adweb.firebaseapp.com',
     messagingSenderId: '952710083615',
     region: 'europe-west1',
+    // region: 'http://localhost:5001/avans-adweb/europe-west1/',
   },
   production: false,
 };

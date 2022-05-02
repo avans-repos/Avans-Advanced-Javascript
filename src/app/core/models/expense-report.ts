@@ -5,6 +5,7 @@ interface ExpenseReport extends DocumentData {
   description: string;
   createdAt: Timestamp;
   createdBy: string;
+  members: string[]; // uid of members
   documentReference: DocumentReference<ExpenseReport>;
 }
 

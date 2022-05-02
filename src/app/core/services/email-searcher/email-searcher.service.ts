@@ -19,11 +19,18 @@ export class EmailSearcherService {
 
   search(query: string): Observable<SearchResult[]> {
     // Check if user is authenticated through Firebase
-    const user = this.authService.currentUser;
-    if (user === null) {
+    if (this.authService.currentUser === null) {
       return of([]);
     }
 
     return httpsCallableData<string, SearchResult[]>(this.functions, this.endpoint)(query);
+  }
+
+  getEmailFromUid(uid: string): Observable<string> {
+    if (this.authService.currentUser === null) {
+      return of('');
+    }
+
+    return httpsCallableData<string, string>(this.functions, 'getEmailFromUid')(uid);
   }
 }

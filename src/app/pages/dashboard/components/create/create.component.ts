@@ -13,6 +13,7 @@ export class CreateComponent {
   form = new FormGroup({
     name: new FormControl('', [Validators.required]),
     description: new FormControl(''),
+    members: new FormControl([]),
   });
 
   isEdit: boolean = false;
@@ -23,7 +24,7 @@ export class CreateComponent {
 
   constructor(
     private dialogRef: MatDialogRef<CreateComponent>,
-    @Inject(MAT_DIALOG_DATA) private data: Document,
+    @Inject(MAT_DIALOG_DATA) public readonly data: Document,
     private expenseReportService: ExpenseReportService,
   ) {
     // If data is passed in, this is an edit
@@ -51,5 +52,9 @@ export class CreateComponent {
       this.expenseReportService.add(this.form.value);
     }
     this.dialogRef.close();
+  }
+
+  membersUpdate(newMembers: string[]) {
+    this.form.controls['members'].setValue(newMembers);
   }
 }
