@@ -45,6 +45,28 @@ exports.searchRegisteredEmail = functions
       return users;
     });
 
+exports.getEmailFromUid = functions.https.onCall(async (data, context) => {
+  // Check if the user is authenticated
+  if (!context.auth) {
+    throw new functions.https.HttpsError(
+        "failed-precondition",
+        "The function must be called while authenticated."
+    );
+  }
+
+  // Get the uid from the request and convert it to lowercase
+  const uid: string | null = data.toLowerCase();
+  if (uid === null) {
+    throw new functions.https.HttpsError(
+        "invalid-argument",
+        "The function must be called with a uid."
+    );
+  }
+
+  const user = await admin.auth().getUser(uid);
+  return user.email;
+});
+
 
 // Search through all user emails and return all users that match the query
 const searchusers = (query: string, userList: ListUsersResult): User[] => {
