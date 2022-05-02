@@ -2,8 +2,8 @@ import { Component, OnInit } from '@angular/core';
 import { MatDialog } from '@angular/material/dialog';
 import { ExpenseReport } from 'src/app/core/models/expense-report';
 import { ExpenseReportService } from 'src/app/core/services/expense-report/expense-report.service';
-import { CreateComponent } from '../components/create/create.component';
-import { Document } from '../models/document';
+import { CreateComponent } from './components/create/create.component';
+import { Document } from './models/document';
 
 @Component({
   selector: 'app-dashboard',

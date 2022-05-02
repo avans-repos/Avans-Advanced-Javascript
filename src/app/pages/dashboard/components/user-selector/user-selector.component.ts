@@ -8,7 +8,7 @@ import {
 } from '@angular/core';
 import { FormControl } from '@angular/forms';
 import { MatAutocompleteSelectedEvent } from '@angular/material/autocomplete';
-import { SearchResult } from '../../core/services/email-searcher/search-result';
+import { SearchResult } from '../../../../core/services/email-searcher/search-result';
 
 @Component({
   selector: 'app-user-selector',

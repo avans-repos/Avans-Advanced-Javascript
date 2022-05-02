@@ -11,9 +11,9 @@ import { MatTooltipModule } from '@angular/material/tooltip';
 import { MatAutocompleteModule } from '@angular/material/autocomplete';
 import { MatChipsModule } from '@angular/material/chips';
 
-import { UserSelectorComponent } from 'src/app/components/user-selector/user-selector.component';
+import { UserSelectorComponent } from 'src/app/pages/dashboard/components/user-selector/user-selector.component';
 import { CreateComponent } from './components/create/create.component';
-import { DashboardComponent } from './index/dashboard.component';
+import { DashboardComponent } from './dashboard.component';
 import { DashboardRoutingModule } from './dashboard-routing.module';
 
 @NgModule({
