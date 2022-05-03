@@ -21,6 +21,8 @@ export class UserSelectorComponent implements OnInit {
   // Uids of users that have already been selected
   @Input() selectedUids: string[] = [];
 
+  @Input() ownerUid: string = '';
+
   // Emitted when the user selects an item from the autocomplete
   @Output() readonly selectedUidsChanged = new EventEmitter<string[]>();
 
@@ -125,6 +127,9 @@ export class UserSelectorComponent implements OnInit {
 
   // Handles the removal event for chips
   removeItem(item: SearchResult): void {
+    // Do not remove if the item is the current user or the owner
+    if (item.uid === this.authService.currentUser?.uid || item.uid === this.ownerUid) { return; }
+
     // Do not remove if the item is the current user
     if (item.uid === this.authService.currentUser?.uid) { return; }
     const selectedItems = this.selectedItems.getValue();

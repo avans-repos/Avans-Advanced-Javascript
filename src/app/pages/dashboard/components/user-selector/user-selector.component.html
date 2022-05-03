@@ -7,7 +7,7 @@
               [removable]="true"
               (removed)="removeItem(item)">
       {{ item.email }}
-      <mat-icon matChipRemove *ngIf="item.uid !== (authState | async)?.uid" >cancel</mat-icon>
+      <mat-icon matChipRemove *ngIf="item.uid !== (authState | async)?.uid && item.uid !== ownerUid">cancel</mat-icon>
     </mat-chip>
     <!-- Spinner indicating some users are still being fetched -->
     <mat-spinner *ngIf="isLoadingItems" [diameter]="30" [strokeWidth]="4" matTooltip="Loading members"></mat-spinner>
