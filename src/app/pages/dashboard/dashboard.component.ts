@@ -8,7 +8,10 @@ import { Document } from './models/document';
 @Component({
   selector: 'app-dashboard',
   templateUrl: './dashboard.component.html',
-  styleUrls: ['./dashboard.component.scss'],
+  styleUrls: [
+    './dashboard.component.scss',
+    './components/list-item/list-item.component.scss',
+  ],
 })
 export class DashboardComponent implements OnInit {
   public documents: Document[] = [];

@@ -1,3 +1,4 @@
+import { BasicForPipe } from 'src/app/core/pipes/basic-for.pipe';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { MatDialogModule } from '@angular/material/dialog';
 import { MatIconModule } from '@angular/material/icon';
@@ -24,6 +25,7 @@ import { ListItemComponent } from './components/list-item/list-item.component';
     CreateComponent,
     UserSelectorComponent,
     ListItemComponent,
+    BasicForPipe,
   ],
   imports: [
     CommonModule,

@@ -15,5 +15,33 @@
       <app-list-item [document]="document" [dialog]="dialog"></app-list-item>
       <mat-divider *ngIf="i < documents.length - 1"></mat-divider>
     </ng-container>
+    <!-- Skeleton loading items -->
+    <ng-container *ngIf="!documents.length">
+      <ng-container *ngFor="let i of 4 | basicFor; index as j">
+        <!-- Generate list items -->
+        <mat-list-item>
+          <h3 class="list-item-header" mat-line>
+            <strong>Name</strong>
+            <span class="list-item-left">
+              <!-- Edit button -->
+              <button mat-icon-button>
+                <mat-icon>edit</mat-icon>
+              </button>
+              <!-- Creation date -->
+              <span class="creation-date">
+                <mat-icon inline class="date-range-icon">date_range</mat-icon>
+                <span>
+                  date
+                </span>
+              </span>
+            </span>
+          </h3>
+          <p mat-line class="description">
+            description
+          </p>
+        </mat-list-item>
+        <mat-divider *ngIf="j < i - 1"></mat-divider>
+      </ng-container>
+    </ng-container>
   </mat-list>
 </div>
