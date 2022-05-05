@@ -1,0 +1,21 @@
+<mat-list-item>
+  <h3 class="list-item-header" mat-line>
+    <strong>{{document.expenseReport.name}}</strong>
+    <span class="list-item-left">
+      <!-- Edit button -->
+      <button mat-icon-button (click)="editExpenseReport()">
+        <mat-icon>edit</mat-icon>
+      </button>
+      <!-- Creation date -->
+      <span class="creation-date" matTooltip="Created at: {{document.expenseReport.createdAt.toDate() | date: 'medium'}}">
+        <mat-icon inline class="date-range-icon">date_range</mat-icon>
+        <span>
+          {{document.expenseReport.createdAt.toDate()| date: 'shortDate'}}
+        </span>
+      </span>
+    </span>
+  </h3>
+  <p mat-line class="description">
+  {{document.expenseReport.description}}
+  </p>
+</mat-list-item>

@@ -12,7 +12,7 @@
     </p>
     <!-- Members -->
     <p>
-      <app-user-selector placeholder="Select members" [selectedUids]="this.form.get('members')?.value" [ownerUid]="data.expenseReport.createdBy" (selectedUidsChanged)="membersUpdate($event)"></app-user-selector>
+      <app-user-selector placeholder="Select members" [selectedUids]="this.form.get('members')?.value" [ownerUid]="data?.expenseReport?.createdBy" (selectedUidsChanged)="membersUpdate($event)"></app-user-selector>
     </p>
     <!-- Description -->
     <p>

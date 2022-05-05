@@ -11,28 +11,9 @@
 <!-- List of all booklets -->
 <div id="list">
   <mat-list>
-    <ng-container *ngFor="let doc of documents; index as i">
-      <mat-list-item>
-        <h3 class="list-item-header" mat-line>
-          <strong>{{doc.expenseReport.name}}</strong>
-          <span class="list-item-left">
-            <!-- Edit button -->
-            <button mat-icon-button (click)="editExpenseReport(doc)">
-              <mat-icon>edit</mat-icon>
-            </button>
-            <!-- Creation date -->
-            <span class="creation-date" matTooltip="Created at: {{doc.expenseReport.createdAt.toDate() | date: 'medium'}}">
-              <mat-icon inline class="date-range-icon">date_range</mat-icon>
-              <span>
-                {{doc.expenseReport.createdAt.toDate()| date: 'shortDate'}}
-              </span>
-            </span>
-          </span>
-        </h3>
-        <p mat-line class="description">
-        {{doc.expenseReport.description}}
-        </p>
-      </mat-list-item>
+    <ng-container *ngFor="let document of documents; index as i">
+      <app-list-item [document]="document" [dialog]="dialog"></app-list-item>
       <mat-divider *ngIf="i < documents.length - 1"></mat-divider>
     </ng-container>
   </mat-list>
+</div>

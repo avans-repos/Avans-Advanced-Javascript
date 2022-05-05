@@ -22,7 +22,7 @@ export class UserSelectorComponent implements OnInit {
   // Uids of users that have already been selected
   @Input() selectedUids: string[] = [];
 
-  @Input() ownerUid: string = '';
+  @Input() ownerUid: string | undefined;
 
   // Emitted when the user selects an item from the autocomplete
   @Output() readonly selectedUidsChanged = new EventEmitter<string[]>();

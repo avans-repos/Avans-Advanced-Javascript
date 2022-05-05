@@ -16,12 +16,14 @@ import { UserSelectorComponent } from 'src/app/pages/dashboard/components/user-s
 import { CreateComponent } from './components/create/create.component';
 import { DashboardComponent } from './dashboard.component';
 import { DashboardRoutingModule } from './dashboard-routing.module';
+import { ListItemComponent } from './components/list-item/list-item.component';
 
 @NgModule({
   declarations: [
     DashboardComponent,
     CreateComponent,
     UserSelectorComponent,
+    ListItemComponent,
   ],
   imports: [
     CommonModule,

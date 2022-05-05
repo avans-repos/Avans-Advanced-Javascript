@@ -36,14 +36,4 @@ export class DashboardComponent implements OnInit {
       width: '500px',
     });
   }
-
-  editExpenseReport(document: Document) {
-    this.dialog.open(CreateComponent, {
-      width: '500px',
-      data: {
-        expenseReport: document.expenseReport,
-        reference: document.reference,
-      },
-    });
-  }
 }
