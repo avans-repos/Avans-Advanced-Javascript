@@ -1,16 +1,25 @@
-import { TestBed } from '@angular/core/testing';
+import { TestBed } from "@angular/core/testing";
+import { Functions } from "@angular/fire/functions";
+import { AuthService } from "../auth/auth.service";
+import { EmailSearcherService } from "./email-searcher.service";
 
-import { EmailSearcherService } from './email-searcher.service';
-
-describe('EmailSearcherService', () => {
+describe("EmailSearcherService", () => {
   let service: EmailSearcherService;
 
   beforeEach(() => {
-    TestBed.configureTestingModule({});
+    const functionsStub = () => ({});
+    const authServiceStub = () => ({ currentUser: {} });
+    TestBed.configureTestingModule({
+      providers: [
+        EmailSearcherService,
+        { provide: Functions, useFactory: functionsStub },
+        { provide: AuthService, useFactory: authServiceStub }
+      ]
+    });
     service = TestBed.inject(EmailSearcherService);
   });
 
-  it('should be created', () => {
+  it("can load instance", () => {
     expect(service).toBeTruthy();
   });
 });
