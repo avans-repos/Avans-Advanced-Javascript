@@ -1,6 +1,7 @@
 import { EmailSearcherService } from 'src/app/core/services/email-searcher/email-searcher.service';
 import {
-  BehaviorSubject, debounceTime, distinctUntilChanged, forkJoin, lastValueFrom, merge, skip,
+  BehaviorSubject, debounceTime, distinctUntilChanged, filter, forkJoin,
+  lastValueFrom, merge, mergeMap, skip,
 } from 'rxjs';
 import {
   Component, ElementRef, EventEmitter, Input, OnInit, Output, ViewChild,
@@ -90,23 +91,19 @@ export class UserSelectorComponent implements OnInit {
       debounceTime(300),
       // Only emit if the value is different from the previous value
       distinctUntilChanged(),
-    ).subscribe((value) => {
-      // Only search if the value is at least 3 characters long
-      if (value.length <= 3) {
-        this.autofillEmail.next([]);
-        return;
-      }
+      // Only emit if length is greater greater than 2
+      filter((value) => value.length > 2),
+      // Pass value to email searcher
+      mergeMap((value) => this.emailSearcher.search(value)),
+    ).subscribe((emails) => {
+      const selectedItems = this.selectedItems.getValue();
 
-      this.emailSearcher.search(value).subscribe((emails) => {
-        const selectedItems = this.selectedItems.getValue();
-
-        // Filter out the emails that are already selected and the current user
-        const filteredEmails = emails.filter((email) => (
-          !selectedItems.some((item) => item.email === email.email)
+      // Filter out the emails that are already selected and the current user
+      const filteredEmails = emails.filter((email) => (
+        !selectedItems.some((item) => item.email === email.email)
           && email.email !== this.authService.currentUser?.email));
 
-        this.autofillEmail.next(filteredEmails);
-      });
+      this.autofillEmail.next(filteredEmails);
     });
   }
 
