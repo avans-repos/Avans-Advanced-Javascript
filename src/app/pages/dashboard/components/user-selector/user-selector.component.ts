@@ -53,34 +53,33 @@ export class UserSelectorComponent implements OnInit {
 
   // Resolves uids to emails
   private handleInputUids() {
-    this.authService.authState.subscribe((user) => {
-      if (user === null) { return; }
-      // Add the current user to the selected items
-      this.selectedItems.next([{
-        uid: user.uid,
-        email: user.email!,
-      }]);
+    const user = this.authService.currentUser;
+    if (user === null) { return; }
+    // Add the current user to the selected items
+    this.selectedItems.next([{
+      uid: user.uid,
+      email: user.email!,
+    }]);
 
-      if (this.selectedUids.length === 0) {
-        this.isLoadingItems = false;
-        return;
-      }
+    if (this.selectedUids.length === 0) {
+      this.isLoadingItems = false;
+      return;
+    }
 
-      const resolvedSearchResults = this.selectedUids.map(async (uid) => ({
-        email: await lastValueFrom(this.emailSearcher.getEmailFromUid(uid)),
-        uid,
-      }));
+    const resolvedSearchResults = this.selectedUids.map(async (uid) => ({
+      email: await lastValueFrom(this.emailSearcher.getEmailFromUid(uid)),
+      uid,
+    }));
 
-      merge(...resolvedSearchResults).subscribe((searchResult) => {
-        const selectedItems = this.selectedItems.getValue();
-        if (selectedItems.find((item) => item.uid === searchResult.uid)) { return; }
-        selectedItems.push(searchResult);
-        this.selectedItems.next(selectedItems);
-      });
+    merge(...resolvedSearchResults).subscribe((searchResult) => {
+      const selectedItems = this.selectedItems.getValue();
+      if (selectedItems.find((item) => item.uid === searchResult.uid)) { return; }
+      selectedItems.push(searchResult);
+      this.selectedItems.next(selectedItems);
+    });
 
-      forkJoin(resolvedSearchResults).subscribe(() => {
-        this.isLoadingItems = false;
-      });
+    forkJoin(resolvedSearchResults).subscribe(() => {
+      this.isLoadingItems = false;
     });
   }
 
@@ -101,7 +100,7 @@ export class UserSelectorComponent implements OnInit {
       // Filter out the emails that are already selected and the current user
       const filteredEmails = emails.filter((email) => (
         !selectedItems.some((item) => item.email === email.email)
-          && email.email !== this.authService.currentUser?.email));
+        && email.email !== this.authService.currentUser?.email));
 
       this.autofillEmail.next(filteredEmails);
     });
