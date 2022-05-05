@@ -1,6 +1,6 @@
 import { EmailSearcherService } from 'src/app/core/services/email-searcher/email-searcher.service';
 import {
-  BehaviorSubject, debounceTime, distinctUntilChanged, forkJoin, lastValueFrom, skip,
+  BehaviorSubject, debounceTime, distinctUntilChanged, forkJoin, lastValueFrom, merge, skip,
 } from 'rxjs';
 import {
   Component, ElementRef, EventEmitter, Input, OnInit, Output, ViewChild,
@@ -70,16 +70,14 @@ export class UserSelectorComponent implements OnInit {
         uid,
       }));
 
-      // Wait for all emails to be fetched and then update UI
-      forkJoin(resolvedSearchResults).subscribe((result) => {
-        const emails = this.selectedItems.getValue();
-        result.forEach((searchResult) => {
-          // Skip if the email is already in the list
-          if (emails.some((email) => email.email === searchResult.email)) { return; }
-          emails.push(searchResult);
-        });
+      merge(...resolvedSearchResults).subscribe((searchResult) => {
+        const selectedItems = this.selectedItems.getValue();
+        if (selectedItems.find((item) => item.uid === searchResult.uid)) { return; }
+        selectedItems.push(searchResult);
+        this.selectedItems.next(selectedItems);
+      });
 
-        this.selectedItems.next(emails);
+      forkJoin(resolvedSearchResults).subscribe(() => {
         this.isLoadingItems = false;
       });
     });
