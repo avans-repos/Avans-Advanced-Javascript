@@ -17,21 +17,23 @@
     </ng-container>
     <!-- Skeleton loading items -->
     <ng-container *ngIf="!documents.length">
-      <ng-container *ngFor="let i of 4 | basicFor; index as j">
+      <ng-container *ngFor="let i of 5 | basicFor; index as j">
         <!-- Generate list items -->
-        <mat-list-item>
+        <mat-list-item class="skeleton">
           <h3 class="list-item-header" mat-line>
-            <strong>Name</strong>
+            <strong class="name">Name</strong>
             <span class="list-item-left">
               <!-- Edit button -->
               <button mat-icon-button>
                 <mat-icon>edit</mat-icon>
               </button>
               <!-- Creation date -->
+              <mat-icon class="date-range-icon">date_range</mat-icon>
               <span class="creation-date">
-                <mat-icon inline class="date-range-icon">date_range</mat-icon>
-                <span>
-                  date
+                <span class="date-spacer">
+                  <span class="date">
+                    00/00/00
+                  </span>
                 </span>
               </span>
             </span>

@@ -10,3 +10,24 @@
 .mat-divider {
   margin: 1rem 0;
 }
+
+// Skeleton loading list item
+.skeleton {
+  .name, .date, .description, .mat-icon {
+    height: 1.5rem;
+    color: rgba(255, 255, 255, 0);
+    animation: skeleton-loading 0.7s linear infinite alternate;
+  }
+  .name, .date {
+    width: 50%;
+  }
+}
+
+@keyframes skeleton-loading {
+  0% {
+    background-color: #00000000;
+  }
+  100% {
+    background-color: #00000034;
+  }
+}
