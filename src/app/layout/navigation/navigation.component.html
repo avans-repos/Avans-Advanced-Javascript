@@ -12,7 +12,6 @@
       </ng-container>
       <ng-container *ngIf="(isLoggedIn$ | async) === true">
         <a mat-list-item routerLink="/dashboard">Dashboard</a>
-        <a mat-list-item (click)="logout()">Logout</a>
       </ng-container>
     </mat-nav-list>
   </mat-sidenav>
@@ -26,8 +25,13 @@
         *ngIf="isHandset$ | async">
         <mat-icon aria-label="Side nav toggle icon">menu</mat-icon>
       </button>
-      <span>adweb</span>
+      <span>Adweb</span>
+      <span class="toolbar-spacer"></span>
+      <button *ngIf="authState$ | async"  mat-button [matMenuTriggerFor]="authMenu">{{(authState$ | async)?.email}}</button>
     </mat-toolbar>
+    <mat-menu #authMenu="matMenu" xPosition="before">
+      <button mat-menu-item (click)="logout()">Logout</button>
+    </mat-menu>
     <!-- Add content from parent here -->
     <main>
       <ng-content></ng-content>

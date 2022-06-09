@@ -18,6 +18,8 @@ export class NavigationComponent {
 
   readonly isLoggedIn$ = this.authService.isLoggedIn;
 
+  readonly authState$ = this.authService.authState;
+
   constructor(private breakpointObserver: BreakpointObserver, private authService: AuthService) {}
 
   logout() {
