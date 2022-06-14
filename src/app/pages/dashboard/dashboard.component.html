@@ -2,6 +2,12 @@
   <h2>
     Expense report overview
   </h2>
+
+  <div class="flex-grow-1"></div>
+
+  <!-- View archived or non-archived -->
+  <mat-slide-toggle class="view-archived-toggle" [checked]="viewArchived | async" (change)="toggleViewArchived()">Show Archived expense reports</mat-slide-toggle>
+
   <!-- Create a new booklet -->
   <button mat-raised-button (click)="createExpenseReport()" color="primary" id="create-button">
     <mat-icon>add</mat-icon>

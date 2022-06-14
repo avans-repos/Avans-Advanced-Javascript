@@ -1,3 +1,4 @@
+import { ExpenseReportService } from 'src/app/core/services/expense-report/expense-report.service';
 import { Component, Input } from '@angular/core';
 import { MatDialog } from '@angular/material/dialog';
 import { Required } from 'src/app/core/decorators/required-input';
@@ -14,6 +15,8 @@ export class ListItemComponent {
 
   @Input() @Required dialog!: MatDialog;
 
+  constructor(private expenseReportService: ExpenseReportService) { }
+
   editExpenseReport() {
     this.dialog.open(CreateComponent, {
       width: '500px',
@@ -22,5 +25,11 @@ export class ListItemComponent {
         reference: this.document.reference,
       },
     });
+  }
+
+  archiveExpenseReport() {
+    this.document.expenseReport.isArchived = true;
+
+    this.expenseReportService.update(this.document.reference, this.document.expenseReport);
   }
 }

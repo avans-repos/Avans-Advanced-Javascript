@@ -14,6 +14,11 @@
   margin: 1rem 0;
 }
 
+.view-archived-toggle {
+  align-self: center;
+  margin-right: 1rem;
+}
+
 // Skeleton loading list item
 .skeleton {
   .name, .date, .description, .mat-icon {
@@ -33,4 +38,8 @@
   100% {
     background-color: #00000034;
   }
+}
+
+.flex-grow-1 {
+  flex-grow: 1;
 }

@@ -6,6 +6,10 @@
       <button mat-icon-button (click)="editExpenseReport()">
         <mat-icon>edit</mat-icon>
       </button>
+      <!-- Archive button -->
+      <button mat-icon-button (click)="archiveExpenseReport()">
+        <mat-icon>archive</mat-icon>
+      </button>
       <!-- Creation date -->
       <span class="creation-date" matTooltip="Created at: {{document.expenseReport.createdAt.toDate() | date: 'medium'}}">
         <mat-icon inline class="date-range-icon">date_range</mat-icon>

@@ -12,6 +12,7 @@ import { MatTooltipModule } from '@angular/material/tooltip';
 import { MatAutocompleteModule } from '@angular/material/autocomplete';
 import { MatChipsModule } from '@angular/material/chips';
 import { MatProgressSpinnerModule } from '@angular/material/progress-spinner';
+import { MatSlideToggleModule } from '@angular/material/slide-toggle';
 
 import { UserSelectorComponent } from 'src/app/pages/dashboard/components/user-selector/user-selector.component';
 import { CreateComponent } from './components/create/create.component';
@@ -42,6 +43,7 @@ import { ListItemComponent } from './components/list-item/list-item.component';
     MatAutocompleteModule,
     MatChipsModule,
     MatProgressSpinnerModule,
+    MatSlideToggleModule,
   ],
 })
 export class DashboardModule { }
