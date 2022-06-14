@@ -41,7 +41,10 @@ export class ExpenseReportService {
         ...expenseReport,
         createdAt: Timestamp.now(),
         createdBy: this.authService.currentUser?.uid,
+        isArchived: false,
       };
+
+      filledExpenseReport.members.push(this.authService.currentUser?.uid!);
 
       const doc = await addDoc(this.collection, filledExpenseReport);
       this.snackbarService.open('Expense report created');

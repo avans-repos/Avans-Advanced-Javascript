@@ -28,8 +28,12 @@ export class ListItemComponent {
   }
 
   archiveExpenseReport() {
-    this.document.expenseReport.isArchived = true;
+    this.document.expenseReport.isArchived = !this.document.expenseReport.isArchived;
 
-    this.expenseReportService.update(this.document.reference, this.document.expenseReport);
+    try {
+      this.expenseReportService.update(this.document.reference, this.document.expenseReport);
+    } catch (error) {
+      this.document.expenseReport.isArchived = !this.document.expenseReport.isArchived;
+    }
   }
 }
