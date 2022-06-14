@@ -1,4 +1,4 @@
-import { of, pipe, share } from 'rxjs';
+import { Observable, of } from 'rxjs';
 import { EmailSearcherService } from 'src/app/core/services/email-searcher/email-searcher.service';
 import { Component, Inject } from '@angular/core';
 import { FormGroup, FormControl, Validators } from '@angular/forms';
@@ -24,10 +24,7 @@ export class CreateComponent {
     return this.form.controls['name'];
   }
 
-  get owner() {
-    // Returns observable of owner's email if it exists
-    return this.emailSearcherService.getEmailFromUid(this.form.value.createdBy);
-  }
+  readonly owner: Observable<string> = of('');
 
   constructor(
     private dialogRef: MatDialogRef<CreateComponent>,
@@ -39,6 +36,7 @@ export class CreateComponent {
     if (data && data.reference && data.expenseReport) {
       this.form.patchValue(data.expenseReport);
       this.isEdit = true;
+      this.owner = this.emailSearcherService.getEmailFromUid(this.data.expenseReport.createdBy);
     }
   }
 
