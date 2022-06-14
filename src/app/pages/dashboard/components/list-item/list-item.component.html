@@ -3,12 +3,13 @@
     <strong>{{document.expenseReport.name}}</strong>
     <span class="list-item-left">
       <!-- Edit button -->
-      <button mat-icon-button (click)="editExpenseReport()" matTooltip="Edit expense report">
+    <button mat-icon-button *ngIf="!document.expenseReport.isArchived"  (click)="editExpenseReport()" matTooltip="Edit expense report">
         <mat-icon>edit</mat-icon>
       </button>
       <!-- Archive button -->
-      <button mat-icon-button (click)="archiveExpenseReport()" matTooltip="Archive expense report">
-        <mat-icon>archive</mat-icon>
+      <button mat-icon-button (click)="archiveExpenseReport()" matTooltip="Toggle archivation of expense report">
+        <mat-icon *ngIf="!document.expenseReport.isArchived">archive</mat-icon>
+        <mat-icon *ngIf="document.expenseReport.isArchived">unarchive</mat-icon>
       </button>
       <!-- Creation date -->
       <span class="creation-date" matTooltip="Created at: {{document.expenseReport.createdAt.toDate() | date: 'medium'}}">
