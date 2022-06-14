@@ -1,6 +1,10 @@
 <h1 mat-dialog-title>{{ isEdit ? 'Edit' : 'Create ' }} an expense report</h1>
 <form [formGroup]="form" (submit)="submit()">
   <div mat-dialog-content>
+    <p *ngIf="(owner | async) !== null" >
+      <!-- Owner -->
+      <strong>Owner: {{owner| async}}</strong>
+    </p>
     <!-- Name -->
     <p>
       <mat-form-field>

@@ -7,6 +7,7 @@ interface ExpenseReport extends DocumentData {
   createdBy: string;
   members: string[]; // uid of members
   documentReference: DocumentReference<ExpenseReport>;
+  isArchived: boolean;
 }
 
 export { ExpenseReport };

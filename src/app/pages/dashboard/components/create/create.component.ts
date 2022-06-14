@@ -1,3 +1,5 @@
+import { of, pipe, share } from 'rxjs';
+import { EmailSearcherService } from 'src/app/core/services/email-searcher/email-searcher.service';
 import { Component, Inject } from '@angular/core';
 import { FormGroup, FormControl, Validators } from '@angular/forms';
 import { MatDialogRef, MAT_DIALOG_DATA } from '@angular/material/dialog';
@@ -22,10 +24,16 @@ export class CreateComponent {
     return this.form.controls['name'];
   }
 
+  get owner() {
+    // Returns observable of owner's email if it exists
+    return this.emailSearcherService.getEmailFromUid(this.form.value.createdBy);
+  }
+
   constructor(
     private dialogRef: MatDialogRef<CreateComponent>,
     @Inject(MAT_DIALOG_DATA) public readonly data: Document,
     private expenseReportService: ExpenseReportService,
+    private emailSearcherService: EmailSearcherService,
   ) {
     // If data is passed in, this is an edit
     if (data && data.reference && data.expenseReport) {
