@@ -3,11 +3,11 @@
     <strong>{{document.expenseReport.name}}</strong>
     <span class="list-item-left">
       <!-- Edit button -->
-      <button mat-icon-button (click)="editExpenseReport()">
+      <button mat-icon-button (click)="editExpenseReport()" matTooltip="Edit expense report">
         <mat-icon>edit</mat-icon>
       </button>
       <!-- Archive button -->
-      <button mat-icon-button (click)="archiveExpenseReport()">
+      <button mat-icon-button (click)="archiveExpenseReport()" matTooltip="Archive expense report">
         <mat-icon>archive</mat-icon>
       </button>
       <!-- Creation date -->
