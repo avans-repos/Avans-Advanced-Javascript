@@ -53,7 +53,7 @@ export class CreateComponent {
         ...this.form.value,
       };
 
-      const ref = await this.expenseReportService.createDocumentReference(this.data.id);
+      const ref = await this.expenseReportService.createDocumentReference(this.data.id!);
 
       this.expenseReportService.update(ref, updatedDoc);
     } else {

@@ -28,7 +28,7 @@ export class ListItemComponent {
     this.expenseReport.isArchived = !this.expenseReport.isArchived;
 
     const reference = await this.expenseReportService
-      .createDocumentReference(this.expenseReport.id);
+      .createDocumentReference(this.expenseReport.id!);
 
     try {
       this.expenseReportService.update(reference, this.expenseReport);

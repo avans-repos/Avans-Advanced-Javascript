@@ -1,7 +1,7 @@
 import { DocumentData, DocumentReference, Timestamp } from '@angular/fire/firestore';
 
 interface ExpenseReport extends DocumentData {
-  id: string;
+  id: string | undefined;
   name: string;
   description: string;
   createdAt: Timestamp;

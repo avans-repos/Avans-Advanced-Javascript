@@ -43,6 +43,8 @@ export class ExpenseReportService {
         isArchived: false,
       };
 
+      delete filledExpenseReport.id;
+
       filledExpenseReport.members.push(this.authService.currentUser?.uid!);
 
       const newDoc = await addDoc(this.collection, filledExpenseReport);
@@ -60,6 +62,9 @@ export class ExpenseReportService {
   }
 
   async update(reference: DocumentReference<ExpenseReport>, expenseReport: ExpenseReport) {
+    // eslint-disable-next-line no-param-reassign
+    delete expenseReport.id;
+
     try {
       await updateDoc(reference, expenseReport);
       this.snackbarService.open('Expense report updated');
