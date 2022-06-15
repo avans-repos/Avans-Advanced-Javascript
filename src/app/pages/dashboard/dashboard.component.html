@@ -22,7 +22,7 @@
       <mat-divider *ngIf="i < documents.length - 1"></mat-divider>
     </ng-container>
     <!-- Skeleton loading items -->
-    <ng-container *ngIf="!documents.length">
+    <ng-container *ngIf="isLoading">
       <ng-container *ngFor="let i of 5 | basicFor; index as j">
         <!-- Generate list items -->
         <mat-list-item class="skeleton">

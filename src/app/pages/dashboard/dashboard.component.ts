@@ -18,6 +18,8 @@ import { Document } from './models/document';
 export class DashboardComponent implements OnInit {
   public documents: Document[] = [];
 
+  public isLoading = true;
+
   public viewArchived = new BehaviorSubject<boolean>(false);
 
   constructor(
@@ -37,6 +39,8 @@ export class DashboardComponent implements OnInit {
               reference: doc.ref,
               expenseReport: doc.data() as ExpenseReport,
             }));
+
+          this.isLoading = false;
         },
         [
           where('isArchived', '==', viewArchived),
@@ -52,6 +56,7 @@ export class DashboardComponent implements OnInit {
   }
 
   toggleViewArchived() {
+    this.isLoading = true;
     this.viewArchived.next(!this.viewArchived.getValue());
   }
 }
