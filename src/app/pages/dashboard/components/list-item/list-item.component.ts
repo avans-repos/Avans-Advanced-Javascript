@@ -20,9 +20,7 @@ export class ListItemComponent {
   editExpenseReport() {
     this.dialog.open(CreateComponent, {
       width: '500px',
-      data: {
-        expenseReport: this.expenseReport,
-      },
+      data: this.expenseReport,
     });
   }
 

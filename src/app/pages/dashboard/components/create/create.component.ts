@@ -1,10 +1,10 @@
+import { ExpenseReport } from 'src/app/core/models/expense-report';
 import { Observable, of } from 'rxjs';
 import { EmailSearcherService } from 'src/app/core/services/email-searcher/email-searcher.service';
 import { Component, Inject } from '@angular/core';
 import { FormGroup, FormControl, Validators } from '@angular/forms';
 import { MatDialogRef, MAT_DIALOG_DATA } from '@angular/material/dialog';
 import { ExpenseReportService } from 'src/app/core/services/expense-report/expense-report.service';
-import { Document } from '../../models/document';
 
 @Component({
   selector: 'app-create',
@@ -28,15 +28,15 @@ export class CreateComponent {
 
   constructor(
     private dialogRef: MatDialogRef<CreateComponent>,
-    @Inject(MAT_DIALOG_DATA) public readonly data: Document,
+    @Inject(MAT_DIALOG_DATA) public readonly data: ExpenseReport,
     private expenseReportService: ExpenseReportService,
     private emailSearcherService: EmailSearcherService,
   ) {
     // If data is passed in, this is an edit
-    if (data && data.reference && data.expenseReport) {
-      this.form.patchValue(data.expenseReport);
+    if (data) {
+      this.form.patchValue(data);
       this.isEdit = true;
-      this.owner = this.emailSearcherService.getEmailFromUid(this.data.expenseReport.createdBy);
+      this.owner = this.emailSearcherService.getEmailFromUid(this.data.createdBy);
     }
   }
 
@@ -49,11 +49,13 @@ export class CreateComponent {
     if (this.isEdit && this.data) {
       // Inject original report and override with form data
       const updatedDoc = {
-        ...this.data.expenseReport,
+        ...this.data,
         ...this.form.value,
       };
 
-      this.expenseReportService.update(this.data.reference, updatedDoc);
+      const ref = await this.expenseReportService.createDocumentReference(this.data.id);
+
+      this.expenseReportService.update(ref, updatedDoc);
     } else {
       this.expenseReportService.add(this.form.value);
     }
