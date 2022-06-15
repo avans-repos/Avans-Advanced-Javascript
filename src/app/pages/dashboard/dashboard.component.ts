@@ -1,11 +1,12 @@
 import { Component, OnInit } from '@angular/core';
-import { where } from '@angular/fire/firestore';
+import { orderBy, where } from '@angular/fire/firestore';
 import { MatDialog } from '@angular/material/dialog';
-import { BehaviorSubject } from 'rxjs';
+import {
+  BehaviorSubject, switchMap, Observable,
+} from 'rxjs';
 import { ExpenseReport } from 'src/app/core/models/expense-report';
 import { ExpenseReportService } from 'src/app/core/services/expense-report/expense-report.service';
 import { CreateComponent } from './components/create/create.component';
-import { Document } from './models/document';
 
 @Component({
   selector: 'app-dashboard',
@@ -16,7 +17,7 @@ import { Document } from './models/document';
   ],
 })
 export class DashboardComponent implements OnInit {
-  public documents: Document[] = [];
+  public expenseReports: Observable<ExpenseReport[]>;
 
   public isLoading = true;
 
@@ -24,29 +25,19 @@ export class DashboardComponent implements OnInit {
 
   constructor(
     public dialog: MatDialog,
-    private expenseReportService: ExpenseReportService,
-  ) { }
+    expenseReportService: ExpenseReportService,
+  ) {
+    // Generate list of expense reports and sort by createdAt descending
+    this.expenseReports = this.viewArchived.pipe(
+      switchMap((viewArchived) => expenseReportService.getRealTime(
+        where('isArchived', '==', viewArchived),
+        orderBy('createdAt', 'desc'),
+      )),
+    );
+  }
 
-  ngOnInit(): void {
-    // Generate list of expense reports
-    this.viewArchived.subscribe((viewArchived) => {
-      this.expenseReportService.getRealTime(
-        (snapshot) => {
-        // Get expense reports and sort by date descending
-          this.documents = snapshot.docs
-            .sort((a, b) => a.data().createdAt.nanoseconds - b.data().createdAt.nanoseconds)
-            .map((doc) => ({
-              reference: doc.ref,
-              expenseReport: doc.data() as ExpenseReport,
-            }));
-
-          this.isLoading = false;
-        },
-        [
-          where('isArchived', '==', viewArchived),
-        ],
-      );
-    });
+  ngOnInit() {
+    this.expenseReports.subscribe(() => { this.isLoading = false; });
   }
 
   createExpenseReport() {

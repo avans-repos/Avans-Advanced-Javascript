@@ -1,7 +1,7 @@
 import { Injectable } from '@angular/core';
 import {
-  addDoc, Firestore, CollectionReference, collection, onSnapshot, QuerySnapshot, Timestamp,
-  DocumentReference, updateDoc, query, where, QueryConstraint,
+  addDoc, Firestore, CollectionReference, collection, Timestamp,
+  DocumentReference, updateDoc, query, QueryConstraint, collectionData, doc, where,
 } from '@angular/fire/firestore';
 import { ExpenseReport } from '../../models/expense-report';
 import { AuthService } from '../auth/auth.service';
@@ -21,17 +21,16 @@ export class ExpenseReportService {
     this.collection = collection(fire, 'expense-reports') as CollectionReference<ExpenseReport>;
   }
 
-  getRealTime(
-    callback: (snapshot: QuerySnapshot<ExpenseReport>) => void,
-    predicates: QueryConstraint[] = [],
-  ) {
-    onSnapshot(
+  getRealTime(...predicates: QueryConstraint[]) {
+    return collectionData(
       query(
         this.collection,
         where('members', 'array-contains', this.authService.currentUser?.uid),
         ...predicates,
       ),
-      callback,
+      {
+        idField: 'id',
+      },
     );
   }
 
@@ -46,14 +45,18 @@ export class ExpenseReportService {
 
       filledExpenseReport.members.push(this.authService.currentUser?.uid!);
 
-      const doc = await addDoc(this.collection, filledExpenseReport);
+      const newDoc = await addDoc(this.collection, filledExpenseReport);
       this.snackbarService.open('Expense report created');
-      return doc;
+      return newDoc;
     } catch (error) {
       this.errorHandler(error);
     }
 
     return null;
+  }
+
+  async createDocumentReference(id: string) {
+    return doc(this.collection, id);
   }
 
   async update(reference: DocumentReference<ExpenseReport>, expenseReport: ExpenseReport) {

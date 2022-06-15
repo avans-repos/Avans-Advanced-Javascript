@@ -17,9 +17,9 @@
 <!-- List of all booklets -->
 <div id="list">
   <mat-list>
-    <ng-container *ngFor="let document of documents; index as i">
-      <app-list-item [document]="document" [dialog]="dialog"></app-list-item>
-      <mat-divider *ngIf="i < documents.length - 1"></mat-divider>
+    <ng-container *ngFor="let expenseReport of (expenseReports | async); index as i">
+      <app-list-item [expenseReport]="expenseReport" [dialog]="dialog"></app-list-item>
+      <mat-divider *ngIf="i < ((expenseReports| async)?.length ?? 0) - 1"></mat-divider>
     </ng-container>
     <!-- Skeleton loading items -->
     <ng-container *ngIf="isLoading">

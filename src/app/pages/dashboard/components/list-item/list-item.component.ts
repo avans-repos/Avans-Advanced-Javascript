@@ -1,8 +1,8 @@
+import { ExpenseReport } from 'src/app/core/models/expense-report';
 import { ExpenseReportService } from 'src/app/core/services/expense-report/expense-report.service';
 import { Component, Input } from '@angular/core';
 import { MatDialog } from '@angular/material/dialog';
 import { Required } from 'src/app/core/decorators/required-input';
-import { Document } from '../../models/document';
 import { CreateComponent } from '../create/create.component';
 
 @Component({
@@ -11,7 +11,7 @@ import { CreateComponent } from '../create/create.component';
   styleUrls: ['./list-item.component.scss'],
 })
 export class ListItemComponent {
-  @Input() @Required document!: Document;
+  @Input() @Required expenseReport!: ExpenseReport;
 
   @Input() @Required dialog!: MatDialog;
 
@@ -21,19 +21,21 @@ export class ListItemComponent {
     this.dialog.open(CreateComponent, {
       width: '500px',
       data: {
-        expenseReport: this.document.expenseReport,
-        reference: this.document.reference,
+        expenseReport: this.expenseReport,
       },
     });
   }
 
-  archiveExpenseReport() {
-    this.document.expenseReport.isArchived = !this.document.expenseReport.isArchived;
+  async archiveExpenseReport() {
+    this.expenseReport.isArchived = !this.expenseReport.isArchived;
+
+    const reference = await this.expenseReportService
+      .createDocumentReference(this.expenseReport.id);
 
     try {
-      this.expenseReportService.update(this.document.reference, this.document.expenseReport);
+      this.expenseReportService.update(reference, this.expenseReport);
     } catch (error) {
-      this.document.expenseReport.isArchived = !this.document.expenseReport.isArchived;
+      this.expenseReport.isArchived = !this.expenseReport.isArchived;
     }
   }
 }
