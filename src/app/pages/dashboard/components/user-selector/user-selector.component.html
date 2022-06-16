@@ -1,0 +1,30 @@
+<mat-form-field>
+  <!-- Chip list of selected email addresses -->
+  <mat-label>Members</mat-label>
+  <mat-chip-list #emailChipList>
+    <mat-chip *ngFor="let item of (selectedItems | async)"
+              [selectable]="false"
+              [removable]="true"
+              (removed)="removeItem(item)">
+      {{ item.email }}
+      <mat-icon matChipRemove *ngIf="item.uid !== (authState | async)?.uid && item.uid !== ownerUid">cancel</mat-icon>
+    </mat-chip>
+    <!-- Spinner indicating some users are still being fetched -->
+    <mat-spinner *ngIf="isLoadingItems" [diameter]="30" [strokeWidth]="4" matTooltip="Loading members"></mat-spinner>
+    <!-- Input field with typing tracking -->
+    <input
+    placeholder="Search members by email"
+    matInput
+    #emailInput
+    [matChipInputFor]="emailChipList"
+    [formControl]="searchControl"
+    [matAutocomplete]="auto">
+  </mat-chip-list>
+
+  <!-- Autocomplete options -->
+  <mat-autocomplete #auto="matAutocomplete" multiple (optionSelected)="selected($event)">
+    <mat-option *ngFor="let searchResult of autofillEmail | async" [value]="searchResult">
+      {{ searchResult.email }}
+    </mat-option>
+  </mat-autocomplete>
+</mat-form-field>

@@ -16,11 +16,16 @@
   z-index: 1;
 }
 
+.toolbar-spacer {
+  flex: 1 1 auto;
+}
+
 main {
   margin-top: 1em;
   // Desktop
   @media (min-width: 768px) {
     margin-left: 1em;
+    margin-right: 1em;
   }
   // Else
   @media (max-width: 768px) {

@@ -1,1 +1,55 @@
-<p>dashboard works!</p>
+<div id="header">
+  <h2>
+    Expense report overview
+  </h2>
+
+  <div class="flex-grow-1"></div>
+
+  <!-- View archived or non-archived -->
+  <mat-slide-toggle class="view-archived-toggle" [checked]="viewArchived | async" (change)="toggleViewArchived()">Show Archived expense reports</mat-slide-toggle>
+
+  <!-- Create a new booklet -->
+  <button mat-raised-button (click)="createExpenseReport()" color="primary" id="create-button">
+    <mat-icon>add</mat-icon>
+    <span>Create</span>
+  </button>
+</div>
+<!-- List of all booklets -->
+<div id="list">
+  <mat-list>
+    <ng-container *ngFor="let expenseReport of (expenseReports | async); index as i">
+      <app-list-item [expenseReport]="expenseReport" [dialog]="dialog"></app-list-item>
+      <mat-divider *ngIf="i < ((expenseReports| async)?.length ?? 0) - 1"></mat-divider>
+    </ng-container>
+    <!-- Skeleton loading items -->
+    <ng-container *ngIf="isLoading">
+      <ng-container *ngFor="let i of 5 | basicFor; index as j">
+        <!-- Generate list items -->
+        <mat-list-item class="skeleton">
+          <h3 class="list-item-header" mat-line>
+            <strong class="name">Name</strong>
+            <span class="list-item-left">
+              <!-- Edit button -->
+              <button mat-icon-button>
+                <mat-icon>edit</mat-icon>
+              </button>
+              <!-- Creation date -->
+              <mat-icon class="date-range-icon">date_range</mat-icon>
+              <span class="creation-date">
+                <span class="date-spacer">
+                  <span class="date">
+                    00/00/00
+                  </span>
+                </span>
+              </span>
+            </span>
+          </h3>
+          <p mat-line class="description">
+            description
+          </p>
+        </mat-list-item>
+        <mat-divider *ngIf="j < i - 1"></mat-divider>
+      </ng-container>
+    </ng-container>
+  </mat-list>
+</div>

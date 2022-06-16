@@ -1,4 +1,4 @@
-import { FormGroup, FormControl, Validators } from "@angular/forms";
+import { FormGroup, FormControl, Validators } from '@angular/forms';
 
 const createAuthFormGroup = () => new FormGroup({
   email: new FormControl('', [Validators.required, Validators.email]),

@@ -2,10 +2,12 @@
 	"folders": [
     {
 			"path": ".."
-		},
-    {
-      "path": "../src/app"
-    },
+		}
 	],
-	"settings": {}
+	"settings": {
+    "npm.useRootDirectory": true,
+    "editor.codeActionsOnSave": {
+      "source.fixAll.eslint": true
+    },
+  }
 }

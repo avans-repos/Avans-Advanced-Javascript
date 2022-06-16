@@ -7,7 +7,7 @@ import createAuthFormGroup from '../helpers/auth-form-group';
 @Component({
   selector: 'app-register',
   templateUrl: './register.component.html',
-  styleUrls: ['./register.component.scss']
+  styleUrls: ['./register.component.scss'],
 })
 export class RegisterComponent {
   constructor(private authService: AuthService, private router: Router) { }
@@ -17,6 +17,7 @@ export class RegisterComponent {
   get email() {
     return this.form.controls['email'];
   }
+
   get password() {
     return this.form.controls['password'];
   }

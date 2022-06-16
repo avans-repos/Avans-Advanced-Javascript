@@ -7,20 +7,20 @@ import { map, shareReplay } from 'rxjs/operators';
 @Component({
   selector: 'app-navigation',
   templateUrl: './navigation.component.html',
-  styleUrls: ['./navigation.component.scss']
+  styleUrls: ['./navigation.component.scss'],
 })
 export class NavigationComponent {
-
   readonly isHandset$: Observable<boolean> = this.breakpointObserver.observe(Breakpoints.Handset)
     .pipe(
-      map(result => result.matches),
-      shareReplay()
+      map((result) => result.matches),
+      shareReplay(),
     );
 
   readonly isLoggedIn$ = this.authService.isLoggedIn;
 
-  constructor(private breakpointObserver: BreakpointObserver, private authService: AuthService) {}
+  readonly authState$ = this.authService.authState;
 
+  constructor(private breakpointObserver: BreakpointObserver, private authService: AuthService) {}
 
   logout() {
     this.authService.logout();
