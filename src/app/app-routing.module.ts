@@ -12,6 +12,11 @@ const routes: Routes = [
     loadChildren: () => import('./pages/dashboard/dashboard.module').then((m) => m.DashboardModule),
     canActivate: [AuthGuard],
   },
+  {
+    path: 'expense-report',
+    loadChildren: () => import('./pages/expense-report/expense-report.module').then((m) => m.ExpenseReportModule),
+    canActivate: [AuthGuard],
+  },
 ];
 
 @NgModule({

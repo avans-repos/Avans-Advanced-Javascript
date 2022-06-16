@@ -1,6 +1,10 @@
 <mat-list-item>
   <h3 class="list-item-header" mat-line>
-    <strong>{{expenseReport.name}}</strong>
+    <a class="header-name" [routerLink]="['/expense-report', expenseReport.id]">
+      {{expenseReport.name}}
+      <mat-icon>read_more</mat-icon>
+
+    </a>
     <span class="list-item-left">
       <!-- Edit button -->
     <button mat-icon-button *ngIf="!expenseReport.isArchived"  (click)="editExpenseReport()" matTooltip="Edit expense report">
@@ -22,6 +26,7 @@
       </span>
     </span>
   </h3>
+
   <p mat-line class="description">
   {{expenseReport.description || "No description."}}
   </p>
