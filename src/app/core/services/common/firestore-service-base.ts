@@ -1,6 +1,6 @@
 import {
-  collection, Firestore, DocumentData, CollectionReference,
-  collectionData, QueryConstraint, query, doc, DocumentReference, docData, addDoc, updateDoc,
+  collection, Firestore, DocumentData, CollectionReference, collectionData,
+  QueryConstraint, query, doc, DocumentReference, docData, addDoc, updateDoc,
 } from '@angular/fire/firestore';
 import {
   defer, from, Observable, switchMap,
@@ -41,8 +41,7 @@ export abstract class FirestoreServiceBase<Model extends ModelBase> {
   }
 
   get(id: string): Observable<Model> {
-    return this.getDoc(id)
-      .pipe(switchMap((ref) => docData(ref, { idField: 'id' })));
+    return this.getDoc(id).pipe(switchMap((ref) => docData(ref, { idField: 'id' })));
   }
 
   // eslint-disable-next-line class-methods-use-this
