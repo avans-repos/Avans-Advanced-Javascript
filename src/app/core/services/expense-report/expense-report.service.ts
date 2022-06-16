@@ -1,7 +1,10 @@
+import {
+  from, Observable, switchMap,
+} from 'rxjs';
 import { Injectable } from '@angular/core';
 import {
   addDoc, Firestore, CollectionReference, collection, Timestamp,
-  DocumentReference, updateDoc, query, QueryConstraint, collectionData, doc, where,
+  DocumentReference, updateDoc, query, QueryConstraint, collectionData, doc, where, docData,
 } from '@angular/fire/firestore';
 import { ExpenseReport } from '../../models/expense-report';
 import { AuthService } from '../auth/auth.service';
@@ -32,6 +35,11 @@ export class ExpenseReportService {
         idField: 'id',
       },
     );
+  }
+
+  get(id: string): Observable<ExpenseReport> {
+    return from(this.createDocumentReference(id))
+      .pipe(switchMap((ref) => docData(ref, { idField: 'id' })));
   }
 
   async add(expenseReport: ExpenseReport) {
