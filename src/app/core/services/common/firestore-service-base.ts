@@ -7,15 +7,19 @@ import {
 } from 'rxjs';
 import { ModelBase } from '../../models/model-base';
 
-// T is FirebaseDocument
 export abstract class FirestoreServiceBase<Model extends ModelBase> {
   protected readonly collection: CollectionReference<Model>;
 
   constructor(
     fire: Firestore,
     collectionName: string,
+    ...pathSegments: string[]
   ) {
-    this.collection = collection(fire, collectionName) as CollectionReference<Model>;
+    this.collection = collection(
+      fire,
+      collectionName,
+      ...pathSegments,
+    ) as CollectionReference<Model>;
   }
 
   getRealTime(...predicates: QueryConstraint[]) {
