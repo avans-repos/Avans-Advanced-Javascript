@@ -2,7 +2,9 @@ import { Observable, switchMap, BehaviorSubject } from 'rxjs';
 import { ExpenseReport } from 'src/app/core/models/expense-report';
 import { Component, Inject } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
-import { Firestore, where, Timestamp, orderBy } from '@angular/fire/firestore';
+import {
+  Firestore, where, Timestamp, orderBy,
+} from '@angular/fire/firestore';
 import { Transaction } from 'src/app/core/models/transaction';
 import { MatDialog } from '@angular/material/dialog';
 import { TransactionService } from '../../core/services/transaction/transaction.service';

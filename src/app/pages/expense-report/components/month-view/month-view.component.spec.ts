@@ -8,9 +8,9 @@ describe('MonthViewComponent', () => {
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
-      declarations: [ MonthViewComponent ]
+      declarations: [MonthViewComponent],
     })
-    .compileComponents();
+      .compileComponents();
   });
 
   beforeEach(() => {
