@@ -1,4 +1,4 @@
-<mat-list-item>
+<mat-list-item [ngClass]="[(cathegory.maxBudget - spendbudget) < 20 ? 'warn': '', (cathegory.maxBudget - spendbudget) < 0? 'danger': '']">
   <h3 class="list-item-header" mat-line>
     <p class="header-name">
       {{cathegory.name}}
@@ -19,9 +19,7 @@
 
   <p mat-line class="description">
     {{cathegory.endDate || "No end date"}}
-  </p>
-
-  <p mat-line class="description">
     Max budget = ₽{{cathegory.maxBudget}}
+    Leftover budget = ₽{{cathegory.maxBudget - spendbudget}}
   </p>
 </mat-list-item>

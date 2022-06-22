@@ -11,7 +11,11 @@ import { CreateComponent } from '../create/create.component';
   styleUrls: ['./list-item.component.scss'],
 })
 export class ListItemComponent {
-  constructor(private cathegoryService: CathegoryService) { }
+  constructor(private cathegoryService: CathegoryService) {
+    this.spendbudget = cathegoryService.getSpendBudget();
+  }
+
+  public spendbudget: number;
 
   @Input() @Required cathegory!: Cathegory;
 
