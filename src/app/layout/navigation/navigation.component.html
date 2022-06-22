@@ -13,6 +13,9 @@
       <ng-container *ngIf="(isLoggedIn$ | async) === true">
         <a mat-list-item routerLink="/dashboard">Dashboard</a>
       </ng-container>
+      <ng-container *ngIf="(isLoggedIn$ | async) === true">
+        <a mat-list-item routerLink="/cathegory">Cathegories</a>
+      </ng-container>
     </mat-nav-list>
   </mat-sidenav>
   <mat-sidenav-content>
