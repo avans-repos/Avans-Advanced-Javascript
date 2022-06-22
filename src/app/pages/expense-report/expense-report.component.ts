@@ -35,9 +35,9 @@ export class ExpenseReportComponent implements OnInit {
 
   public transactions: Observable<Transaction[]> = of([]);
 
-  public selectedMonth: BehaviorSubject<Date> = new BehaviorSubject(new Date());
+  selectedMonth: BehaviorSubject<Date> = new BehaviorSubject(new Date());
 
-  public totalBalance: Observable<number> = of(0);
+  totalBalance: Observable<number> = of(0);
 
   constructor(
     route: ActivatedRoute,
