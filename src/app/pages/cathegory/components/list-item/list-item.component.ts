@@ -14,7 +14,7 @@ export class ListItemComponent {
 
   @Input() @Required dialog!: MatDialog;
 
-  editExpenseReport() {
+  editCathegory() {
     this.dialog.open(CreateComponent, {
       width: '500px',
       data: this.cathegory,

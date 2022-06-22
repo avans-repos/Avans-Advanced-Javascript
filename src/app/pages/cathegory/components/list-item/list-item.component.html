@@ -7,27 +7,18 @@
     </a>
     <span class="list-item-left">
       <!-- Edit button -->
-    <button mat-icon-button *ngIf="!expenseReport.isArchived"  (click)="editExpenseReport()" matTooltip="Edit expense report">
+    <button mat-icon-button (click)="editCathegory()" matTooltip="Edit expense report">
         <mat-icon>edit</mat-icon>
       </button>
-      <!-- Archive button -->
-      <button mat-icon-button (click)="archiveExpenseReport()" matTooltip="Toggle archivation of expense report">
-        <mat-icon *ngIf="!expenseReport.isArchived">archive</mat-icon>
-        <mat-icon *ngIf="expenseReport.isArchived">unarchive</mat-icon>
-      </button>
-      <!-- Creation date -->
-      <span class="creation-date" matTooltip="Created at: {{expenseReport.createdAt.toDate() | date: 'medium'}}">
-        <mat-icon inline class="date-range-icon">date_range</mat-icon>
-        <span class="date-spacer">
-          <span class="date">
-            {{expenseReport.createdAt.toDate()| date: 'shortDate'}}
-          </span>
-        </span>
-      </span>
+
     </span>
   </h3>
 
   <p mat-line class="description">
-  {{expenseReport.description || "No description."}}
+    {{cathegory.endDate}}
+  </p>
+
+  <p mat-line class="description">
+    {{cathegory.maxBudget || "No max budget."}}
   </p>
 </mat-list-item>

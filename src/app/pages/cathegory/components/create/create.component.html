@@ -1,9 +1,7 @@
-<h1 mat-dialog-title>{{ isEdit ? 'Edit' : 'Create ' }} an expense report</h1>
+<h1 mat-dialog-title>{{ isEdit ? 'Edit' : 'Create ' }} A cathegory</h1>
 <form [formGroup]="form" (submit)="submit()">
   <div mat-dialog-content>
     <p *ngIf="(owner | async) !== null" >
-      <!-- Owner -->
-      <strong>Owner: {{owner| async}}</strong>
     </p>
     <!-- Name -->
     <p>
@@ -14,14 +12,23 @@
         </mat-error>
       </mat-form-field>
     </p>
-    <!-- Members -->
-    <p>
-      <app-user-selector placeholder="Select members" [selectedUids]="this.form.get('members')?.value" [ownerUid]="data?.createdBy" (selectedUidsChanged)="membersUpdate($event)"></app-user-selector>
-    </p>
-    <!-- Description -->
+    <!-- maxBudget -->
     <p>
       <mat-form-field>
-        <textarea matInput placeholder="Description" formControlName="description"></textarea>
+        <input matInput placeholder="maxBudget" formControlName="maxBudget">
+        <mat-error *ngIf="name.hasError('required')">
+          Name is required
+        </mat-error>
+      </mat-form-field>
+    </p>
+    <!-- endDate -->
+    <p>
+      <mat-form-field appearance="fill">
+        <mat-label>Choose a date</mat-label>
+        <input matInput [matDatepicker]="picker" formControlName="endDate">
+        <mat-hint>MM/DD/YYYY</mat-hint>
+        <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
+        <mat-datepicker #picker></mat-datepicker>
       </mat-form-field>
     </p>
   </div>

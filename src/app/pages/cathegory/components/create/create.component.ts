@@ -13,8 +13,8 @@ import { CathegoryService } from 'src/app/core/services/cathegory/cathegory.serv
 export class CreateComponent {
   form = new FormGroup({
     name: new FormControl('', [Validators.required]),
-    maxBudget: new FormControl('', [Validators.required]),
-    endDate: new FormControl([]),
+    maxBudget: new FormControl(69, [Validators.required]),
+    endDate: new FormControl(),
   });
 
   isEdit: boolean = false;
