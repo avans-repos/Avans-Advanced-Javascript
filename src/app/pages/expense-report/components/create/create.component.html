@@ -23,6 +23,20 @@
         <mat-hint>Enter amount</mat-hint>
       </mat-form-field>
     </p>
+
+    <!-- Cathegory -->
+    <p>
+
+      <mat-form-field appearance="fill">
+        <mat-label>Cathegory</mat-label>
+        <mat-select formControlName="cathegoryId">
+          <mat-option *ngFor="let cathegory of (cathegories | async)" [value]="cathegory.id">
+            {{cathegory.name}}
+          </mat-option>
+        </mat-select>
+      </mat-form-field>
+
+    </p>
   </div>
   <div mat-dialog-actions>
     <button mat-button (click)="discard()" type="reset">Discard</button>

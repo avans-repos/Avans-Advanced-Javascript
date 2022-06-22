@@ -7,10 +7,11 @@ import { MatFormFieldModule } from '@angular/material/form-field';
 import { MatSlideToggleModule } from '@angular/material/slide-toggle';
 import { MatDatepickerModule } from '@angular/material/datepicker';
 import { MatDialogModule } from '@angular/material/dialog';
-import { MatNativeDateModule } from '@angular/material/core';
+import { MatNativeDateModule, MatOptionModule } from '@angular/material/core';
 import { MatInputModule } from '@angular/material/input';
 import { MatIconModule } from '@angular/material/icon';
 import { MatTooltipModule } from '@angular/material/tooltip';
+import { MatSelectModule } from '@angular/material/select';
 import { TransactionService } from '../../core/services/transaction/transaction.service';
 import { ExpenseReportRoutingModule } from './expense-report-routing.module';
 import { ExpenseReportComponent } from './expense-report.component';
@@ -38,6 +39,8 @@ import { MonthViewComponent } from './components/month-view/month-view.component
     MatInputModule,
     MatIconModule,
     MatTooltipModule,
+    MatOptionModule,
+    MatSelectModule,
   ],
   providers: [
     TransactionService,

@@ -3,7 +3,6 @@ import {
   Firestore,
   DocumentReference,
 } from '@angular/fire/firestore';
-import { AuthService } from '../auth/auth.service';
 import { SnackbarService } from '../snackbar/snackbar.service';
 import { FirestoreServiceBase } from '../common/firestore-service-base';
 import { Cathegory } from '../../models/cathory';
@@ -15,7 +14,6 @@ export class CathegoryService extends FirestoreServiceBase<Cathegory> {
   constructor(
     fire: Firestore,
     private snackbarService: SnackbarService,
-    private authService: AuthService,
   ) {
     super(fire, 'cathegories');
   }
@@ -42,4 +40,21 @@ export class CathegoryService extends FirestoreServiceBase<Cathegory> {
   private errorHandler(error: any) {
     this.snackbarService.open(`Error: ${error.message}`);
   }
+
+  // eslint-disable-next-line class-methods-use-this
+  public getSpendBudget() {
+    return 69;
+  }
+
+  // public getSpendBudgetByCathegory(cathegoryId : string) {
+  //   return this.transactionService.getRealTime().pipe(map((transactions) => {
+  //     let spendBudget = 0;
+  //     transactions.forEach((transaction) => {
+  //       if (transaction.cathegoryId === cathegoryId) {
+  //         spendBudget += transaction.amount;
+  //       }
+  //     });
+  //     return spendBudget;
+  //   }));
+  // }
 }
