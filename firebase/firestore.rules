@@ -3,7 +3,7 @@ service cloud.firestore {
   match /databases/{database}/documents {
     match /expense-reports/{documents=**} {
     	// Allow read & create on authenticated users but only edits for expense report creators
-    	allow create: if request.auth != null
+    	allow create: if request.auth != null;
       allow	read: if (
       request.auth != null &&
       	(
@@ -11,11 +11,14 @@ service cloud.firestore {
         // If user is in members list, allow read
         request.auth.uid in resource.data.members
         )
-      )
+      );
     	allow update: if (
       	request.auth != null &&
       	request.auth.uid == resource.data.createdBy
-      )
+      );
+      match /transactions/{transaction} {
+      	allow read, write: if request.auth != null;
+      }
     }
   }
 }

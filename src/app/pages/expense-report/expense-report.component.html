@@ -1,1 +1,15 @@
-<p>expense-report works!</p>
+<mat-card>
+  <mat-card-title>{{(expenseReport| async)?.name}}</mat-card-title>
+  <mat-card-subtitle>{{(expenseReport| async)?.createdAt?.toDate() | date}}</mat-card-subtitle>
+  <mat-card-content>
+    <p>{{(expenseReport|async)?.description}}</p>
+  </mat-card-content>
+  <mat-card-actions>
+    <button mat-button (click)="createTransaction()">Add transaction</button>
+    <!-- <button mat-button>SHARE</button> -->
+  </mat-card-actions>
+</mat-card>
+
+<!-- <pre>{{(expenseReport|async)| json}}</pre> -->
+
+<pre>{{(transactions|async)| json}}</pre>
