@@ -11,6 +11,7 @@ import { LayoutModule } from './layout/layout.module';
 import { environment } from '../environments/environment';
 import { AppComponent } from './app.component';
 import { AppRoutingModule } from './app-routing.module';
+import { NgChartsModule } from 'ng2-charts';
 
 @NgModule({
   declarations: [
@@ -26,6 +27,7 @@ import { AppRoutingModule } from './app-routing.module';
     provideFunctions(() => getFunctions(undefined, environment.firebase.region)),
     LayoutModule,
     MatSnackBarModule,
+    NgChartsModule,
   ],
   // Import navigation component
   providers: [],
