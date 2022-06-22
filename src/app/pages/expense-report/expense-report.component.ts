@@ -1,8 +1,8 @@
-import { Observable, switchMap } from 'rxjs';
+import { Observable, switchMap, BehaviorSubject } from 'rxjs';
 import { ExpenseReport } from 'src/app/core/models/expense-report';
 import { Component, Inject } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
-import { Firestore } from '@angular/fire/firestore';
+import { Firestore, where, Timestamp } from '@angular/fire/firestore';
 import { Transaction } from 'src/app/core/models/transaction';
 import { MatDialog } from '@angular/material/dialog';
 import { TransactionService } from '../../core/services/transaction/transaction.service';
@@ -30,6 +30,8 @@ export class ExpenseReportComponent {
 
   public transactions: Observable<Transaction[]>;
 
+  public selectedMonth: BehaviorSubject<Date> = new BehaviorSubject(new Date());
+
   constructor(
     route: ActivatedRoute,
     expenseReportService: ExpenseReportService,
@@ -37,7 +39,16 @@ export class ExpenseReportComponent {
     @Inject(TransactionService) private transactionService: TransactionService,
   ) {
     this.expenseReport = route.paramMap.pipe(switchMap((params) => expenseReportService.get(params.get('expenseReportId')!)));
-    this.transactions = transactionService.getRealTime();
+    this.transactions = this.selectedMonth.pipe(
+      switchMap((month) => {
+        const start = Timestamp.fromDate(new Date(month.getFullYear(), month.getMonth(), 1));
+        const end = Timestamp.fromDate(new Date(month.getFullYear(), month.getMonth() + 1, 0));
+        return this.transactionService.getRealTime(
+          where('date', '>=', start),
+          where('date', '<=', end),
+        );
+      }),
+    );
   }
 
   createTransaction() {
@@ -45,5 +56,17 @@ export class ExpenseReportComponent {
       width: '500px',
       data: this.transactionService,
     });
+  }
+
+  next() {
+    this.selectedMonth.next(new Date(this.selectedMonth.value.getMonth() + 1));
+  }
+
+  prev() {
+    this.selectedMonth.next(new Date(this.selectedMonth.value.getMonth() - 1));
+  }
+
+  reset() {
+    this.selectedMonth.next(new Date());
   }
 }

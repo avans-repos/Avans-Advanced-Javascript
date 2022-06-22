@@ -10,6 +10,21 @@
   </mat-card-actions>
 </mat-card>
 
+<!-- Forward and backward scroller -->
+<div class="scroller">
+  <button mat-icon-button (click)="prev()">
+    <mat-icon>keyboard_arrow_left</mat-icon>
+  </button>
+  <!-- Reset to current month -->
+  <button mat-icon-button (click)="reset()" matTooltip="Reset to current month">
+    <mat-icon>today</mat-icon>
+  </button>
+  <button mat-icon-button (click)="next()">
+    <mat-icon>keyboard_arrow_right</mat-icon>
+  </button>
+
+<app-month-view>
+</app-month-view>
 <!-- <pre>{{(expenseReport|async)| json}}</pre> -->
 
 <pre>{{(transactions|async)| json}}</pre>
