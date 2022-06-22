@@ -12,12 +12,10 @@ import { LayoutModule } from './layout/layout.module';
 import { environment } from '../environments/environment';
 import { AppComponent } from './app.component';
 import { AppRoutingModule } from './app-routing.module';
-import { CathegoryComponent } from './pages/cathegory/cathegory.component';
 
 @NgModule({
   declarations: [
     AppComponent,
-    CathegoryComponent,
   ],
   imports: [
     BrowserModule,
