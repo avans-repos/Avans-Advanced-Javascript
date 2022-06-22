@@ -36,8 +36,5 @@
   </span>
 </div>
 
-<app-month-view [transactions]="(transactions | async) ?? []">
+<app-month-view [transactions]="(transactions | async) ?? []" (deleteTransaction)="deleteTransaction($event)">
 </app-month-view>
-<!-- <pre>{{(expenseReport|async)| json}}</pre> -->
-
-<!-- <pre>{{(transactions|async)| json}}</pre> -->

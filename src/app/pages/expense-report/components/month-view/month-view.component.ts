@@ -1,5 +1,7 @@
 import { Transaction } from 'src/app/core/models/transaction';
-import { Component, Input } from '@angular/core';
+import {
+  Component, EventEmitter, Input, Output,
+} from '@angular/core';
 import { Required } from 'src/app/core/decorators/required-input';
 
 @Component({
@@ -9,4 +11,10 @@ import { Required } from 'src/app/core/decorators/required-input';
 })
 export class MonthViewComponent {
   @Input() @Required public transactions!: Transaction[];
+
+  @Output() deleteTransaction = new EventEmitter<Transaction>();
+
+  delete(transaction: Transaction) {
+    this.deleteTransaction.emit(transaction);
+  }
 }
