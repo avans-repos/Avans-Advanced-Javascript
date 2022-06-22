@@ -1,0 +1,10 @@
+<ng-container *ngFor="let transaction of transactions">
+  <mat-card [ngClass]="transaction.isIncome ? 'income' : 'expense'">
+    <strong>{{transaction.isIncome ? '💰 Income' : '💸 Expense' }} transaction: {{transaction.amount}}</strong>
+    <p>Transaction date: {{ transaction.date.toDate() | date: 'short' }}</p>
+    <!-- Button actions -->
+    <mat-card-actions align="end">
+      <button mat-raised-button (click)="delete(transaction)">Delete</button>
+    </mat-card-actions>
+  </mat-card>
+</ng-container>

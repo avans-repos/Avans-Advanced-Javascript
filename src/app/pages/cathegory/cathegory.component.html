@@ -1,0 +1,25 @@
+<div id="header">
+  <h2>
+    Category overview
+  </h2>
+
+  <div class="flex-grow-1"></div>
+
+  <!-- View archived or non-archived -->
+  <mat-slide-toggle class="view-archived-toggle" [checked]="viewArchived | async" (change)="toggleViewArchived()">Show Archived cathegories</mat-slide-toggle>
+
+  <!-- Create a new booklet -->
+  <button mat-raised-button (click)="createCathegory()" color="primary" id="create-button">
+    <mat-icon>add</mat-icon>
+    <span>Create</span>
+  </button>
+</div>
+<!-- List of all booklets -->
+<div id="list">
+  <mat-list>
+    <ng-container *ngFor="let cathegory of (cathegories | async); index as i">
+      <app-list-item [cathegory]="cathegory" [dialog]="dialog"></app-list-item>
+      <mat-divider *ngIf="i < ((cathegories| async)?.length ?? 0) - 1"></mat-divider>
+    </ng-container>
+  </mat-list>
+</div>

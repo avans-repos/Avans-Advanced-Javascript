@@ -10,6 +10,31 @@
   </mat-card-actions>
 </mat-card>
 
-<!-- <pre>{{(expenseReport|async)| json}}</pre> -->
+<!-- Forward and backward scroller -->
+<div class="scroller">
+  <span>
+    <button mat-icon-button (click)="prev()">
+      <mat-icon>keyboard_arrow_left</mat-icon>
+    </button>
+    <!-- Reset to current month -->
+    <button class="month-button" mat-button (click)="reset()">
+      <mat-icon>today</mat-icon>
+      <span>{{ (selectedMonth | async) | date : 'MMMM' }}</span>
+    </button>
+    <button mat-icon-button (click)="next()">
+      <mat-icon>keyboard_arrow_right</mat-icon>
+    </button>
+  </span>
+  <span>
+    <!-- Overall final costs -->
+    <span class="final-cost">
+      <p class="final-balance">
+        <mat-icon inline>account_balance_wallet</mat-icon>
+        Total balance of the month: <strong> {{ totalBalance | async }} ₹ </strong>
+      </p>
+    </span>
+  </span>
+</div>
 
-<pre>{{(transactions|async)| json}}</pre>
+<app-month-view [transactions]="(transactions | async) ?? []" (deleteTransaction)="deleteTransaction($event)">
+</app-month-view>
