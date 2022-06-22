@@ -1,11 +1,10 @@
-import { DocumentData } from '@angular/fire/firestore';
-import { TransactionType } from './enum/transaction-type';
+import { DocumentData, Timestamp } from '@angular/fire/firestore';
 
 interface Transaction extends DocumentData {
   id: string | undefined;
-  date: string;
-  type: TransactionType;
-  isArchived: boolean;
+  amount: number;
+  isIncome: boolean;
+  date: Timestamp;
 }
 
 export { Transaction };
