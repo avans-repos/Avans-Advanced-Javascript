@@ -15,10 +15,10 @@
   </h3>
 
   <p mat-line class="description">
-    {{cathegory.endDate}}
+    {{cathegory.endDate || "No end date"}}
   </p>
 
   <p mat-line class="description">
-    {{cathegory.maxBudget || "No max budget."}}
+    {{cathegory.maxBudget}}
   </p>
 </mat-list-item>

@@ -1,7 +1,7 @@
 import { Injectable } from '@angular/core';
 import {
   Firestore,
-  DocumentReference, QueryConstraint, where,
+  DocumentReference,
 } from '@angular/fire/firestore';
 import { AuthService } from '../auth/auth.service';
 import { SnackbarService } from '../snackbar/snackbar.service';
