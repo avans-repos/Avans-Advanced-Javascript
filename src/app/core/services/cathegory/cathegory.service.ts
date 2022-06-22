@@ -20,13 +20,6 @@ export class CathegoryService extends FirestoreServiceBase<Cathegory> {
     super(fire, 'cathegories');
   }
 
-  override getRealTime(...predicates: QueryConstraint[]) {
-    return super.getRealTime(
-      where('members', 'array-contains', this.authService.currentUser?.uid),
-      ...predicates,
-    );
-  }
-
   override add(cathegory: Cathegory) {
     const returnValue = super.add(cathegory);
     returnValue.subscribe({

@@ -1,6 +1,5 @@
 import { Component, OnInit } from '@angular/core';
 import { Cathegory } from 'src/app/core/models/cathory';
-import { Timestamp, where } from '@angular/fire/firestore';
 import { Observable } from 'rxjs';
 import { CathegoryService } from 'src/app/core/services/cathegory/cathegory.service';
 import { MatDialog } from '@angular/material/dialog';
@@ -17,9 +16,7 @@ export class CathegoryComponent implements OnInit {
   public isLoading = true;
 
   constructor(cathegoryService: CathegoryService, public dialog: MatDialog) {
-    this.cathegories = cathegoryService.getRealTime(
-      where('endDate', '>=', Timestamp.now()),
-    );
+    this.cathegories = cathegoryService.getRealTime();
   }
 
   ngOnInit(): void {
