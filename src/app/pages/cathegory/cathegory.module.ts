@@ -10,6 +10,7 @@ import { MatButtonModule } from '@angular/material/button';
 import { MatNativeDateModule } from '@angular/material/core';
 import { MatInputModule } from '@angular/material/input';
 import { MatDialogModule } from '@angular/material/dialog';
+import { MatSlideToggleModule } from '@angular/material/slide-toggle';
 import { CathegoryRoutingModule } from './cathegory-routing.module';
 import { CathegoryComponent } from './cathegory.component';
 import { CreateComponent } from './components/create/create.component';
@@ -34,6 +35,7 @@ import { ListItemComponent } from './components/list-item/list-item.component';
     MatNativeDateModule,
     MatInputModule,
     MatDialogModule,
+    MatSlideToggleModule,
   ],
 })
 export class CathegoryModule { }
