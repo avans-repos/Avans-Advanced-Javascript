@@ -2,7 +2,7 @@ import { Observable, switchMap, BehaviorSubject } from 'rxjs';
 import { ExpenseReport } from 'src/app/core/models/expense-report';
 import { Component, Inject } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
-import { Firestore, where, Timestamp } from '@angular/fire/firestore';
+import { Firestore, where, Timestamp, orderBy } from '@angular/fire/firestore';
 import { Transaction } from 'src/app/core/models/transaction';
 import { MatDialog } from '@angular/material/dialog';
 import { TransactionService } from '../../core/services/transaction/transaction.service';
@@ -46,6 +46,7 @@ export class ExpenseReportComponent {
         return this.transactionService.getRealTime(
           where('date', '>=', start),
           where('date', '<=', end),
+          orderBy('date', 'desc'),
         );
       }),
     );
@@ -59,11 +60,17 @@ export class ExpenseReportComponent {
   }
 
   next() {
-    this.selectedMonth.next(new Date(this.selectedMonth.value.getMonth() + 1));
+    this.selectedMonth.next(new Date(
+      this.selectedMonth.value.getFullYear(),
+      this.selectedMonth.value.getMonth() + 1,
+    ));
   }
 
   prev() {
-    this.selectedMonth.next(new Date(this.selectedMonth.value.getMonth() - 1));
+    this.selectedMonth.next(new Date(
+      this.selectedMonth.value.getFullYear(),
+      this.selectedMonth.value.getMonth() - 1,
+    ));
   }
 
   reset() {

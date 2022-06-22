@@ -16,8 +16,9 @@
     <mat-icon>keyboard_arrow_left</mat-icon>
   </button>
   <!-- Reset to current month -->
-  <button mat-icon-button (click)="reset()" matTooltip="Reset to current month">
+  <button class="month-button" mat-button (click)="reset()">
     <mat-icon>today</mat-icon>
+    <span>{{ (selectedMonth | async) | date : 'MMMM' }}</span>
   </button>
   <button mat-icon-button (click)="next()">
     <mat-icon>keyboard_arrow_right</mat-icon>
