@@ -1,14 +1,10 @@
-import { DocumentData, DocumentReference, Timestamp } from '@angular/fire/firestore';
+import { Timestamp } from '@angular/fire/firestore';
+import { ModelBase } from './model-base';
 
-interface Cathegory extends DocumentData {
-  id: string | undefined;
+interface Cathegory extends ModelBase {
   name: string;
   maxBudget: number;
-  endDate: Timestamp;
-  createdAt: Timestamp;
-  createdBy: string;
-  documentReference: DocumentReference<Cathegory>;
-  isArchived: boolean;
+  endDate: Timestamp | null;
 }
 
 export { Cathegory };
