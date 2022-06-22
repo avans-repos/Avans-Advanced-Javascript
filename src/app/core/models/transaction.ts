@@ -1,10 +1,11 @@
-import { DocumentData, Timestamp } from '@angular/fire/firestore';
+import { Timestamp } from '@angular/fire/firestore';
+import { ModelBase } from './model-base';
 
-interface Transaction extends DocumentData {
-  id: string | undefined;
+interface Transaction extends ModelBase {
   amount: number;
   isIncome: boolean;
   date: Timestamp;
+  cathegoryId: string;
 }
 
 export { Transaction };
