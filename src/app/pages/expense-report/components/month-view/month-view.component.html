@@ -1,4 +1,6 @@
-<mat-card *ngFor="let transaction of transactions">
-  <strong>Amount: {{transaction.amount}}</strong>
-  <p>Transaction date: {{ transaction.date.toDate() | date: 'short' }}</p>
-</mat-card>
+<ng-container *ngFor="let transaction of transactions">
+  <mat-card [ngClass]="transaction.isIncome ? 'income' : 'expense'">
+    <strong>{{transaction.isIncome ? '💰 Income' : '💸 Expense' }} transaction: {{transaction.amount}}</strong>
+    <p>Transaction date: {{ transaction.date.toDate() | date: 'short' }}</p>
+  </mat-card>
+</ng-container>
