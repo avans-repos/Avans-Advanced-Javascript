@@ -1,4 +1,5 @@
-import { DocumentData, DocumentReference, Timestamp } from '@angular/fire/firestore';
+import { DocumentData, Timestamp } from '@angular/fire/firestore';
+import { Transaction } from './transaction';
 
 interface ExpenseReport extends DocumentData {
   id: string | undefined;
@@ -7,8 +8,8 @@ interface ExpenseReport extends DocumentData {
   createdAt: Timestamp;
   createdBy: string;
   members: string[]; // uid of members
-  documentReference: DocumentReference<ExpenseReport>;
   isArchived: boolean;
+  transactions: Transaction[];
 }
 
 export { ExpenseReport };
