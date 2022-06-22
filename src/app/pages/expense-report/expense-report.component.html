@@ -24,8 +24,8 @@
     <mat-icon>keyboard_arrow_right</mat-icon>
   </button>
 
-<app-month-view>
+<app-month-view [transactions]="(transactions | async) ?? []">
 </app-month-view>
 <!-- <pre>{{(expenseReport|async)| json}}</pre> -->
 
-<pre>{{(transactions|async)| json}}</pre>
+<!-- <pre>{{(transactions|async)| json}}</pre> -->

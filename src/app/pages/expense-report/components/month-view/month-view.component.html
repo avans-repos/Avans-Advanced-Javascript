@@ -1,1 +1,4 @@
-<p>month-view works!</p>
+<mat-card *ngFor="let transaction of transactions">
+  <strong>Amount: {{transaction.amount}}</strong>
+  <p>Transaction date: {{ transaction.date.toDate() | date: 'short' }}</p>
+</mat-card>
