@@ -10,6 +10,7 @@ interface ExpenseReport extends DocumentData {
   members: string[]; // uid of members
   isArchived: boolean;
   transactions: Transaction[];
+  cathegoryId: number;
 }
 
 export { ExpenseReport };

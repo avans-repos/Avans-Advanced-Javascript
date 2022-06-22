@@ -19,7 +19,6 @@ export class CathegoryComponent implements OnInit {
   public isLoading = true;
 
   constructor(cathegoryService: CathegoryService, public dialog: MatDialog) {
-    this.cathegories = cathegoryService.getRealTime();
     this.cathegories = this.viewArchived.pipe(
       switchMap((viewArchived) => cathegoryService.getRealTime(
         where('isArchived', '==', viewArchived),
