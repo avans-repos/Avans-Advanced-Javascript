@@ -1,16 +1,19 @@
 <mat-list-item>
   <h3 class="list-item-header" mat-line>
-    <a class="header-name" [routerLink]="['/cathegory', cathegory.id]">
+    <p class="header-name">
       {{cathegory.name}}
-      <mat-icon>read_more</mat-icon>
+    </p>
 
-    </a>
     <span class="list-item-left">
       <!-- Edit button -->
     <button mat-icon-button (click)="editCathegory()" matTooltip="Edit expense report">
         <mat-icon>edit</mat-icon>
       </button>
-
+      <!-- Archive button -->
+    <button mat-icon-button (click)="archiveCathegory()" matTooltip="Toggle archivation of expense report">
+      <mat-icon *ngIf="!cathegory.isArchived">archive</mat-icon>
+      <mat-icon *ngIf="cathegory.isArchived">unarchive</mat-icon>
+    </button>
     </span>
   </h3>
 
