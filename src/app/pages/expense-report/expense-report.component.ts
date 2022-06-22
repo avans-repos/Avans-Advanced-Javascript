@@ -1,6 +1,9 @@
-import { Observable, switchMap, BehaviorSubject } from 'rxjs';
+import { map } from 'rxjs/operators';
+import {
+  Observable, switchMap, BehaviorSubject, of,
+} from 'rxjs';
 import { ExpenseReport } from 'src/app/core/models/expense-report';
-import { Component, Inject } from '@angular/core';
+import { Component, Inject, OnInit } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
 import {
   Firestore, where, Timestamp, orderBy,
@@ -27,20 +30,25 @@ import { CreateComponent } from './components/create/create.component';
     },
   ],
 })
-export class ExpenseReportComponent {
+export class ExpenseReportComponent implements OnInit {
   public expenseReport: Observable<ExpenseReport>;
 
-  public transactions: Observable<Transaction[]>;
+  public transactions: Observable<Transaction[]> = of([]);
 
   public selectedMonth: BehaviorSubject<Date> = new BehaviorSubject(new Date());
 
+  public totalBalance: Observable<number> = of(0);
+
   constructor(
     route: ActivatedRoute,
-    expenseReportService: ExpenseReportService,
+    private expenseReportService: ExpenseReportService,
     private dialog: MatDialog,
     @Inject(TransactionService) private transactionService: TransactionService,
   ) {
-    this.expenseReport = route.paramMap.pipe(switchMap((params) => expenseReportService.get(params.get('expenseReportId')!)));
+    this.expenseReport = route.paramMap.pipe(switchMap((params) => this.expenseReportService.get(params.get('expenseReportId')!)));
+  }
+
+  ngOnInit() {
     this.transactions = this.selectedMonth.pipe(
       switchMap((month) => {
         const start = Timestamp.fromDate(new Date(month.getFullYear(), month.getMonth(), 1));
@@ -52,6 +60,14 @@ export class ExpenseReportComponent {
         );
       }),
     );
+
+    this.totalBalance = this.transactions.pipe(map(
+      (transactions) => transactions.reduce(
+        // eslint-disable-next-line max-len
+        (acc, transaction) => acc + (transaction.isIncome ? transaction.amount : -transaction.amount),
+        0,
+      ),
+    ));
   }
 
   createTransaction() {
