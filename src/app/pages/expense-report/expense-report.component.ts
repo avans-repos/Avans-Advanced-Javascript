@@ -3,6 +3,7 @@ import { ExpenseReport } from 'src/app/core/models/expense-report';
 import { Component, Inject } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
 import { Firestore } from '@angular/fire/firestore';
+import { Transaction } from 'src/app/core/models/transaction';
 import { ExpenseReportService } from '../../core/services/expense-report/expense-report.service';
 import { TransactionService } from '../../core/services/transaction/transaction.service';
 
@@ -25,15 +26,14 @@ import { TransactionService } from '../../core/services/transaction/transaction.
 export class ExpenseReportComponent {
   public expenseReport: Observable<ExpenseReport>;
 
+  public transactions: Observable<Transaction[]>;
+
   constructor(
     route: ActivatedRoute,
     expenseReportService: ExpenseReportService,
     @Inject(TransactionService) transactionService: TransactionService,
   ) {
-    this.expenseReport = route.paramMap.pipe(
-      switchMap((params) => expenseReportService.get(params.get('expenseReportId')!)),
-    );
-
-    transactionService.getRealTime().subscribe(console.log);
+    this.expenseReport = route.paramMap.pipe(switchMap((params) => expenseReportService.get(params.get('expenseReportId')!)));
+    this.transactions = transactionService.getRealTime();
   }
 }
