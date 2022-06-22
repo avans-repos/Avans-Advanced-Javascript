@@ -6,6 +6,9 @@ import { MatButtonModule } from '@angular/material/button';
 import { MatFormFieldModule } from '@angular/material/form-field';
 import { MatSlideToggleModule } from '@angular/material/slide-toggle';
 import { MatDatepickerModule } from '@angular/material/datepicker';
+import { MatDialogModule } from '@angular/material/dialog';
+import { MatNativeDateModule } from '@angular/material/core';
+import { MatInputModule } from '@angular/material/input';
 import { TransactionService } from '../../core/services/transaction/transaction.service';
 import { ExpenseReportRoutingModule } from './expense-report-routing.module';
 import { ExpenseReportComponent } from './expense-report.component';
@@ -21,11 +24,14 @@ import { CreateComponent } from './components/create/create.component';
     ExpenseReportRoutingModule,
     MatCardModule,
     MatButtonModule,
+    MatFormFieldModule,
     FormsModule,
     ReactiveFormsModule,
-    MatFormFieldModule,
     MatSlideToggleModule,
     MatDatepickerModule,
+    MatDialogModule,
+    MatNativeDateModule,
+    MatInputModule,
   ],
   providers: [
     TransactionService,

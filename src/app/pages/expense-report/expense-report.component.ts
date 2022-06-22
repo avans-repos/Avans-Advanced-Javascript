@@ -4,8 +4,10 @@ import { Component, Inject } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
 import { Firestore } from '@angular/fire/firestore';
 import { Transaction } from 'src/app/core/models/transaction';
+import { MatDialog } from '@angular/material/dialog';
 import { ExpenseReportService } from '../../core/services/expense-report/expense-report.service';
 import { TransactionService } from '../../core/services/transaction/transaction.service';
+import { CreateComponent } from './components/create/create.component';
 
 @Component({
   selector: 'app-expense-report',
@@ -30,10 +32,18 @@ export class ExpenseReportComponent {
 
   constructor(
     route: ActivatedRoute,
-    expenseReportService: ExpenseReportService,
+    private expenseReportService: ExpenseReportService,
+    private dialog: MatDialog,
     @Inject(TransactionService) transactionService: TransactionService,
   ) {
     this.expenseReport = route.paramMap.pipe(switchMap((params) => expenseReportService.get(params.get('expenseReportId')!)));
     this.transactions = transactionService.getRealTime();
+  }
+
+  createTransaction() {
+    this.dialog.open(CreateComponent, {
+      width: '500px',
+      data: this.expenseReportService,
+    });
   }
 }
