@@ -20,7 +20,6 @@ export class CreateComponent {
     isIncome: new FormControl(false),
     date: new FormControl(Timestamp.now().toDate(), [Validators.required]),
     cathegoryId: new FormControl(),
-    // type: new FormControl(null, [Validators.required]),
   });
 
   constructor(
