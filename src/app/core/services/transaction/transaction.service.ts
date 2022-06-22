@@ -27,7 +27,6 @@ export class TransactionService extends FirestoreServiceBase<Transaction> {
     const returnValue = $cathegory.pipe(
       switchMap((cathegoryRef) => {
         // eslint-disable-next-line no-param-reassign
-        // eslint-disable-next-line no-param-reassign
         transaction.cathegory = cathegoryRef;
         return super.add(transaction);
       }),
