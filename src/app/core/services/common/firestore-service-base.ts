@@ -1,6 +1,6 @@
 import {
   collection, Firestore, DocumentData, CollectionReference, collectionData,
-  QueryConstraint, query, doc, DocumentReference, docData, addDoc, updateDoc,
+  QueryConstraint, query, doc, DocumentReference, docData, addDoc, updateDoc, deleteDoc,
 } from '@angular/fire/firestore';
 import {
   defer, from, Observable, switchMap,
@@ -53,5 +53,10 @@ export abstract class FirestoreServiceBase<Model extends ModelBase> {
     // eslint-disable-next-line no-param-reassign
     delete model.id;
     return from(updateDoc(reference, model as DocumentData));
+  }
+
+  // eslint-disable-next-line class-methods-use-this
+  delete(reference: DocumentReference<Model>) {
+    return from(deleteDoc(reference));
   }
 }
