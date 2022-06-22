@@ -7,6 +7,7 @@ import { provideAuth, getAuth } from '@angular/fire/auth';
 import { provideFirestore, getFirestore } from '@angular/fire/firestore';
 import { provideFunctions, getFunctions } from '@angular/fire/functions';
 import { MatSnackBarModule } from '@angular/material/snack-bar';
+import { MatDialogModule } from '@angular/material/dialog';
 import { LayoutModule } from './layout/layout.module';
 import { environment } from '../environments/environment';
 import { AppComponent } from './app.component';
@@ -28,6 +29,7 @@ import { NgChartsModule } from 'ng2-charts';
     LayoutModule,
     MatSnackBarModule,
     NgChartsModule,
+    MatDialogModule,
   ],
   // Import navigation component
   providers: [],
