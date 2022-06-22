@@ -27,13 +27,9 @@ export class ListItemComponent {
   async archiveExpenseReport() {
     this.expenseReport.isArchived = !this.expenseReport.isArchived;
 
-    const reference = await this.expenseReportService
-      .createDocumentReference(this.expenseReport.id!);
-
-    try {
-      this.expenseReportService.update(reference, this.expenseReport);
-    } catch (error) {
-      this.expenseReport.isArchived = !this.expenseReport.isArchived;
-    }
+    this.expenseReportService.getDoc(this.expenseReport.id!).subscribe({
+      next: (docRef) => this.expenseReportService.update(docRef, this.expenseReport),
+      error: () => { this.expenseReport.isArchived = !this.expenseReport.isArchived; },
+    });
   }
 }
