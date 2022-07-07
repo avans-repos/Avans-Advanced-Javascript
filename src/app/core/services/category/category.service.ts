@@ -5,12 +5,12 @@ import {
 } from '@angular/fire/firestore';
 import { SnackbarService } from '../snackbar/snackbar.service';
 import { FirestoreServiceBase } from '../common/firestore-service-base';
-import { Cathegory } from '../../models/cathory';
+import { Category } from '../../models/cathory';
 
 @Injectable({
   providedIn: 'root',
 })
-export class CathegoryService extends FirestoreServiceBase<Cathegory> {
+export class CategoryService extends FirestoreServiceBase<Category> {
   constructor(
     fire: Firestore,
     private snackbarService: SnackbarService,
@@ -18,20 +18,20 @@ export class CathegoryService extends FirestoreServiceBase<Cathegory> {
     super(fire, 'cathegories');
   }
 
-  override add(cathegory: Cathegory) {
-    const returnValue = super.add(cathegory);
+  override add(category: Category) {
+    const returnValue = super.add(category);
     returnValue.subscribe({
-      complete: () => this.snackbarService.open('Cathegory created'),
+      complete: () => this.snackbarService.open('Category created'),
       error: (error) => this.errorHandler(error),
     });
 
     return returnValue;
   }
 
-  override update(reference: DocumentReference<Cathegory>, cathegory: Cathegory) {
-    const returnValue = super.update(reference, cathegory);
+  override update(reference: DocumentReference<Category>, category: Category) {
+    const returnValue = super.update(reference, category);
     returnValue.subscribe({
-      complete: () => this.snackbarService.open('Cathegory updated'),
+      complete: () => this.snackbarService.open('Category updated'),
       error: (error) => this.errorHandler(error),
     });
     return returnValue;
@@ -46,11 +46,11 @@ export class CathegoryService extends FirestoreServiceBase<Cathegory> {
     return 69;
   }
 
-  // public getSpendBudgetByCathegory(cathegoryId : string) {
+  // public getSpendBudgetByCategory(categoryId : string) {
   //   return this.transactionService.getRealTime().pipe(map((transactions) => {
   //     let spendBudget = 0;
   //     transactions.forEach((transaction) => {
-  //       if (transaction.cathegoryId === cathegoryId) {
+  //       if (transaction.categoryId === categoryId) {
   //         spendBudget += transaction.amount;
   //       }
   //     });

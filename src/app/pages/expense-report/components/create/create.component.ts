@@ -3,9 +3,9 @@ import { Component, Inject } from '@angular/core';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
 import { TransactionService } from 'src/app/core/services/transaction/transaction.service';
 import { MatDialogRef, MAT_DIALOG_DATA } from '@angular/material/dialog';
-import { CathegoryService } from 'src/app/core/services/cathegory/cathegory.service';
+import { CategoryService } from 'src/app/core/services/category/category.service';
 import { Observable } from 'rxjs';
-import { Cathegory } from 'src/app/core/models/cathory';
+import { Category } from 'src/app/core/models/cathory';
 
 @Component({
   selector: 'app-create',
@@ -13,21 +13,21 @@ import { Cathegory } from 'src/app/core/models/cathory';
   styleUrls: ['./create.component.scss'],
 })
 export class CreateComponent {
-  public cathegories: Observable<Cathegory[]>;
+  public cathegories: Observable<Category[]>;
 
   form = new FormGroup({
     amount: new FormControl(10, [Validators.required]),
     isIncome: new FormControl(false),
     date: new FormControl(Timestamp.now().toDate(), [Validators.required]),
-    cathegoryId: new FormControl(),
+    categoryId: new FormControl(),
   });
 
   constructor(
     private dialogRef: MatDialogRef<CreateComponent>,
     @Inject(MAT_DIALOG_DATA) private readonly transactionService: TransactionService,
-    cathegoryService: CathegoryService,
+    categoryService: CategoryService,
   ) {
-    this.cathegories = cathegoryService.getRealTime(
+    this.cathegories = categoryService.getRealTime(
       where('isArchived', '==', false),
     );
   }

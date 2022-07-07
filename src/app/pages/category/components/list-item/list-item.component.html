@@ -1,0 +1,25 @@
+<mat-list-item [ngClass]="[(category.maxBudget - spendbudget) < 20 ? 'warn': '', (category.maxBudget - spendbudget) < 0? 'danger': '']">
+  <h3 class="list-item-header" mat-line>
+    <p class="header-name">
+      {{category.name}}
+    </p>
+
+    <span class="list-item-left">
+      <!-- Edit button -->
+    <button mat-icon-button (click)="editCategory()" matTooltip="Edit expense report">
+        <mat-icon>edit</mat-icon>
+      </button>
+      <!-- Archive button -->
+    <button mat-icon-button (click)="archiveCategory()" matTooltip="Toggle archivation of expense report">
+      <mat-icon *ngIf="!category.isArchived">archive</mat-icon>
+      <mat-icon *ngIf="category.isArchived">unarchive</mat-icon>
+    </button>
+    </span>
+  </h3>
+
+  <p mat-line class="description">
+    {{category.endDate || "No end date"}}
+    Max budget = ₽{{category.maxBudget}}
+    Leftover budget = ₽{{category.maxBudget - spendbudget}}
+  </p>
+</mat-list-item>

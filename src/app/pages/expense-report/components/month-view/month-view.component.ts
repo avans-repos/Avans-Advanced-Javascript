@@ -3,7 +3,7 @@ import {
   Component, EventEmitter, Input, Output,
 } from '@angular/core';
 import { Required } from 'src/app/core/decorators/required-input';
-import { CathegoryService } from 'src/app/core/services/cathegory/cathegory.service';
+import { CategoryService } from 'src/app/core/services/category/category.service';
 
 @Component({
   selector: 'app-month-view',
@@ -12,7 +12,7 @@ import { CathegoryService } from 'src/app/core/services/cathegory/cathegory.serv
 })
 export class MonthViewComponent {
   constructor(
-    public cathegoryService: CathegoryService,
+    public categoryService: CategoryService,
   ) {}
 
   @Input() @Required public transactions!: Transaction[];

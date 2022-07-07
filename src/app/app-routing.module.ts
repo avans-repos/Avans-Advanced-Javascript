@@ -18,8 +18,8 @@ const routes: Routes = [
     canActivate: [AuthGuard],
   },
   {
-    path: 'cathegory',
-    loadChildren: () => import('./pages/cathegory/cathegory.module').then((m) => m.CathegoryModule),
+    path: 'category',
+    loadChildren: () => import('./pages/category/category.module').then((m) => m.CategoryModule),
     canActivate: [AuthGuard],
   },
 ];

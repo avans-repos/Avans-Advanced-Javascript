@@ -2,7 +2,7 @@
   <mat-card [ngClass]="transaction.isIncome ? 'income' : 'expense'">
     <strong>{{transaction.isIncome ? '💰 Income' : '💸 Expense' }} transaction: {{transaction.amount}}</strong>
     <p>Transaction date: {{ transaction.date.toDate() | date: 'short' }}</p>
-    <!-- <p>Category: {{(cathegoryService.get(transaction.cathegory.id) | async)?.name ?? "No categories"  }} </p> -->
+    <!-- <p>Category: {{(categoryService.get(transaction.category.id) | async)?.name ?? "No categories"  }} </p> -->
     <!-- Button actions -->
     <mat-card-actions align="end">
       <button mat-raised-button (click)="delete(transaction)">Delete</button>

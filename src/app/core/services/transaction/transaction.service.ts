@@ -1,4 +1,4 @@
-import { Cathegory } from 'src/app/core/models/cathory';
+import { Category } from 'src/app/core/models/cathory';
 import { Inject, Injectable } from '@angular/core';
 import { doc, DocumentReference, Firestore } from '@angular/fire/firestore';
 import {
@@ -22,12 +22,12 @@ export class TransactionService extends FirestoreServiceBase<Transaction> {
   }
 
   override add(transaction: Transaction): Observable<DocumentReference<Transaction>> {
-    const $cathegory = defer(async () => doc(this.fire, `cathegories/${transaction.cathegoryId}`) as DocumentReference<Cathegory>);
+    const $category = defer(async () => doc(this.fire, `cathegories/${transaction.categoryId}`) as DocumentReference<Category>);
 
-    const returnValue = $cathegory.pipe(
-      switchMap((cathegoryRef) => {
+    const returnValue = $category.pipe(
+      switchMap((categoryRef) => {
         // eslint-disable-next-line no-param-reassign
-        transaction.cathegory = cathegoryRef;
+        transaction.category = categoryRef;
         return super.add(transaction);
       }),
     );

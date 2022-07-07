@@ -11,20 +11,20 @@ import { MatNativeDateModule } from '@angular/material/core';
 import { MatInputModule } from '@angular/material/input';
 import { MatDialogModule } from '@angular/material/dialog';
 import { MatSlideToggleModule } from '@angular/material/slide-toggle';
-import { CathegoryRoutingModule } from './cathegory-routing.module';
-import { CathegoryComponent } from './cathegory.component';
+import { CategoryRoutingModule } from './category-routing.module';
+import { CategoryComponent } from './category.component';
 import { CreateComponent } from './components/create/create.component';
 import { ListItemComponent } from './components/list-item/list-item.component';
 
 @NgModule({
   declarations: [
-    CathegoryComponent,
+    CategoryComponent,
     CreateComponent,
     ListItemComponent,
   ],
   imports: [
     CommonModule,
-    CathegoryRoutingModule,
+    CategoryRoutingModule,
     MatIconModule,
     MatListModule,
     MatFormFieldModule,
@@ -38,4 +38,4 @@ import { ListItemComponent } from './components/list-item/list-item.component';
     MatSlideToggleModule,
   ],
 })
-export class CathegoryModule { }
+export class CategoryModule { }

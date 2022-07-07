@@ -24,14 +24,14 @@
       </mat-form-field>
     </p>
 
-    <!-- Cathegory -->
+    <!-- Category -->
     <p>
 
       <mat-form-field appearance="fill">
-        <mat-label>Cathegory</mat-label>
-        <mat-select formControlName="cathegoryId">
-          <mat-option *ngFor="let cathegory of (cathegories | async)" [value]="cathegory.id">
-            {{cathegory.name}}
+        <mat-label>Category</mat-label>
+        <mat-select formControlName="categoryId">
+          <mat-option *ngFor="let category of (cathegories | async)" [value]="category.id">
+            {{category.name}}
           </mat-option>
         </mat-select>
       </mat-form-field>
