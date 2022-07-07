@@ -6,10 +6,11 @@ import { ExpenseReport } from 'src/app/core/models/expense-report';
 import { Component, Inject, OnInit } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
 import {
-  Firestore, where, Timestamp, orderBy,
+  where, Timestamp, orderBy,
 } from '@angular/fire/firestore';
 import { Transaction } from 'src/app/core/models/transaction';
 import { MatDialog } from '@angular/material/dialog';
+import { TransactionServiceFactory } from 'src/app/core/services/transaction/transaction-service.factory';
 import { TransactionService } from '../../core/services/transaction/transaction.service';
 import { ExpenseReportService } from '../../core/services/expense-report/expense-report.service';
 import { CreateComponent } from './components/create/create.component';
@@ -18,17 +19,7 @@ import { CreateComponent } from './components/create/create.component';
   selector: 'app-expense-report',
   templateUrl: './expense-report.component.html',
   styleUrls: ['./expense-report.component.scss'],
-  providers: [
-    TransactionService,
-    {
-      provide: TransactionService,
-      useFactory: (route: ActivatedRoute, fire: Firestore) => {
-        const reportId = route.snapshot.paramMap.get('expenseReportId')!;
-        return new TransactionService(fire, reportId);
-      },
-      deps: [ActivatedRoute, Firestore],
-    },
-  ],
+  providers: TransactionServiceFactory,
 })
 export class ExpenseReportComponent implements OnInit {
   public expenseReport: Observable<ExpenseReport>;
