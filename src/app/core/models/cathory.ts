@@ -5,6 +5,7 @@ interface Category extends ModelBase {
   name: string;
   maxBudget: number;
   endDate: Timestamp | null;
+  expenseReportId: string;
   isArchived: boolean;
 }
 

@@ -19,6 +19,7 @@ import { ExpenseReportComponent } from './expense-report.component';
 import { CreateComponent } from './components/create/create.component';
 import { MonthViewComponent } from './components/month-view/month-view.component';
 import { LineChartMonthComponent } from './components/line-chart-month/line-chart-month.component';
+import { CategoryComponent } from './category/category.component';
 
 @NgModule({
   declarations: [
@@ -26,6 +27,7 @@ import { LineChartMonthComponent } from './components/line-chart-month/line-char
     CreateComponent,
     MonthViewComponent,
     LineChartMonthComponent,
+    CategoryComponent,
   ],
   imports: [
     CommonModule,
