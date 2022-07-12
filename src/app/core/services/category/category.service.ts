@@ -1,4 +1,4 @@
-import { Injectable } from '@angular/core';
+import { Inject, Injectable } from '@angular/core';
 import {
   Firestore,
   DocumentReference,
@@ -13,6 +13,7 @@ import { Category } from '../../models/catogory';
 export class CategoryService extends FirestoreServiceBase<Category> {
   constructor(
     fire: Firestore,
+    @Inject('expenseReportId') expenseReportId: string,
     private snackbarService: SnackbarService,
   ) {
     super(fire, 'cathegories');
