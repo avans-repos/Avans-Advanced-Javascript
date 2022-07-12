@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { Category } from 'src/app/core/models/cathory';
+import { Category } from 'src/app/core/models/catogory';
 import { BehaviorSubject, switchMap, Observable } from 'rxjs';
 import { CategoryService } from 'src/app/core/services/category/category.service';
 import { MatDialog } from '@angular/material/dialog';

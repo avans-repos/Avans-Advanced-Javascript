@@ -1,4 +1,4 @@
-import { Category } from 'src/app/core/models/cathory';
+import { Category } from 'src/app/core/models/catogory';
 import { DocumentReference, Timestamp } from '@angular/fire/firestore';
 import { ModelBase } from './model-base';
 

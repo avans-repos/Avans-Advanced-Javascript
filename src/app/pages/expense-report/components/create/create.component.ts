@@ -5,7 +5,7 @@ import { TransactionService } from 'src/app/core/services/transaction/transactio
 import { MatDialogRef, MAT_DIALOG_DATA } from '@angular/material/dialog';
 import { CategoryService } from 'src/app/core/services/category/category.service';
 import { Observable } from 'rxjs';
-import { Category } from 'src/app/core/models/cathory';
+import { Category } from 'src/app/core/models/catogory';
 
 @Component({
   selector: 'app-create',

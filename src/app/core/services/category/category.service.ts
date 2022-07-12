@@ -5,7 +5,7 @@ import {
 } from '@angular/fire/firestore';
 import { SnackbarService } from '../snackbar/snackbar.service';
 import { FirestoreServiceBase } from '../common/firestore-service-base';
-import { Category } from '../../models/cathory';
+import { Category } from '../../models/catogory';
 
 @Injectable({
   providedIn: 'root',

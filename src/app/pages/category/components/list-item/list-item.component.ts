@@ -1,4 +1,4 @@
-import { Category } from 'src/app/core/models/cathory';
+import { Category } from 'src/app/core/models/catogory';
 import { Component, Input } from '@angular/core';
 import { MatDialog } from '@angular/material/dialog';
 import { Required } from 'src/app/core/decorators/required-input';

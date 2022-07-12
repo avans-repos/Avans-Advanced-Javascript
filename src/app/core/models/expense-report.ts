@@ -1,5 +1,5 @@
 import { DocumentData, Timestamp } from '@angular/fire/firestore';
-import { Transaction } from './transaction';
+import { Category } from './catogory';
 
 interface ExpenseReport extends DocumentData {
   id: string | undefined;
@@ -9,7 +9,7 @@ interface ExpenseReport extends DocumentData {
   createdBy: string;
   members: string[]; // uid of members
   isArchived: boolean;
-  transactions: Transaction[];
+  category: Category[];
 }
 
 export { ExpenseReport };

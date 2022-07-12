@@ -2,7 +2,7 @@ import { Component, Inject } from '@angular/core';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
 import { MatDialogRef, MAT_DIALOG_DATA } from '@angular/material/dialog';
 import { Observable, of } from 'rxjs';
-import { Category } from 'src/app/core/models/cathory';
+import { Category } from 'src/app/core/models/catogory';
 import { CategoryService } from 'src/app/core/services/category/category.service';
 
 @Component({

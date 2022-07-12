@@ -13,13 +13,16 @@ import { MatIconModule } from '@angular/material/icon';
 import { MatTooltipModule } from '@angular/material/tooltip';
 import { NgxChartsModule } from '@swimlane/ngx-charts';
 import { MatSelectModule } from '@angular/material/select';
+import { MatListModule } from '@angular/material/list';
 import { TransactionService } from '../../core/services/transaction/transaction.service';
 import { ExpenseReportRoutingModule } from './expense-report-routing.module';
 import { ExpenseReportComponent } from './expense-report.component';
 import { CreateComponent } from './components/create/create.component';
+import { CreateComponent as CategoryCreateComponent } from './category/components/create/create.component';
 import { MonthViewComponent } from './components/month-view/month-view.component';
 import { LineChartMonthComponent } from './components/line-chart-month/line-chart-month.component';
 import { CategoryComponent } from './category/category.component';
+import { ListItemComponent } from './category/components/list-item/list-item.component';
 
 @NgModule({
   declarations: [
@@ -28,6 +31,8 @@ import { CategoryComponent } from './category/category.component';
     MonthViewComponent,
     LineChartMonthComponent,
     CategoryComponent,
+    ListItemComponent,
+    CategoryCreateComponent,
   ],
   imports: [
     CommonModule,
@@ -47,6 +52,7 @@ import { CategoryComponent } from './category/category.component';
     NgxChartsModule,
     MatOptionModule,
     MatSelectModule,
+    MatListModule,
   ],
   providers: [
     TransactionService,

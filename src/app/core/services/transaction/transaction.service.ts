@@ -1,4 +1,4 @@
-import { Category } from 'src/app/core/models/cathory';
+import { Category } from 'src/app/core/models/catogory';
 import { Inject, Injectable } from '@angular/core';
 import { doc, DocumentReference, Firestore } from '@angular/fire/firestore';
 import {
