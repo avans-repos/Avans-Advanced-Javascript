@@ -45,7 +45,11 @@ export class LineChartMonthComponent implements OnInit {
 
     transactions.forEach((transaction) => {
       const date = transaction.date.toDate().getDate();
-      dateValues.set(date, (dateValues.get(date) ?? 0) + transaction.amount);
+      dateValues.set(
+        date,
+        (dateValues.get(date) ?? 0)
+        + (transaction.isIncome ? transaction.amount : -transaction.amount),
+      );
     });
 
     return [{
