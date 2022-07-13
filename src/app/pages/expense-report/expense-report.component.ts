@@ -19,7 +19,7 @@ import { CreateComponent } from './components/create/create.component';
   selector: 'app-expense-report',
   templateUrl: './expense-report.component.html',
   styleUrls: ['./expense-report.component.scss'],
-  providers: TransactionServiceFactory,
+  providers: [TransactionServiceFactory],
 })
 export class ExpenseReportComponent implements OnInit {
   public expenseReport: Observable<ExpenseReport>;
