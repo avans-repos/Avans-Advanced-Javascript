@@ -16,7 +16,7 @@ export class CategoryService extends FirestoreServiceBase<Category> {
     @Inject('expenseReportId') expenseReportId: string,
     private snackbarService: SnackbarService,
   ) {
-    super(fire, 'cathegories');
+    super(fire, 'expense-reports', expenseReportId, 'categories');
   }
 
   override add(category: Category) {

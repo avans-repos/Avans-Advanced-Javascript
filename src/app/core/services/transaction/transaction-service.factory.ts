@@ -9,7 +9,9 @@ const TransactionServiceFactory: FactoryProvider = {
   provide: TransactionService,
   useFactory: (route: ActivatedRoute, fire: Firestore) => {
     const reportId = route.snapshot.paramMap.get('expenseReportId')!;
-    return new TransactionService(fire, reportId);
+    const categoryId = route.snapshot.paramMap.get('categoryId')!;
+
+    return new TransactionService(fire, reportId, categoryId);
   },
   deps: [ActivatedRoute, Firestore],
 };

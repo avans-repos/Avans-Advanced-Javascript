@@ -13,7 +13,7 @@ import { Category } from 'src/app/core/models/catogory';
   styleUrls: ['./create.component.scss'],
 })
 export class CreateComponent {
-  public cathegories: Observable<Category[]>;
+  public categories: Observable<Category[]>;
 
   form = new FormGroup({
     amount: new FormControl(10, [Validators.required]),
@@ -27,7 +27,7 @@ export class CreateComponent {
     @Inject(MAT_DIALOG_DATA) private readonly transactionService: TransactionService,
     categoryService: CategoryService,
   ) {
-    this.cathegories = categoryService.getRealTime(
+    this.categories = categoryService.getRealTime(
       where('isArchived', '==', false),
     );
   }

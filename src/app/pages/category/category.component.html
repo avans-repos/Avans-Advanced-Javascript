@@ -6,7 +6,7 @@
   <div class="flex-grow-1"></div>
 
   <!-- View archived or non-archived -->
-  <mat-slide-toggle class="view-archived-toggle" [checked]="viewArchived | async" (change)="toggleViewArchived()">Show Archived cathegories</mat-slide-toggle>
+  <mat-slide-toggle class="view-archived-toggle" [checked]="viewArchived | async" (change)="toggleViewArchived()">Show Archived categories</mat-slide-toggle>
 
   <!-- Create a new booklet -->
   <button mat-raised-button (click)="createCategory()" color="primary" id="create-button">
@@ -17,9 +17,9 @@
 <!-- List of all booklets -->
 <div id="list">
   <mat-list>
-    <ng-container *ngFor="let category of (cathegories | async); index as i">
+    <ng-container *ngFor="let category of (categories | async); index as i">
       <app-list-item [category]="category" [dialog]="dialog"></app-list-item>
-      <mat-divider *ngIf="i < ((cathegories| async)?.length ?? 0) - 1"></mat-divider>
+      <mat-divider *ngIf="i < ((categories| async)?.length ?? 0) - 1"></mat-divider>
     </ng-container>
   </mat-list>
 </div>

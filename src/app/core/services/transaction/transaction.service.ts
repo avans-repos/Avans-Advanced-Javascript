@@ -1,9 +1,5 @@
-import { Category } from 'src/app/core/models/catogory';
 import { Inject, Injectable } from '@angular/core';
-import { doc, DocumentReference, Firestore } from '@angular/fire/firestore';
-import {
-  defer, Observable, switchMap,
-} from 'rxjs';
+import { Firestore } from '@angular/fire/firestore';
 import { Transaction } from '../../models/transaction';
 import { FirestoreServiceBase } from '../common/firestore-service-base';
 
@@ -15,25 +11,17 @@ import { FirestoreServiceBase } from '../common/firestore-service-base';
 })
 export class TransactionService extends FirestoreServiceBase<Transaction> {
   constructor(
-    private fire: Firestore,
+    fire: Firestore,
     @Inject('expenseReportId') expenseReportId: string,
+    @Inject('categoryId') categoryId: string,
   ) {
-    super(fire, 'expense-reports', expenseReportId, 'transactions');
-  }
-
-  override add(transaction: Transaction): Observable<DocumentReference<Transaction>> {
-    const $category = defer(async () => doc(this.fire, `cathegories/${transaction.categoryId}`) as DocumentReference<Category>);
-
-    const returnValue = $category.pipe(
-      switchMap((categoryRef) => {
-        // eslint-disable-next-line no-param-reassign
-        transaction.category = categoryRef;
-        return super.add(transaction);
-      }),
+    super(
+      fire,
+      'expense-reports',
+      expenseReportId,
+      'categories',
+      categoryId,
+      'transactions',
     );
-
-    // This is a bit hacky but the "share" operator is not working as expected.
-    returnValue.subscribe();
-    return returnValue;
   }
 }

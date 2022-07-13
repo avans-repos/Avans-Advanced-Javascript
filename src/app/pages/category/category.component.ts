@@ -12,14 +12,14 @@ import { CreateComponent } from './components/create/create.component';
   styleUrls: ['./category.component.scss'],
 })
 export class CategoryComponent implements OnInit {
-  public cathegories: Observable<Category[]>;
+  public categories: Observable<Category[]>;
 
   public viewArchived = new BehaviorSubject<boolean>(false);
 
   public isLoading = true;
 
   constructor(categoryService: CategoryService, public dialog: MatDialog) {
-    this.cathegories = this.viewArchived.pipe(
+    this.categories = this.viewArchived.pipe(
       switchMap((viewArchived) => categoryService.getRealTime(
         where('isArchived', '==', viewArchived),
       )),
@@ -27,7 +27,7 @@ export class CategoryComponent implements OnInit {
   }
 
   ngOnInit(): void {
-    this.cathegories.subscribe(() => { this.isLoading = false; });
+    this.categories.subscribe(() => { this.isLoading = false; });
   }
 
   createCategory() {

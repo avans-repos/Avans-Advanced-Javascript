@@ -9,7 +9,7 @@ const routes: Routes = [
     component: ExpenseReportComponent,
   },
   {
-    path: ':expenseReportId/category',
+    path: ':expenseReportId/category/:categoryId',
     component: CategoryComponent,
   },
 ];
