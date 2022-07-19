@@ -13,14 +13,14 @@ export class TransactionService extends FirestoreServiceBase<Transaction> {
   constructor(
     fire: Firestore,
     @Inject('expenseReportId') expenseReportId: string,
-    @Inject('categoryId') categoryId: string,
+    // @Inject('categoryId') categoryId: string,
   ) {
     super(
       fire,
       'expense-reports',
       expenseReportId,
-      'categories',
-      categoryId,
+      // 'categories',
+      // categoryId,
       'transactions',
     );
   }
