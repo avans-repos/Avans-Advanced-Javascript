@@ -11,6 +11,12 @@ const TransactionServiceFactory: FactoryProvider = {
     const reportId = route.snapshot.paramMap.get('expenseReportId')!;
     const categoryId = route.snapshot.paramMap.get('categoryId')!;
 
+    if (!reportId) {
+      throw new Error('Missing expense report id');
+    } else if (!categoryId) {
+      throw new Error('Missing category id');
+    }
+
     return new TransactionService(fire, reportId, categoryId);
   },
   deps: [ActivatedRoute, Firestore],
