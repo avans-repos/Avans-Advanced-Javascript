@@ -1,3 +1,4 @@
+import { CategoryServiceFactory } from 'src/app/core/services/category/category-service.factory';
 import { Timestamp, where } from '@angular/fire/firestore';
 import { Component, Inject } from '@angular/core';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
@@ -11,6 +12,7 @@ import { Category } from 'src/app/core/models/catogory';
   selector: 'app-create',
   templateUrl: './create.component.html',
   styleUrls: ['./create.component.scss'],
+  providers: [CategoryServiceFactory],
 })
 export class CreateComponent {
   public categories: Observable<Category[]>;
@@ -25,7 +27,7 @@ export class CreateComponent {
   constructor(
     private dialogRef: MatDialogRef<CreateComponent>,
     @Inject(MAT_DIALOG_DATA) private readonly transactionService: TransactionService,
-    categoryService: CategoryService,
+    @Inject(CategoryService) categoryService: CategoryService,
   ) {
     this.categories = categoryService.getRealTime(
       where('isArchived', '==', false),
