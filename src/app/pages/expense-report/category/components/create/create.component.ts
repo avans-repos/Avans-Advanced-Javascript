@@ -1,3 +1,4 @@
+import { CategoryServiceFactory } from 'src/app/core/services/category/category-service.factory';
 import { Component, Inject } from '@angular/core';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
 import { MatDialogRef, MAT_DIALOG_DATA } from '@angular/material/dialog';
@@ -9,6 +10,7 @@ import { CategoryService } from 'src/app/core/services/category/category.service
   selector: 'app-create',
   templateUrl: './create.component.html',
   styleUrls: ['./create.component.scss'],
+  providers: [CategoryServiceFactory],
 })
 export class CreateComponent {
   form = new FormGroup({
