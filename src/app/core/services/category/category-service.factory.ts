@@ -10,7 +10,12 @@ const CategoryServiceFactory: Provider[] = [
   {
     provide: CategoryService,
     useFactory: (route: ActivatedRoute, fire: Firestore, snackbarService: SnackbarService) => {
-      const reportId = route.snapshot.paramMap.get('expenseReportId')!;
+      const reportId = route.snapshot.paramMap.get('expenseReportId');
+
+      if (!reportId) {
+        throw new Error('Missing expense report id');
+      }
+
       return new CategoryService(fire, reportId, snackbarService);
     },
     deps: [ActivatedRoute, Firestore, SnackbarService],

@@ -8,7 +8,7 @@ import { TransactionService } from './transaction.service';
 const TransactionServiceFactory: FactoryProvider = {
   provide: TransactionService,
   useFactory: (route: ActivatedRoute, fire: Firestore) => {
-    const reportId = route.snapshot.paramMap.get('expenseReportId')!;
+    const reportId = route.snapshot.paramMap.get('expenseReportId');
     // const categoryId = route.snapshot.paramMap.get('categoryId')!;
 
     if (!reportId) {
