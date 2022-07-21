@@ -11,7 +11,7 @@ import {
 import { Transaction } from 'src/app/core/models/transaction';
 import { MatDialog } from '@angular/material/dialog';
 import { TransactionServiceFactory } from 'src/app/core/services/transaction/transaction-service.factory';
-import { CategoryComponentFactory } from 'src/app/core/services/category/category-service.factory';
+import { CategoryServiceFactory } from 'src/app/core/services/category/category-service.factory';
 import { TransactionService } from '../../core/services/transaction/transaction.service';
 import { ExpenseReportService } from '../../core/services/expense-report/expense-report.service';
 import { CreateComponent } from './components/create/create.component';
@@ -20,7 +20,7 @@ import { CreateComponent } from './components/create/create.component';
   selector: 'app-expense-report',
   templateUrl: './expense-report.component.html',
   styleUrls: ['./expense-report.component.scss'],
-  providers: [TransactionServiceFactory, CategoryComponentFactory],
+  providers: [TransactionServiceFactory, CategoryServiceFactory],
 })
 export class ExpenseReportComponent implements OnInit {
   public expenseReport: Observable<ExpenseReport>;

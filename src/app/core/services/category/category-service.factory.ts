@@ -5,7 +5,7 @@ import { SnackbarService } from '../snackbar/snackbar.service';
 import { CategoryService } from './category.service';
 // Exports a provider with a factory to create a TransactionService.
 
-const CategoryComponentFactory: Provider[] = [
+const CategoryServiceFactory: Provider[] = [
   CategoryService,
   {
     provide: CategoryService,
@@ -18,5 +18,5 @@ const CategoryComponentFactory: Provider[] = [
 ];
 
 export {
-  CategoryComponentFactory,
+  CategoryServiceFactory,
 };
