@@ -10,8 +10,8 @@ import { Category } from 'src/app/core/models/catogory';
 
 @Component({
   selector: 'app-create',
-  templateUrl: './create.component.html',
-  styleUrls: ['./create.component.scss'],
+  templateUrl: './create-transaction.component.html',
+  styleUrls: ['./create-transaction.component.scss'],
   providers: [CategoryServiceFactory],
 })
 export class CreateComponent {

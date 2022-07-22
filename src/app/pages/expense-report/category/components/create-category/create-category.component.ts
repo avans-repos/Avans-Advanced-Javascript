@@ -7,10 +7,10 @@ import { CategoryService } from 'src/app/core/services/category/category.service
 
 @Component({
   selector: 'app-create',
-  templateUrl: './create.component.html',
-  styleUrls: ['./create.component.scss'],
+  templateUrl: './create-category.component.html',
+  styleUrls: ['./create-category.component.scss'],
 })
-export class CreateComponent {
+export class CreateCategoryComponent {
   form = new FormGroup({
     name: new FormControl('', [Validators.required]),
     maxBudget: new FormControl(69, [Validators.required]),
@@ -26,7 +26,7 @@ export class CreateComponent {
   readonly owner: Observable<string> = of('');
 
   constructor(
-    private dialogRef: MatDialogRef<CreateComponent>,
+    private dialogRef: MatDialogRef<CreateCategoryComponent>,
     @Inject(MAT_DIALOG_DATA) public readonly data: {
       category: Category,
       categoryService: CategoryService,

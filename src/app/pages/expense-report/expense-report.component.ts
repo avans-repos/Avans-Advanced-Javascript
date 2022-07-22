@@ -14,7 +14,7 @@ import { TransactionServiceFactory } from 'src/app/core/services/transaction/tra
 import { CategoryServiceFactory } from 'src/app/core/services/category/category-service.factory';
 import { TransactionService } from '../../core/services/transaction/transaction.service';
 import { ExpenseReportService } from '../../core/services/expense-report/expense-report.service';
-import { CreateComponent } from './components/create/create.component';
+import { CreateComponent } from './components/create-transaction/create-transaction.component';
 
 @Component({
   selector: 'app-expense-report',

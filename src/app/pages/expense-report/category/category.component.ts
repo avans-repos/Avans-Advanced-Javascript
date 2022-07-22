@@ -5,7 +5,7 @@ import { BehaviorSubject, switchMap, Observable } from 'rxjs';
 import { CategoryService } from 'src/app/core/services/category/category.service';
 import { MatDialog } from '@angular/material/dialog';
 import { where } from '@angular/fire/firestore';
-import { CreateComponent } from './components/create/create.component';
+import { CreateCategoryComponent } from './components/create-category/create-category.component';
 
 @Component({
   selector: 'app-category',
@@ -36,7 +36,7 @@ export class CategoryComponent implements OnInit {
   }
 
   createCategory() {
-    this.dialog.open(CreateComponent, {
+    this.dialog.open(CreateCategoryComponent, {
       width: '500px',
       data: {
         categoryService: this.categoryService,

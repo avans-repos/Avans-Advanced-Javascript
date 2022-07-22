@@ -3,7 +3,7 @@ import { Component, Input } from '@angular/core';
 import { MatDialog } from '@angular/material/dialog';
 import { Required } from 'src/app/core/decorators/required-input';
 import { CategoryService } from 'src/app/core/services/category/category.service';
-import { CreateComponent } from '../create/create.component';
+import { CreateCategoryComponent } from '../create-category/create-category.component';
 
 @Component({
   selector: 'app-list-item',
@@ -22,7 +22,7 @@ export class ListItemComponent {
   @Input() @Required dialog!: MatDialog;
 
   editCategory() {
-    this.dialog.open(CreateComponent, {
+    this.dialog.open(CreateCategoryComponent, {
       width: '500px',
       data: {
         category: this.category,
