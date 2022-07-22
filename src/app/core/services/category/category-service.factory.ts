@@ -7,6 +7,7 @@ import { CategoryService } from './category.service';
 
 const CategoryServiceFactory: FactoryProvider = {
   provide: CategoryService,
+  // eslint-disable-next-line max-len
   useFactory: (route: ActivatedRoute, fire: Firestore, snackbarService: SnackbarService) => {
     const reportId = route.snapshot.paramMap.get('expenseReportId');
 

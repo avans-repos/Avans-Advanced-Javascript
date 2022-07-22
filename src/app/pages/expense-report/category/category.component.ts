@@ -21,7 +21,7 @@ export class CategoryComponent implements OnInit {
   public isLoading = true;
 
   constructor(
-  @Inject(CategoryService) categoryService: CategoryService,
+    @Inject(CategoryService) private categoryService: CategoryService,
     public dialog: MatDialog,
   ) {
     this.categories = this.viewArchived.pipe(
@@ -38,6 +38,9 @@ export class CategoryComponent implements OnInit {
   createCategory() {
     this.dialog.open(CreateComponent, {
       width: '500px',
+      data: {
+        categoryService: this.categoryService,
+      },
     });
   }
 

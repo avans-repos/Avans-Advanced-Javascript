@@ -1,4 +1,3 @@
-import { CategoryServiceFactory } from 'src/app/core/services/category/category-service.factory';
 import { Component, Inject } from '@angular/core';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
 import { MatDialogRef, MAT_DIALOG_DATA } from '@angular/material/dialog';
@@ -10,7 +9,6 @@ import { CategoryService } from 'src/app/core/services/category/category.service
   selector: 'app-create',
   templateUrl: './create.component.html',
   styleUrls: ['./create.component.scss'],
-  providers: [CategoryServiceFactory],
 })
 export class CreateComponent {
   form = new FormGroup({
@@ -29,12 +27,14 @@ export class CreateComponent {
 
   constructor(
     private dialogRef: MatDialogRef<CreateComponent>,
-    @Inject(MAT_DIALOG_DATA) public readonly data: Category,
-    private categoryService: CategoryService,
+    @Inject(MAT_DIALOG_DATA) public readonly data: {
+      category: Category,
+      categoryService: CategoryService,
+    },
   ) {
     // If data is passed in, this is an edit
-    if (data) {
-      this.form.patchValue(data);
+    if (data.category) {
+      this.form.patchValue(data.category);
       this.isEdit = true;
     }
   }
@@ -45,18 +45,18 @@ export class CreateComponent {
 
   async submit() {
     // Check if category is being edited
-    if (this.isEdit && this.data) {
+    if (this.isEdit && this.data.category) {
       // Inject original category and override with form data
       const updatedDoc = {
-        ...this.data,
+        ...this.data.category,
         ...this.form.value,
       };
 
-      this.categoryService.getDoc(this.data.id!).subscribe(
-        (docRef) => this.categoryService.update(docRef, updatedDoc),
+      this.data.categoryService.getDoc(this.data.category.id!).subscribe(
+        (docRef) => this.data.categoryService.update(docRef, updatedDoc),
       );
     } else {
-      this.categoryService.add(this.form.value);
+      this.data.categoryService.add(this.form.value);
     }
     this.dialogRef.close();
   }

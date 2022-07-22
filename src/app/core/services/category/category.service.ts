@@ -20,6 +20,8 @@ export class CategoryService extends FirestoreServiceBase<Category> {
   }
 
   override add(category: Category) {
+    // eslint-disable-next-line no-param-reassign
+    category.isArchived = false;
     const returnValue = super.add(category);
     returnValue.subscribe({
       complete: () => this.snackbarService.open('Category created'),

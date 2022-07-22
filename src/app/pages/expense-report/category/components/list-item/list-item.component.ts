@@ -24,7 +24,10 @@ export class ListItemComponent {
   editCategory() {
     this.dialog.open(CreateComponent, {
       width: '500px',
-      data: this.category,
+      data: {
+        category: this.category,
+        categoryService: this.categoryService,
+      },
     });
   }
 
