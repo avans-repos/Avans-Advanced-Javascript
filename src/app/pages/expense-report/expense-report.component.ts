@@ -9,12 +9,10 @@ import {
   where, Timestamp, orderBy,
 } from '@angular/fire/firestore';
 import { Transaction } from 'src/app/core/models/transaction';
-import { MatDialog } from '@angular/material/dialog';
 import { TransactionServiceFactory } from 'src/app/core/services/transaction/transaction-service.factory';
 import { CategoryServiceFactory } from 'src/app/core/services/category/category-service.factory';
 import { TransactionService } from '../../core/services/transaction/transaction.service';
 import { ExpenseReportService } from '../../core/services/expense-report/expense-report.service';
-import { CreateComponent } from './components/create-transaction/create-transaction.component';
 
 @Component({
   selector: 'app-expense-report',
@@ -34,7 +32,7 @@ export class ExpenseReportComponent implements OnInit {
   constructor(
     route: ActivatedRoute,
     private expenseReportService: ExpenseReportService,
-    private dialog: MatDialog,
+
     @Inject(TransactionService) private transactionService: TransactionService,
   ) {
     this.expenseReport = route.paramMap.pipe(switchMap((params) => this.expenseReportService.get(params.get('expenseReportId')!)));
@@ -60,13 +58,6 @@ export class ExpenseReportComponent implements OnInit {
         0,
       ),
     ));
-  }
-
-  createTransaction() {
-    this.dialog.open(CreateComponent, {
-      width: '500px',
-      data: this.transactionService,
-    });
   }
 
   deleteTransaction(transaction: Transaction) {

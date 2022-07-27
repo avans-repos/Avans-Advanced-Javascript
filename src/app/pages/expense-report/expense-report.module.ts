@@ -23,6 +23,7 @@ import { MonthViewComponent } from './components/month-view/month-view.component
 import { LineChartMonthComponent } from './components/line-chart-month/line-chart-month.component';
 import { CategoryComponent } from './category/category.component';
 import { ListItemComponent } from './category/components/list-item/list-item.component';
+import { CategoryShowComponent } from './category/components/category-show/category-show.component';
 
 @NgModule({
   declarations: [
@@ -33,6 +34,7 @@ import { ListItemComponent } from './category/components/list-item/list-item.com
     CategoryComponent,
     ListItemComponent,
     CategoryCreateComponent,
+    CategoryShowComponent,
   ],
   imports: [
     CommonModule,

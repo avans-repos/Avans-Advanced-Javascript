@@ -13,7 +13,7 @@ import { Category } from '../../models/catogory';
 export class CategoryService extends FirestoreServiceBase<Category> {
   constructor(
     fire: Firestore,
-    @Inject('expenseReportId') expenseReportId: string,
+    @Inject('expenseReportId') public expenseReportId: string,
     private snackbarService: SnackbarService,
   ) {
     super(fire, 'expense-reports', expenseReportId, 'categories');

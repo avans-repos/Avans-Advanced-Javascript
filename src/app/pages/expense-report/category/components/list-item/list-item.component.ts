@@ -13,9 +13,12 @@ import { CreateCategoryComponent } from '../create-category/create-category.comp
 export class ListItemComponent {
   constructor(private categoryService: CategoryService) {
     this.spendbudget = categoryService.getSpendBudget();
+    this.expenseReportId = categoryService.expenseReportId;
   }
 
   public spendbudget: number;
+
+  public expenseReportId: string;
 
   @Input() @Required category!: Category;
 

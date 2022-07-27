@@ -1,0 +1,7 @@
+<a mat-list-item routerLink="/expense-report/{{this.expenseReportId}}">Terug</a>
+<h1>{{(this.category| async)?.name}}</h1>
+<p>Max budget: {{(this.category| async)?.maxBudget}}</p>
+<p>End date: {{(this.category| async)?.maxBudget}}</p>
+
+<button mat-button (click)="createTransaction()">Add transaction</button>
+<!-- add list of all transactions -->

@@ -1,7 +1,7 @@
 import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
 import { ExpenseReportComponent } from './expense-report.component';
-import { CategoryComponent } from './category/category.component';
+import { CategoryShowComponent } from './category/components/category-show/category-show.component';
 
 const routes: Routes = [
   {
@@ -10,7 +10,7 @@ const routes: Routes = [
   },
   {
     path: ':expenseReportId/category/:categoryId',
-    component: CategoryComponent,
+    component: CategoryShowComponent,
   },
 ];
 
