@@ -8,9 +8,9 @@ describe('CategoryShowComponent', () => {
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
-      declarations: [ CategoryShowComponent ]
+      declarations: [CategoryShowComponent],
     })
-    .compileComponents();
+      .compileComponents();
   });
 
   beforeEach(() => {
