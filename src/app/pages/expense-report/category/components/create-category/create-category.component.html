@@ -1,4 +1,4 @@
-<h1 mat-dialog-title>{{ isEdit ? 'Edit' : 'Create ' }} A category</h1>
+<h1 mat-dialog-title>{{ isEdit ? 'Edit' : 'Create ' }} a category</h1>
 <form [formGroup]="form" (submit)="submit()">
   <div mat-dialog-content>
     <p *ngIf="(owner | async) !== null" >
@@ -15,7 +15,7 @@
     <!-- maxBudget -->
     <p>
       <mat-form-field>
-        <input matInput placeholder="maxBudget" formControlName="maxBudget">
+        <input matInput placeholder="Maximum budget" formControlName="maxBudget">
         <mat-error *ngIf="name.hasError('required')">
           Name is required
         </mat-error>

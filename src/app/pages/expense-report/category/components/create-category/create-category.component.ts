@@ -6,7 +6,7 @@ import { Category } from 'src/app/core/models/catogory';
 import { CategoryService } from 'src/app/core/services/category/category.service';
 
 @Component({
-  selector: 'app-create',
+  selector: 'app-create-category',
   templateUrl: './create-category.component.html',
   styleUrls: ['./create-category.component.scss'],
 })
