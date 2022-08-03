@@ -1,8 +1,10 @@
-import { Component, Inject, OnInit } from '@angular/core';
+import { TransactionServiceFactory } from 'src/app/core/services/transaction/transaction-service.factory';
+import { Component, Inject } from '@angular/core';
 import { MatDialog } from '@angular/material/dialog';
 import { ActivatedRoute } from '@angular/router';
 import { Observable, switchMap } from 'rxjs';
 import { Category } from 'src/app/core/models/catogory';
+import { CategoryServiceFactory } from 'src/app/core/services/category/category-service.factory';
 import { CategoryService } from 'src/app/core/services/category/category.service';
 import { TransactionService } from 'src/app/core/services/transaction/transaction.service';
 import { CreateComponent } from '../../../components/create-transaction/create-transaction.component';
@@ -11,8 +13,9 @@ import { CreateComponent } from '../../../components/create-transaction/create-t
   selector: 'app-category-show',
   templateUrl: './category-show.component.html',
   styleUrls: ['./category-show.component.scss'],
+  providers: [CategoryServiceFactory, TransactionServiceFactory],
 })
-export class CategoryShowComponent implements OnInit {
+export class CategoryShowComponent {
   constructor(
     route: ActivatedRoute,
     private dialog: MatDialog,
@@ -27,9 +30,6 @@ export class CategoryShowComponent implements OnInit {
   public expenseReportId: String;
 
   public category: Observable<Category>;
-
-  ngOnInit(): void {
-  }
 
   createTransaction() {
     this.dialog.open(CreateComponent, {
