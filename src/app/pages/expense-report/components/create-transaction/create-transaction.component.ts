@@ -21,15 +21,18 @@ export class CreateComponent {
     amount: new FormControl(10, [Validators.required]),
     isIncome: new FormControl(false),
     date: new FormControl(Timestamp.now().toDate(), [Validators.required]),
-    categoryId: new FormControl(),
+    categoryId: new FormControl(this.data.category, [Validators.required]),
   });
 
   constructor(
     private dialogRef: MatDialogRef<CreateComponent>,
-    @Inject(MAT_DIALOG_DATA) private readonly transactionService: TransactionService,
-    @Inject(CategoryService) categoryService: CategoryService,
+    @Inject(MAT_DIALOG_DATA) private readonly data:{
+      category: Category,
+      categoryService: CategoryService,
+      transactionService: TransactionService,
+    },
   ) {
-    this.categories = categoryService.getRealTime(
+    this.categories = this.data.categoryService.getRealTime(
       where('isArchived', '==', false),
     );
   }
@@ -39,7 +42,7 @@ export class CreateComponent {
   }
 
   submit() {
-    this.transactionService.add(this.form.value);
+    this.data.transactionService.add(this.form.value);
     this.dialogRef.close();
   }
 }

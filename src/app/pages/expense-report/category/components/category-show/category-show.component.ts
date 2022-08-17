@@ -23,8 +23,11 @@ export class CategoryShowComponent {
     @Inject(TransactionService) private transactionService: TransactionService,
   ) {
     this.expenseReportId = route.snapshot.paramMap.get('expenseReportId')!;
+    // weet niet hoe dit werkt
     this.category = route.paramMap.pipe(switchMap((params) => this.categoryService.get(params.get('categoryId')!)));
     // this.category = categoryService.get(route.snapshot.paramMap.get('categoryId')!);
+    console.log(this.expenseReportId);
+    console.log(this.category);
   }
 
   public expenseReportId: String;
@@ -34,7 +37,11 @@ export class CategoryShowComponent {
   createTransaction() {
     this.dialog.open(CreateComponent, {
       width: '500px',
-      data: this.transactionService,
+      data: {
+        categoryService: this.categoryService,
+        transactionService: this.transactionService,
+        category: this.category,
+      },
     });
   }
 }
