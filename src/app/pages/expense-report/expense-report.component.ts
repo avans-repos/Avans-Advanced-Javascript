@@ -11,8 +11,10 @@ import {
 import { Transaction } from 'src/app/core/models/transaction';
 import { TransactionServiceFactory } from 'src/app/core/services/transaction/transaction-service.factory';
 import { CategoryServiceFactory } from 'src/app/core/services/category/category-service.factory';
+import { MatDialog } from '@angular/material/dialog';
 import { TransactionService } from '../../core/services/transaction/transaction.service';
 import { ExpenseReportService } from '../../core/services/expense-report/expense-report.service';
+import { CreateComponent } from './components/create-transaction/create-transaction.component';
 
 @Component({
   selector: 'app-expense-report',
@@ -31,6 +33,7 @@ export class ExpenseReportComponent implements OnInit {
 
   constructor(
     route: ActivatedRoute,
+    private dialog: MatDialog,
     private expenseReportService: ExpenseReportService,
 
     @Inject(TransactionService) private transactionService: TransactionService,
@@ -60,6 +63,11 @@ export class ExpenseReportComponent implements OnInit {
     ));
   }
 
+  deleteTransaction(transaction: Transaction) {
+    this.transactionService.getDoc(transaction.id!)
+      .subscribe((doc) => this.transactionService.delete(doc));
+  }
+
   next() {
     this.selectedMonth.next(new Date(
       this.selectedMonth.value.getFullYear(),
@@ -76,5 +84,14 @@ export class ExpenseReportComponent implements OnInit {
 
   reset() {
     this.selectedMonth.next(new Date());
+  }
+
+  createTransaction() {
+    this.dialog.open(CreateComponent, {
+      width: '500px',
+      data: {
+        transactionService: this.transactionService,
+      },
+    });
   }
 }
