@@ -60,11 +60,6 @@ export class ExpenseReportComponent implements OnInit {
     ));
   }
 
-  deleteTransaction(transaction: Transaction) {
-    this.transactionService.getDoc(transaction.id!)
-      .subscribe((doc) => this.transactionService.delete(doc));
-  }
-
   next() {
     this.selectedMonth.next(new Date(
       this.selectedMonth.value.getFullYear(),

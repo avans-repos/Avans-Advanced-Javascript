@@ -5,3 +5,6 @@
 
 <button mat-button (click)="createTransaction()">Add transaction</button>
 <!-- add list of all transactions -->
+
+<app-month-view [transactions]="(transactions | async) ?? []" (deleteTransaction)="deleteTransaction($event)">
+</app-month-view>

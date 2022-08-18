@@ -5,7 +5,7 @@ import { FormControl, FormGroup, Validators } from '@angular/forms';
 import { TransactionService } from 'src/app/core/services/transaction/transaction.service';
 import { MatDialogRef, MAT_DIALOG_DATA } from '@angular/material/dialog';
 import { CategoryService } from 'src/app/core/services/category/category.service';
-import { Observable } from 'rxjs';
+import { Observable, take } from 'rxjs';
 import { Category } from 'src/app/core/models/catogory';
 
 @Component({
@@ -21,13 +21,12 @@ export class CreateComponent {
     amount: new FormControl(10, [Validators.required]),
     isIncome: new FormControl(false),
     date: new FormControl(Timestamp.now().toDate(), [Validators.required]),
-    categoryId: new FormControl(this.data.category, [Validators.required]),
   });
 
   constructor(
     private dialogRef: MatDialogRef<CreateComponent>,
     @Inject(MAT_DIALOG_DATA) private readonly data:{
-      category: Category,
+      category: Observable<Category>,
       categoryService: CategoryService,
       transactionService: TransactionService,
     },
@@ -42,7 +41,12 @@ export class CreateComponent {
   }
 
   submit() {
-    this.data.transactionService.add(this.form.value);
-    this.dialogRef.close();
+    this.data.category.pipe(take(1)).subscribe((category) => {
+      this.data.transactionService.add({
+        ...this.form.value,
+        categoryId: category.id,
+      });
+      this.dialogRef.close();
+    });
   }
 }
