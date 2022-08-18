@@ -3,7 +3,8 @@
 <p>Max budget: {{(this.category| async)?.maxBudget}}</p>
 <p>End date: {{(this.category| async)?.maxBudget}}</p>
 
-<button mat-button (click)="createTransaction()">Add transaction</button>
+<!-- if enddate is passed hide the button -->
+<button mat-button *ngIf="this.endDate > this.today" (click)="createTransaction()">Add transaction</button>
 
 <!-- Forward and backward scroller -->
 <div class="scroller">

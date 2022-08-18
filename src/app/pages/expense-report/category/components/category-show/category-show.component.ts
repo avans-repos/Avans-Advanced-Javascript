@@ -31,6 +31,15 @@ export class CategoryShowComponent implements OnInit {
     this.expenseReportId = route.snapshot.paramMap.get('expenseReportId')!;
     this.category = route.paramMap.pipe(switchMap((params) => this.categoryService.get(params.get('categoryId')!)));
     this.categoryId = route.snapshot.paramMap.get('categoryId')!;
+    this.category.subscribe(
+      (category) => {
+        if (category.endDate === null) {
+          this.endDate = new Date();
+        } else {
+          this.endDate = category.endDate.toDate();
+        }
+      },
+    );
   }
 
   ngOnInit(): void {
@@ -47,6 +56,10 @@ export class CategoryShowComponent implements OnInit {
       }),
     );
   }
+
+  public today = new Date();
+
+  public endDate!: Date;
 
   public transactions: Observable<Transaction[]> = of([]);
 
