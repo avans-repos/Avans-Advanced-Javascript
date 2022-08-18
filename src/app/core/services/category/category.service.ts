@@ -43,9 +43,4 @@ export class CategoryService extends FirestoreServiceBase<Category> {
   private errorHandler(error: any) {
     this.snackbarService.open(`Error: ${error.message}`);
   }
-
-  // eslint-disable-next-line class-methods-use-this
-  public getSpendBudget() {
-    return 69;
-  }
 }

@@ -1,8 +1,9 @@
 import { Category } from 'src/app/core/models/catogory';
-import { Component, Input } from '@angular/core';
+import { Component, Input, OnInit } from '@angular/core';
 import { MatDialog } from '@angular/material/dialog';
 import { Required } from 'src/app/core/decorators/required-input';
 import { CategoryService } from 'src/app/core/services/category/category.service';
+import { TransactionService } from 'src/app/core/services/transaction/transaction.service';
 import { CreateCategoryComponent } from '../create-category/create-category.component';
 
 @Component({
@@ -10,10 +11,21 @@ import { CreateCategoryComponent } from '../create-category/create-category.comp
   templateUrl: './list-item.component.html',
   styleUrls: ['./list-item.component.scss'],
 })
-export class ListItemComponent {
-  constructor(private categoryService: CategoryService) {
-    this.spendbudget = categoryService.getSpendBudget();
+export class ListItemComponent implements OnInit {
+  constructor(
+    private categoryService: CategoryService,
+    private transactionService: TransactionService,
+  ) {
     this.expenseReportId = categoryService.expenseReportId;
+    this.spendbudget = 0;
+  }
+
+  ngOnInit(): void {
+    this.transactionService.GetMoneySpentForCategory(this.category.id!).subscribe(
+      (moneySpent) => {
+        this.spendbudget = moneySpent;
+      },
+    );
   }
 
   public spendbudget: number;

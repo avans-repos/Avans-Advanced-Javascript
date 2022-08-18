@@ -35,10 +35,6 @@
     <button mat-button (click)="createTransaction()">Add transaction</button>
   </span>
 
-  <!-- show all transactions of category -->
-  <app-month-view [transactions]="(transactions | async) ?? []" (deleteTransaction)="deleteTransaction($event)">
-  </app-month-view>
-
   <span>
     <!-- Overall final costs -->
     <span class="final-cost">
@@ -48,4 +44,8 @@
       </p>
     </span>
   </span>
+
+   <!-- show all transactions of category -->
+   <app-month-view [transactions]="(transactions | async) ?? []" (deleteTransaction)="deleteTransaction($event)">
+  </app-month-view>
 </div>
