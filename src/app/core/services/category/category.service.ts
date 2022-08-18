@@ -48,16 +48,4 @@ export class CategoryService extends FirestoreServiceBase<Category> {
   public getSpendBudget() {
     return 69;
   }
-
-  // public getSpendBudgetByCategory(categoryId : string) {
-  //   return this.transactionService.getRealTime().pipe(map((transactions) => {
-  //     let spendBudget = 0;
-  //     transactions.forEach((transaction) => {
-  //       if (transaction.categoryId === categoryId) {
-  //         spendBudget += transaction.amount;
-  //       }
-  //     });
-  //     return spendBudget;
-  //   }));
-  // }
 }

@@ -5,6 +5,7 @@ interface Transaction extends ModelBase {
   amount: number;
   isIncome: boolean;
   date: Timestamp;
+  categoryId: string;
 }
 
 export { Transaction };

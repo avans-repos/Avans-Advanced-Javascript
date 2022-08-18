@@ -1,5 +1,6 @@
 import { Inject, Injectable } from '@angular/core';
-import { Firestore } from '@angular/fire/firestore';
+import { Firestore, where } from '@angular/fire/firestore';
+import { map } from 'rxjs';
 import { Transaction } from '../../models/transaction';
 import { FirestoreServiceBase } from '../common/firestore-service-base';
 
@@ -23,5 +24,19 @@ export class TransactionService extends FirestoreServiceBase<Transaction> {
       // categoryId,
       'transactions',
     );
+  }
+
+  GetMoneySpentForCategory(categoryId: string) {
+    return this.getRealTime(
+      where('categoryId', '==', categoryId),
+    ).pipe(map((transactions) => {
+      let moneySpent = 0;
+      transactions.forEach((transaction) => {
+        if (transaction.categoryId === categoryId) {
+          moneySpent -= transaction.isIncome ? transaction.amount : -transaction.amount;
+        }
+      });
+      return moneySpent;
+    }));
   }
 }
