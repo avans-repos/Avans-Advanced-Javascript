@@ -19,7 +19,14 @@
   </h3>
 
   <p mat-line class="description">
-    {{category.endDate || "No end date"}}
+    <!-- if there is an enddate show it -->
+    <span *ngIf="category.endDate">
+      {{category.endDate.toDate() | date : 'dd-MM-yyyy'}}
+    </span>
+    <!-- if there is no enddate show the startdate -->
+    <span *ngIf="!category.endDate">
+      No end date
+    </span>
     Max budget = ₽{{category.maxBudget}}
     Leftover budget = ₽{{category.maxBudget - spendbudget}}
   </p>
