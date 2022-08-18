@@ -6,5 +6,23 @@
 <button mat-button (click)="createTransaction()">Add transaction</button>
 <!-- add list of all transactions -->
 
+<!-- Forward and backward scroller -->
+<div class="scroller">
+  <span>
+    <button mat-icon-button (click)="prev()">
+      <mat-icon>keyboard_arrow_left</mat-icon>
+    </button>
+    <!-- Reset to current month -->
+    <button class="month-button" mat-button (click)="reset()">
+      <mat-icon>today</mat-icon>
+      <span>{{ (selectedMonth | async) | date : 'MMMM' }}</span>
+    </button>
+    <button mat-icon-button (click)="next()">
+      <mat-icon>keyboard_arrow_right</mat-icon>
+    </button>
+  </span>
+</div>
+
+<!-- show all transactions of category -->
 <app-month-view [transactions]="(transactions | async) ?? []" (deleteTransaction)="deleteTransaction($event)">
 </app-month-view>

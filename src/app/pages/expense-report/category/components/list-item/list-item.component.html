@@ -1,5 +1,5 @@
 <mat-list-item [ngClass]="[(category.maxBudget - spendbudget) < 20 ? 'warn': '', (category.maxBudget - spendbudget) < 0? 'danger': '']">
-  <a mat-list-item routerLink="/expense-report/{{this.expenseReportId}}/category/{{this.category.id}}">Dashboard</a>
+  <a mat-list-item routerLink="/expense-report/{{this.expenseReportId}}/category/{{this.category.id}}">Meer info</a>
   <h3 class="list-item-header" mat-line>
     <p class="header-name">
       {{category.name}}

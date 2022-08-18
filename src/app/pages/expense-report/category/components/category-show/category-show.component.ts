@@ -73,4 +73,22 @@ export class CategoryShowComponent implements OnInit {
     this.transactionService.getDoc(transaction.id!)
       .subscribe((doc) => this.transactionService.delete(doc));
   }
+
+  next() {
+    this.selectedMonth.next(new Date(
+      this.selectedMonth.value.getFullYear(),
+      this.selectedMonth.value.getMonth() + 1,
+    ));
+  }
+
+  prev() {
+    this.selectedMonth.next(new Date(
+      this.selectedMonth.value.getFullYear(),
+      this.selectedMonth.value.getMonth() - 1,
+    ));
+  }
+
+  reset() {
+    this.selectedMonth.next(new Date());
+  }
 }
