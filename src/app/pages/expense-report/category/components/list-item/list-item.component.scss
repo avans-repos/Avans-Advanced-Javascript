@@ -1,0 +1,50 @@
+.header-name {
+  font-size: 1.5rem;
+  font-weight: 500;
+  color: inherit;
+}
+
+.mat-list-item {
+  // Lets list items show long text properly
+  height: auto !important;
+}
+
+.description {
+  // Preserve line breaks as added by user
+  white-space: pre-line !important;
+}
+
+.list-item-header {
+  display: flex !important;
+  justify-content: space-between;
+}
+
+.creation-date {
+  display: flex;
+  .date-spacer {
+    width: 4rem;
+  }
+}
+
+.date-range-icon {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  margin-right: .5rem;
+  margin-left: .5rem;
+}
+
+.list-item-left {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  flex-wrap: wrap;
+}
+
+.warn {
+ background-color: chocolate;
+}
+
+.danger {
+ background-color: crimson;
+}

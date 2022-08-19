@@ -1,11 +1,11 @@
-import { Injectable } from '@angular/core';
+import { Inject, Injectable } from '@angular/core';
 import {
   Firestore,
   DocumentReference,
 } from '@angular/fire/firestore';
 import { SnackbarService } from '../snackbar/snackbar.service';
 import { FirestoreServiceBase } from '../common/firestore-service-base';
-import { Category } from '../../models/cathory';
+import { Category } from '../../models/catogory';
 
 @Injectable({
   providedIn: 'root',
@@ -13,12 +13,15 @@ import { Category } from '../../models/cathory';
 export class CategoryService extends FirestoreServiceBase<Category> {
   constructor(
     fire: Firestore,
+    @Inject('expenseReportId') public expenseReportId: string,
     private snackbarService: SnackbarService,
   ) {
-    super(fire, 'cathegories');
+    super(fire, 'expense-reports', expenseReportId, 'categories');
   }
 
   override add(category: Category) {
+    // eslint-disable-next-line no-param-reassign
+    category.isArchived = false;
     const returnValue = super.add(category);
     returnValue.subscribe({
       complete: () => this.snackbarService.open('Category created'),
@@ -40,21 +43,4 @@ export class CategoryService extends FirestoreServiceBase<Category> {
   private errorHandler(error: any) {
     this.snackbarService.open(`Error: ${error.message}`);
   }
-
-  // eslint-disable-next-line class-methods-use-this
-  public getSpendBudget() {
-    return 69;
-  }
-
-  // public getSpendBudgetByCategory(categoryId : string) {
-  //   return this.transactionService.getRealTime().pipe(map((transactions) => {
-  //     let spendBudget = 0;
-  //     transactions.forEach((transaction) => {
-  //       if (transaction.categoryId === categoryId) {
-  //         spendBudget += transaction.amount;
-  //       }
-  //     });
-  //     return spendBudget;
-  //   }));
-  // }
 }

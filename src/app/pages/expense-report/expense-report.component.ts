@@ -9,17 +9,18 @@ import {
   where, Timestamp, orderBy,
 } from '@angular/fire/firestore';
 import { Transaction } from 'src/app/core/models/transaction';
-import { MatDialog } from '@angular/material/dialog';
 import { TransactionServiceFactory } from 'src/app/core/services/transaction/transaction-service.factory';
+import { CategoryServiceFactory } from 'src/app/core/services/category/category-service.factory';
+import { MatDialog } from '@angular/material/dialog';
 import { TransactionService } from '../../core/services/transaction/transaction.service';
 import { ExpenseReportService } from '../../core/services/expense-report/expense-report.service';
-import { CreateComponent } from './components/create/create.component';
+import { CreateComponent } from './components/create-transaction/create-transaction.component';
 
 @Component({
   selector: 'app-expense-report',
   templateUrl: './expense-report.component.html',
   styleUrls: ['./expense-report.component.scss'],
-  providers: [TransactionServiceFactory],
+  providers: [TransactionServiceFactory, CategoryServiceFactory],
 })
 export class ExpenseReportComponent implements OnInit {
   public expenseReport: Observable<ExpenseReport>;
@@ -32,8 +33,9 @@ export class ExpenseReportComponent implements OnInit {
 
   constructor(
     route: ActivatedRoute,
-    private expenseReportService: ExpenseReportService,
     private dialog: MatDialog,
+    private expenseReportService: ExpenseReportService,
+
     @Inject(TransactionService) private transactionService: TransactionService,
   ) {
     this.expenseReport = route.paramMap.pipe(switchMap((params) => this.expenseReportService.get(params.get('expenseReportId')!)));
@@ -61,13 +63,6 @@ export class ExpenseReportComponent implements OnInit {
     ));
   }
 
-  createTransaction() {
-    this.dialog.open(CreateComponent, {
-      width: '500px',
-      data: this.transactionService,
-    });
-  }
-
   deleteTransaction(transaction: Transaction) {
     this.transactionService.getDoc(transaction.id!)
       .subscribe((doc) => this.transactionService.delete(doc));
@@ -89,5 +84,14 @@ export class ExpenseReportComponent implements OnInit {
 
   reset() {
     this.selectedMonth.next(new Date());
+  }
+
+  createTransaction() {
+    this.dialog.open(CreateComponent, {
+      width: '500px',
+      data: {
+        transactionService: this.transactionService,
+      },
+    });
   }
 }

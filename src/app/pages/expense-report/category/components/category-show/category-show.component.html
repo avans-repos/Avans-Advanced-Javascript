@@ -1,0 +1,28 @@
+<a mat-list-item routerLink="/expense-report/{{this.expenseReportId}}">Terug</a>
+<h1>{{(this.category| async)?.name}}</h1>
+<p>Max budget: {{(this.category| async)?.maxBudget}}</p>
+<p>End date: {{(this.category| async)?.maxBudget}}</p>
+
+<!-- if enddate is passed hide the button -->
+<button mat-button *ngIf="this.endDate > this.today" (click)="createTransaction()">Add transaction</button>
+
+<!-- Forward and backward scroller -->
+<div class="scroller">
+  <span>
+    <button mat-icon-button (click)="prev()">
+      <mat-icon>keyboard_arrow_left</mat-icon>
+    </button>
+    <!-- Reset to current month -->
+    <button class="month-button" mat-button (click)="reset()">
+      <mat-icon>today</mat-icon>
+      <span>{{ (selectedMonth | async) | date : 'MMMM' }}</span>
+    </button>
+    <button mat-icon-button (click)="next()">
+      <mat-icon>keyboard_arrow_right</mat-icon>
+    </button>
+  </span>
+</div>
+
+<!-- show all transactions of category -->
+<app-month-view [transactions]="(transactions | async) ?? []" (deleteTransaction)="deleteTransaction($event)">
+</app-month-view>

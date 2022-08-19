@@ -1,15 +1,17 @@
-import { Component, OnInit } from '@angular/core';
+import { CategoryServiceFactory } from 'src/app/core/services/category/category-service.factory';
+import { Component, Inject, OnInit } from '@angular/core';
 import { Category } from 'src/app/core/models/catogory';
 import { BehaviorSubject, switchMap, Observable } from 'rxjs';
 import { CategoryService } from 'src/app/core/services/category/category.service';
 import { MatDialog } from '@angular/material/dialog';
 import { where } from '@angular/fire/firestore';
-import { CreateComponent } from './components/create/create.component';
+import { CreateCategoryComponent } from './components/create-category/create-category.component';
 
 @Component({
   selector: 'app-category',
   templateUrl: './category.component.html',
   styleUrls: ['./category.component.scss'],
+  providers: [CategoryServiceFactory],
 })
 export class CategoryComponent implements OnInit {
   public categories: Observable<Category[]>;
@@ -18,7 +20,10 @@ export class CategoryComponent implements OnInit {
 
   public isLoading = true;
 
-  constructor(categoryService: CategoryService, public dialog: MatDialog) {
+  constructor(
+    @Inject(CategoryService) private categoryService: CategoryService,
+    public dialog: MatDialog,
+  ) {
     this.categories = this.viewArchived.pipe(
       switchMap((viewArchived) => categoryService.getRealTime(
         where('isArchived', '==', viewArchived),
@@ -31,8 +36,11 @@ export class CategoryComponent implements OnInit {
   }
 
   createCategory() {
-    this.dialog.open(CreateComponent, {
+    this.dialog.open(CreateCategoryComponent, {
       width: '500px',
+      data: {
+        categoryService: this.categoryService,
+      },
     });
   }
 

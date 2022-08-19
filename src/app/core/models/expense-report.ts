@@ -1,15 +1,15 @@
-import { DocumentData, Timestamp } from '@angular/fire/firestore';
-import { Transaction } from './transaction';
+import { Timestamp } from '@angular/fire/firestore';
+import { Category } from './catogory';
+import { ModelBase } from './model-base';
 
-interface ExpenseReport extends DocumentData {
-  id: string | undefined;
+interface ExpenseReport extends ModelBase {
   name: string;
   description: string;
   createdAt: Timestamp;
   createdBy: string;
   members: string[]; // uid of members
   isArchived: boolean;
-  transactions: Transaction[];
+  categories: Category[];
 }
 
 export { ExpenseReport };

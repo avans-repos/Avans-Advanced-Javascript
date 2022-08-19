@@ -17,11 +17,6 @@ const routes: Routes = [
     loadChildren: () => import('./pages/expense-report/expense-report.module').then((m) => m.ExpenseReportModule),
     canActivate: [AuthGuard],
   },
-  {
-    path: 'category',
-    loadChildren: () => import('./pages/category/category.module').then((m) => m.CategoryModule),
-    canActivate: [AuthGuard],
-  },
 ];
 
 @NgModule({

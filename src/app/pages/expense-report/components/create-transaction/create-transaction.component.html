@@ -24,19 +24,6 @@
       </mat-form-field>
     </p>
 
-    <!-- Category -->
-    <p>
-
-      <mat-form-field appearance="fill">
-        <mat-label>Category</mat-label>
-        <mat-select formControlName="categoryId">
-          <mat-option *ngFor="let category of (cathegories | async)" [value]="category.id">
-            {{category.name}}
-          </mat-option>
-        </mat-select>
-      </mat-form-field>
-
-    </p>
   </div>
   <div mat-dialog-actions>
     <button mat-button (click)="discard()" type="reset">Discard</button>

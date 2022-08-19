@@ -5,10 +5,14 @@
     <p>{{(expenseReport|async)?.description}}</p>
   </mat-card-content>
   <mat-card-actions>
-    <button mat-button (click)="createTransaction()">Add transaction</button>
     <!-- <button mat-button>SHARE</button> -->
   </mat-card-actions>
 </mat-card>
+
+
+<app-category></app-category>
+
+<hr>
 
 <!-- Charts -->
 <app-line-chart-month [transactions]="transactions"></app-line-chart-month>
@@ -27,7 +31,10 @@
     <button mat-icon-button (click)="next()">
       <mat-icon>keyboard_arrow_right</mat-icon>
     </button>
+
+    <button mat-button (click)="createTransaction()">Add transaction</button>
   </span>
+
   <span>
     <!-- Overall final costs -->
     <span class="final-cost">
@@ -37,7 +44,8 @@
       </p>
     </span>
   </span>
-</div>
 
-<app-month-view [transactions]="(transactions | async) ?? []" (deleteTransaction)="deleteTransaction($event)">
-</app-month-view>
+   <!-- show all transactions of category -->
+   <app-month-view [transactions]="(transactions | async) ?? []" (deleteTransaction)="deleteTransaction($event)">
+  </app-month-view>
+</div>

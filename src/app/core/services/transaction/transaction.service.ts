@@ -1,9 +1,6 @@
-import { Category } from 'src/app/core/models/cathory';
 import { Inject, Injectable } from '@angular/core';
-import { doc, DocumentReference, Firestore } from '@angular/fire/firestore';
-import {
-  defer, Observable, switchMap,
-} from 'rxjs';
+import { Firestore, where } from '@angular/fire/firestore';
+import { map } from 'rxjs';
 import { Transaction } from '../../models/transaction';
 import { FirestoreServiceBase } from '../common/firestore-service-base';
 
@@ -15,25 +12,31 @@ import { FirestoreServiceBase } from '../common/firestore-service-base';
 })
 export class TransactionService extends FirestoreServiceBase<Transaction> {
   constructor(
-    private fire: Firestore,
+    fire: Firestore,
     @Inject('expenseReportId') expenseReportId: string,
+    // @Inject('categoryId') categoryId: string,
   ) {
-    super(fire, 'expense-reports', expenseReportId, 'transactions');
+    super(
+      fire,
+      'expense-reports',
+      expenseReportId,
+      // 'categories',
+      // categoryId,
+      'transactions',
+    );
   }
 
-  override add(transaction: Transaction): Observable<DocumentReference<Transaction>> {
-    const $category = defer(async () => doc(this.fire, `cathegories/${transaction.categoryId}`) as DocumentReference<Category>);
-
-    const returnValue = $category.pipe(
-      switchMap((categoryRef) => {
-        // eslint-disable-next-line no-param-reassign
-        transaction.category = categoryRef;
-        return super.add(transaction);
-      }),
-    );
-
-    // This is a bit hacky but the "share" operator is not working as expected.
-    returnValue.subscribe();
-    return returnValue;
+  GetMoneySpentForCategory(categoryId: string) {
+    return this.getRealTime(
+      where('categoryId', '==', categoryId),
+    ).pipe(map((transactions) => {
+      let moneySpent = 0;
+      transactions.forEach((transaction) => {
+        if (transaction.categoryId === categoryId) {
+          moneySpent -= transaction.isIncome ? transaction.amount : -transaction.amount;
+        }
+      });
+      return moneySpent;
+    }));
   }
 }
