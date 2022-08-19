@@ -24,13 +24,13 @@
   <p mat-line class="description">
     <!-- if there is an enddate show it -->
     <span *ngIf="category.endDate">
-      {{category.endDate.toDate() | date : 'dd-MM-yyyy'}}
+      end date: {{category.endDate.toDate() | date : 'dd-MM-yyyy'}}
     </span>
     <!-- if there is no enddate show nothing -->
     <span *ngIf="!category.endDate">
-      No end date
+      no end date
     </span>
-    Max budget = ₽{{category.maxBudget}}
-    Leftover budget = ₽{{category.maxBudget - spendbudget}}
+    max budget = ₽{{category.maxBudget}}
+    leftover budget = ₽{{category.maxBudget - spendbudget}}
   </p>
 </mat-list-item>
